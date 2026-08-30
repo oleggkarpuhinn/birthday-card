@@ -6,13 +6,12 @@ const GITHUB_OWNER = "olegkarpukhin";
 
 const GITHUB_REPOSITORY = "birthday-card";
 
-const PHOTOS_FOLDER = "photos/photos";
+const PHOTOS_FOLDER =
+  "photos/photos";
 
 
 /* =====================================
    ВОПРОСЫ
-
-   ТЫ МОЖЕШЬ ПОТОМ МЕНЯТЬ ТЕКСТЫ
 ===================================== */
 
 const QUESTIONS = [
@@ -44,11 +43,14 @@ const QUESTIONS = [
    ЭЛЕМЕНТЫ СТРАНИЦЫ
 ===================================== */
 
-const envelope = document.getElementById("envelope");
+const envelope =
+  document.getElementById("envelope");
 
-const intro = document.getElementById("intro");
+const intro =
+  document.getElementById("intro");
 
-const continueBtn = document.getElementById("continueBtn");
+const continueBtn =
+  document.getElementById("continueBtn");
 
 const closeLetterBtn =
   document.getElementById("closeLetterBtn");
@@ -99,6 +101,9 @@ const previousQuestionBtn =
 const nextQuestionBtn =
   document.getElementById("nextQuestionBtn");
 
+const backToPhotosBtn =
+  document.getElementById("backToPhotosBtn");
+
 
 const finalSection =
   document.getElementById("finalSection");
@@ -106,9 +111,29 @@ const finalSection =
 const finalBackBtn =
   document.getElementById("finalBackBtn");
 
+const finalPhotosBtn =
+  document.getElementById("finalPhotosBtn");
+
 
 /* =====================================
-   ЗАГРУЗКА ФОТОГРАФИЙ ИЗ GITHUB
+   ФУНКЦИЯ ПРОКРУТКИ НАВЕРХ
+===================================== */
+
+function scrollToTop() {
+
+  window.scrollTo({
+
+    top: 0,
+
+    behavior: "smooth"
+
+  });
+
+}
+
+
+/* =====================================
+   ЗАГРУЗКА ВСЕХ ФОТОГРАФИЙ ИЗ GITHUB
 ===================================== */
 
 async function loadPhotos() {
@@ -116,73 +141,150 @@ async function loadPhotos() {
   const apiUrl =
     `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPOSITORY}/contents/${PHOTOS_FOLDER}`;
 
+
   try {
 
-    const response = await fetch(apiUrl);
+    const response =
+      await fetch(apiUrl);
+
 
     if (!response.ok) {
+
       throw new Error(
         "Не удалось загрузить фотографии"
       );
+
     }
 
-    const files = await response.json();
 
-    const images = files
-      .filter((file) => {
+    const files =
+      await response.json();
 
-        return (
-          file.type === "file" &&
-          /\.(jpg|jpeg|png|webp)$/i.test(
-            file.name
-          )
-        );
 
-      })
-      .sort((a, b) =>
-        a.name.localeCompare(
-          b.name,
-          "ru"
-        )
-      );
+    const images =
+      files
+        .filter((file) => {
 
+          return (
+
+            file.type === "file" &&
+
+            /\.(jpg|jpeg|png|webp)$/i.test(
+              file.name
+            )
+
+          );
+
+        })
+
+        .sort((a, b) => {
+
+          return a.name.localeCompare(
+
+            b.name,
+
+            "ru",
+
+            {
+              numeric: true
+            }
+
+          );
+
+        });
+
+
+    /* =====================================
+       ОЧИЩАЕМ ГАЛЕРЕИ
+    ====================================== */
 
     gallery1.innerHTML = "";
+
     gallery2.innerHTML = "";
 
 
+    /* =====================================
+       ПЕРВЫЕ 15 ФОТО
+    ====================================== */
+
     images
       .slice(0, 15)
-      .forEach((photo, index) => {
+      .forEach(
 
-        gallery1.appendChild(
-          createPolaroid(
-            photo.download_url,
-            index
-          )
-        );
+        (photo, index) => {
 
-      });
+          gallery1.appendChild(
 
+            createPolaroid(
+
+              photo.download_url,
+
+              index
+
+            )
+
+          );
+
+        }
+
+      );
+
+
+    /* =====================================
+       ВСЕ ОСТАЛЬНЫЕ ФОТО
+
+       НЕ ТОЛЬКО ДО 30 —
+       ЗАГРУЗЯТСЯ ВСЕ,
+       КОТОРЫЕ ЕСТЬ В ПАПКЕ
+    ====================================== */
 
     images
-      .slice(15, 30)
-      .forEach((photo, index) => {
+      .slice(15)
+      .forEach(
 
-        gallery2.appendChild(
-          createPolaroid(
-            photo.download_url,
-            index + 15
-          )
-        );
+        (photo, index) => {
 
-      });
+          gallery2.appendChild(
 
+            createPolaroid(
+
+              photo.download_url,
+
+              index + 15
+
+            )
+
+          );
+
+        }
+
+      );
+
+
+    /* =====================================
+       ЕСЛИ ФОТО НЕ НАЙДЕНЫ
+    ====================================== */
 
     if (images.length === 0) {
 
       gallery1.innerHTML =
         "<p>Фотографии пока не найдены.</p>";
+
+      gallery2.innerHTML =
+        "";
+
+    }
+
+
+    /* =====================================
+       ЕСЛИ ФОТО МЕНЬШЕ ИЛИ РАВНО 15
+       СКРЫВАЕМ КНОПКУ ВТОРОЙ СТРАНИЦЫ
+    ====================================== */
+
+    if (images.length <= 15) {
+
+      photosPage2Btn.style.display =
+        "none";
 
     }
 
@@ -191,6 +293,7 @@ async function loadPhotos() {
   catch (error) {
 
     console.error(error);
+
 
     gallery1.innerHTML =
       "<p>Не удалось загрузить фотографии.</p>";
@@ -210,12 +313,18 @@ function createPolaroid(
 ) {
 
   const rotations = [
+
     "-4deg",
     "3deg",
     "-2deg",
     "5deg",
     "-3deg",
-    "2deg"
+    "2deg",
+    "-5deg",
+    "4deg",
+    "-1deg",
+    "3deg"
+
   ];
 
 
@@ -228,10 +337,14 @@ function createPolaroid(
 
 
   polaroid.style.setProperty(
+
     "--rotation",
+
     rotations[
-      index % rotations.length
+      index %
+      rotations.length
     ]
+
   );
 
 
@@ -244,9 +357,7 @@ function createPolaroid(
       loading="lazy"
     >
 
-    <p class="polaroid-caption">
-      Подпись к фотографии
-    </p>
+    <p class="polaroid-caption"></p>
 
   `;
 
@@ -264,13 +375,22 @@ envelope.addEventListener(
   "click",
   () => {
 
-    envelope.classList.add("open");
+    envelope.classList.add(
+      "open"
+    );
+
 
     const hint =
-      document.querySelector(".hint");
+      document.querySelector(
+        ".hint"
+      );
+
 
     if (hint) {
-      hint.style.opacity = "0";
+
+      hint.style.opacity =
+        "0";
+
     }
 
   }
@@ -287,13 +407,23 @@ closeLetterBtn.addEventListener(
 
     event.stopPropagation();
 
-    envelope.classList.remove("open");
+
+    envelope.classList.remove(
+      "open"
+    );
+
 
     const hint =
-      document.querySelector(".hint");
+      document.querySelector(
+        ".hint"
+      );
+
 
     if (hint) {
-      hint.style.opacity = "1";
+
+      hint.style.opacity =
+        "1";
+
     }
 
   }
@@ -301,7 +431,7 @@ closeLetterBtn.addEventListener(
 
 
 /* =====================================
-   ПЕРЕХОД К ФОТО 1
+   ПИСЬМО → ФОТОГРАФИИ
 ===================================== */
 
 continueBtn.addEventListener(
@@ -310,35 +440,40 @@ continueBtn.addEventListener(
 
     event.stopPropagation();
 
-    intro.style.display = "none";
 
-    memoriesSection1.classList.add("show");
+    intro.style.display =
+      "none";
 
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth"
-    });
+
+    memoriesSection1.classList.add(
+      "show"
+    );
+
+
+    scrollToTop();
 
   }
 );
 
 
 /* =====================================
-   ВОЗВРАТ К ПИСЬМУ
+   ФОТО → ПИСЬМО
 ===================================== */
 
 backToLetterBtn.addEventListener(
   "click",
   () => {
 
-    memoriesSection1.classList.remove("show");
+    memoriesSection1.classList.remove(
+      "show"
+    );
 
-    intro.style.display = "flex";
 
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth"
-    });
+    intro.style.display =
+      "flex";
+
+
+    scrollToTop();
 
   }
 );
@@ -352,14 +487,17 @@ photosPage2Btn.addEventListener(
   "click",
   () => {
 
-    memoriesSection1.classList.remove("show");
+    memoriesSection1.classList.remove(
+      "show"
+    );
 
-    memoriesSection2.classList.add("show");
 
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth"
-    });
+    memoriesSection2.classList.add(
+      "show"
+    );
+
+
+    scrollToTop();
 
   }
 );
@@ -373,14 +511,17 @@ photosPage1Btn.addEventListener(
   "click",
   () => {
 
-    memoriesSection2.classList.remove("show");
+    memoriesSection2.classList.remove(
+      "show"
+    );
 
-    memoriesSection1.classList.add("show");
 
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth"
-    });
+    memoriesSection1.classList.add(
+      "show"
+    );
+
+
+    scrollToTop();
 
   }
 );
@@ -394,16 +535,44 @@ questionsStartBtn.addEventListener(
   "click",
   () => {
 
-    memoriesSection2.classList.remove("show");
+    memoriesSection2.classList.remove(
+      "show"
+    );
 
-    questionsSection.classList.add("show");
+
+    questionsSection.classList.add(
+      "show"
+    );
+
 
     showQuestion();
 
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth"
-    });
+
+    scrollToTop();
+
+  }
+);
+
+
+/* =====================================
+   ВОПРОСЫ → ПОСЛЕДНЯЯ СТРАНИЦА ФОТО
+===================================== */
+
+backToPhotosBtn.addEventListener(
+  "click",
+  () => {
+
+    questionsSection.classList.remove(
+      "show"
+    );
+
+
+    memoriesSection2.classList.add(
+      "show"
+    );
+
+
+    scrollToTop();
 
   }
 );
@@ -413,7 +582,8 @@ questionsStartBtn.addEventListener(
    ВОПРОСЫ
 ===================================== */
 
-let currentQuestion = 0;
+let currentQuestion =
+  0;
 
 
 const answers =
@@ -424,7 +594,9 @@ const answers =
 
 function showQuestion() {
 
+
   questionCounter.textContent =
+
     `Вопрос ${
       currentQuestion + 1
     } из ${
@@ -433,22 +605,33 @@ function showQuestion() {
 
 
   questionText.textContent =
-    QUESTIONS[currentQuestion];
+
+    QUESTIONS[
+      currentQuestion
+    ];
 
 
   answerInput.value =
-    answers[currentQuestion];
+
+    answers[
+      currentQuestion
+    ];
 
 
-  previousQuestionBtn.style.visibility =
+  previousQuestionBtn.style.display =
+
     currentQuestion === 0
-      ? "hidden"
-      : "visible";
+
+      ? "none"
+
+      : "inline-block";
 
 
   if (
+
     currentQuestion ===
     QUESTIONS.length - 1
+
   ) {
 
     nextQuestionBtn.textContent =
@@ -474,7 +657,10 @@ answerInput.addEventListener(
   "input",
   () => {
 
-    answers[currentQuestion] =
+    answers[
+      currentQuestion
+    ] =
+
       answerInput.value;
 
   }
@@ -489,11 +675,17 @@ previousQuestionBtn.addEventListener(
   "click",
   () => {
 
-    if (currentQuestion > 0) {
+    if (
+      currentQuestion > 0
+    ) {
 
       currentQuestion--;
 
+
       showQuestion();
+
+
+      scrollToTop();
 
     }
 
@@ -509,31 +701,44 @@ nextQuestionBtn.addEventListener(
   "click",
   () => {
 
-    answers[currentQuestion] =
+
+    answers[
+      currentQuestion
+    ] =
+
       answerInput.value;
 
 
     if (
+
       currentQuestion <
       QUESTIONS.length - 1
+
     ) {
 
       currentQuestion++;
 
+
       showQuestion();
+
+
+      scrollToTop();
 
     }
 
     else {
 
-      questionsSection.classList.remove("show");
+      questionsSection.classList.remove(
+        "show"
+      );
 
-      finalSection.classList.add("show");
 
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-      });
+      finalSection.classList.add(
+        "show"
+      );
+
+
+      scrollToTop();
 
     }
 
@@ -542,26 +747,55 @@ nextQuestionBtn.addEventListener(
 
 
 /* =====================================
-   ФИНАЛ → НАЗАД
+   ФИНАЛ → ВОПРОСЫ
 ===================================== */
 
 finalBackBtn.addEventListener(
   "click",
   () => {
 
-    finalSection.classList.remove("show");
+    finalSection.classList.remove(
+      "show"
+    );
 
-    questionsSection.classList.add("show");
+
+    questionsSection.classList.add(
+      "show"
+    );
+
 
     currentQuestion =
       QUESTIONS.length - 1;
 
+
     showQuestion();
 
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth"
-    });
+
+    scrollToTop();
+
+  }
+);
+
+
+/* =====================================
+   ФИНАЛ → ФОТОГРАФИИ
+===================================== */
+
+finalPhotosBtn.addEventListener(
+  "click",
+  () => {
+
+    finalSection.classList.remove(
+      "show"
+    );
+
+
+    memoriesSection2.classList.add(
+      "show"
+    );
+
+
+    scrollToTop();
 
   }
 );
