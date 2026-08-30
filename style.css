@@ -33,10 +33,6 @@ body {
 }
 
 
-/* =====================================
-   ОСНОВНАЯ СЦЕНА
-===================================== */
-
 .scene {
   position: relative;
 
@@ -71,8 +67,6 @@ body {
 .light {
   position: fixed;
 
-  z-index: 0;
-
   width: 500px;
   height: 500px;
 
@@ -83,6 +77,8 @@ body {
   pointer-events: none;
 
   opacity: 0.25;
+
+  z-index: 0;
 }
 
 
@@ -107,7 +103,13 @@ body {
 ===================================== */
 
 button {
+  position: relative;
+
+  z-index: 100;
+
   cursor: pointer;
+
+  pointer-events: auto;
 
   border: none;
 
@@ -125,18 +127,10 @@ button {
 
   font-size: 16px;
 
-  font-weight: 600;
-
   transition:
     transform 0.2s ease,
     opacity 0.2s ease,
     background 0.2s ease;
-
-  position: relative;
-
-  z-index: 10;
-
-  pointer-events: auto;
 }
 
 
@@ -151,11 +145,11 @@ button:hover {
 
 .secondary-button {
   background:
-    rgba(255,255,255,0.05);
+    transparent;
 
   border:
     1px solid
-    rgba(255,255,255,0.4);
+    rgba(255,255,255,0.45);
 
   color:
     #f5eee7;
@@ -164,7 +158,7 @@ button:hover {
 
 .secondary-button:hover {
   background:
-    rgba(255,255,255,0.12);
+    rgba(255,255,255,0.08);
 }
 
 
@@ -250,21 +244,23 @@ button:hover {
 ===================================== */
 
 .envelope-wrapper {
+  position: relative;
+
+  z-index: 50;
+
   display: inline-block;
 
   cursor: pointer;
 
   perspective:
     1200px;
-
-  position: relative;
-
-  z-index: 50;
 }
 
 
 .envelope {
   position: relative;
+
+  z-index: 20;
 
   width:
     min(
@@ -274,8 +270,6 @@ button:hover {
 
   height:
     270px;
-
-  z-index: 50;
 }
 
 
@@ -325,9 +319,11 @@ button:hover {
   position: absolute;
 
   top: 0;
+
   left: 0;
 
   width: 100%;
+
   height: 55%;
 
   z-index: 5;
@@ -346,10 +342,7 @@ button:hover {
     #c18b6b;
 
   transition:
-    transform
-    0.8s ease;
-
-  pointer-events: none;
+    transform 0.8s ease;
 }
 
 
@@ -357,6 +350,7 @@ button:hover {
   position: absolute;
 
   left: 50%;
+
   top: 45%;
 
   z-index: 6;
@@ -368,6 +362,7 @@ button:hover {
     );
 
   width: 45px;
+
   height: 45px;
 
   border-radius: 50%;
@@ -386,8 +381,6 @@ button:hover {
 
   transition:
     opacity 0.4s ease;
-
-  pointer-events: none;
 }
 
 
@@ -395,6 +388,7 @@ button:hover {
   position: absolute;
 
   left: 50%;
+
   bottom: 15px;
 
   z-index: 3;
@@ -406,8 +400,6 @@ button:hover {
 
   transition:
     transform 0.9s ease;
-
-  pointer-events: none;
 }
 
 
@@ -438,7 +430,7 @@ button:hover {
   width: 100%;
 
   margin-top:
-    20px;
+    15px;
 }
 
 
@@ -448,9 +440,6 @@ button:hover {
 
   border-color:
     rgba(75,58,48,0.3);
-
-  background:
-    rgba(255,255,255,0.3);
 }
 
 
@@ -501,6 +490,22 @@ button:hover {
     translateY(-190px);
 
   z-index: 100;
+}
+
+
+/* Скрываем надпись за письмом */
+
+.intro.letter-open
+.intro-content > .small-text,
+
+.intro.letter-open
+.intro-content > h1,
+
+.intro.letter-open
+.hint {
+  opacity: 0;
+
+  pointer-events: none;
 }
 
 
@@ -576,6 +581,9 @@ button:hover {
 
 /* =====================================
    ГАЛЕРЕЯ
+
+   FLEX позволяет центрировать
+   последние фотографии автоматически
 ===================================== */
 
 .polaroid-gallery {
@@ -590,29 +598,32 @@ button:hover {
 
   display: flex;
 
-  flex-wrap: wrap;
+  justify-content:
+    center;
 
-  justify-content: center;
+  align-items:
+    flex-start;
 
-  align-items: flex-start;
+  flex-wrap:
+    wrap;
 
   gap:
     45px;
-
-  padding:
-    10px 0 20px;
 }
 
 
+/* =====================================
+   POLAROID
+===================================== */
+
 .polaroid {
+  position: relative;
+
   width:
-    min(
-      270px,
-      85vw
-    );
+    260px;
 
   flex:
-    0 0 270px;
+    0 0 260px;
 
   padding:
     12px
@@ -634,28 +645,26 @@ button:hover {
       var(--rotation)
     );
 
-  transition:
-    transform 0.25s ease,
-    box-shadow 0.25s ease;
-
   cursor:
     pointer;
 
-  position:
-    relative;
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
 }
 
 
 .polaroid:hover {
   transform:
     rotate(0deg)
-    scale(1.05);
-
-  z-index: 5;
+    scale(1.04);
 
   box-shadow:
-    0 25px 50px
+    0 25px 45px
     rgba(0,0,0,0.4);
+
+  z-index:
+    5;
 }
 
 
@@ -690,11 +699,11 @@ button:hover {
 }
 
 
-/* =====================================
-   НАВИГАЦИЯ
-===================================== */
-
 .page-navigation {
+  position: relative;
+
+  z-index: 100;
+
   display: flex;
 
   justify-content:
@@ -708,12 +717,6 @@ button:hover {
 
   margin-top:
     60px;
-
-  position:
-    relative;
-
-  z-index:
-    20;
 }
 
 
@@ -727,7 +730,7 @@ button:hover {
 
   position: relative;
 
-  z-index: 10;
+  z-index: 20;
 
   min-height: 100vh;
 
@@ -857,7 +860,13 @@ button:hover {
 }
 
 
-.question-navigation {
+.question-navigation,
+.question-back-navigation,
+.final-navigation {
+  position: relative;
+
+  z-index: 100;
+
   display: flex;
 
   justify-content:
@@ -874,9 +883,11 @@ button:hover {
 }
 
 
-/* =====================================
-   ФИНАЛ
-===================================== */
+.question-back-navigation {
+  margin-top:
+    20px;
+}
+
 
 .final-card p {
   line-height:
@@ -884,55 +895,8 @@ button:hover {
 }
 
 
-.final-navigation {
-  display: flex;
-
-  justify-content:
-    center;
-
-  align-items:
-    center;
-
-  gap:
-    15px;
-
-  flex-wrap:
-    wrap;
-
-  margin-top:
-    35px;
-
-  position:
-    relative;
-
-  z-index:
-    100;
-}
-
-
-.final-navigation button {
-  display:
-    inline-flex !important;
-
-  visibility:
-    visible !important;
-
-  opacity:
-    1 !important;
-
-  pointer-events:
-    auto !important;
-
-  align-items:
-    center;
-
-  justify-content:
-    center;
-}
-
-
 /* =====================================
-   ОТКРЫТОЕ ФОТО
+   ОКНО УВЕЛИЧЕННОЙ ФОТОГРАФИИ
 ===================================== */
 
 .photo-modal {
@@ -940,15 +904,13 @@ button:hover {
 
   inset: 0;
 
-  z-index: 10000;
+  z-index: 1000;
 
   display: none;
 
-  align-items:
-    center;
+  align-items: center;
 
-  justify-content:
-    center;
+  justify-content: center;
 
   padding:
     30px;
@@ -960,7 +922,7 @@ button:hover {
 }
 
 
-.photo-modal-backdrop {
+.photo-modal-overlay {
   position: absolute;
 
   inset: 0;
@@ -985,12 +947,15 @@ button:hover {
     );
 
   max-height:
-    92vh;
+    90vh;
 
   padding:
-    18px
-    18px
+    20px
+    20px
     25px;
+
+  border-radius:
+    15px;
 
   background:
     #f6f0e6;
@@ -999,34 +964,8 @@ button:hover {
     0 30px 100px
     rgba(0,0,0,0.6);
 
-  transform:
-    rotate(-1deg);
-
-  animation:
-    photoAppear
-    0.3s ease;
-}
-
-
-@keyframes photoAppear {
-
-  from {
-    opacity: 0;
-
-    transform:
-      scale(0.92)
-      rotate(-3deg);
-  }
-
-
-  to {
-    opacity: 1;
-
-    transform:
-      scale(1)
-      rotate(-1deg);
-  }
-
+  text-align:
+    center;
 }
 
 
@@ -1036,34 +975,27 @@ button:hover {
   width: 100%;
 
   max-height:
-    75vh;
+    72vh;
 
   object-fit:
     contain;
 
-  background:
-    #111;
+  border-radius:
+    5px;
 }
 
 
-.photo-modal-caption {
+.photo-modal-content p {
   margin:
-    20px
-    10px
-    5px;
+    18px
+    0
+    0;
 
   color:
     #4b3a30;
 
   font-size:
-    clamp(
-      18px,
-      3vw,
-      24px
-    );
-
-  text-align:
-    center;
+    18px;
 
   font-style:
     italic;
@@ -1073,30 +1005,28 @@ button:hover {
 .photo-modal-close {
   position: absolute;
 
-  top: -15px;
-  right: -15px;
+  top: -18px;
 
-  z-index: 5;
+  right: -18px;
+
+  z-index: 10;
 
   width: 48px;
+
   height: 48px;
 
   padding: 0;
 
   border-radius: 50%;
 
-  font-size: 32px;
+  font-size:
+    32px;
 
-  line-height: 1;
-
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
+  line-height:
+    1;
 
   background:
-    #95664f;
+    #774838;
 }
 
 
@@ -1138,23 +1068,24 @@ button:hover {
 
 
   .polaroid {
+    width:
+      min(
+        300px,
+        90vw
+      );
+
     flex:
       0 0
       min(
-        280px,
-        85vw
-      );
-
-    width:
-      min(
-        280px,
-        85vw
+        300px,
+        90vw
       );
   }
 
 
   .page-navigation,
   .question-navigation,
+  .question-back-navigation,
   .final-navigation {
     flex-direction:
       column;
@@ -1166,8 +1097,10 @@ button:hover {
 
   .page-navigation button,
   .question-navigation button,
+  .question-back-navigation button,
   .final-navigation button {
-    width: 100%;
+    width:
+      100%;
   }
 
 
@@ -1177,20 +1110,10 @@ button:hover {
   }
 
 
-  .photo-modal-content {
-    padding:
-      10px
-      10px
-      20px;
-  }
-
-
   .photo-modal-close {
-    top:
-      -10px;
+    top: -10px;
 
-    right:
-      -5px;
+    right: -5px;
   }
 
 }
