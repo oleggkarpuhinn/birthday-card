@@ -15,6 +15,77 @@ const PHOTOS_FOLDER =
 
 
 /* =====================================
+   ПОДПИСИ К ФОТО
+
+   МОЖЕШЬ ПОТОМ МЕНЯТЬ ИХ
+===================================== */
+
+const PHOTO_CAPTIONS = [
+
+  "Маленькое воспоминание ❤️",
+
+  "Один из тех моментов",
+
+  "С чего всё начиналось",
+
+  "Красивый вечер",
+
+  "Ты",
+
+  "Наш кот, который всегда рядом 🐈",
+
+  "Ещё один особенный день",
+
+  "Закат, который хочется помнить",
+
+  "Мы",
+
+  "Просто красиво",
+
+  "Момент тишины",
+
+  "Ещё немного тебя",
+
+  "Тот самый вечер",
+
+  "Куда-то далеко",
+
+  "Один из любимых моментов",
+
+  "Ещё одна история",
+
+  "Красота в мелочах",
+
+  "Момент, который остался здесь",
+
+  "Почти как в кино",
+
+  "Просто счастливый день",
+
+  "Это тоже хочется сохранить",
+
+  "Ты здесь особенно красивая",
+
+  "Ещё одно воспоминание",
+
+  "Иногда слов не нужно",
+
+  "Просто мы",
+
+  "Ещё немного счастья",
+
+  "Пусть это останется здесь",
+
+  "Воспоминание навсегда",
+
+  "Один из наших моментов",
+
+  "И ещё один ❤️"
+
+];
+
+
+/* =====================================
    ВОПРОСЫ
 ===================================== */
 
@@ -48,91 +119,191 @@ const QUESTIONS = [
 ===================================== */
 
 const envelope =
-  document.getElementById("envelope");
+  document.getElementById(
+    "envelope"
+  );
 
 
 const intro =
-  document.getElementById("intro");
+  document.getElementById(
+    "intro"
+  );
 
 
 const continueBtn =
-  document.getElementById("continueBtn");
+  document.getElementById(
+    "continueBtn"
+  );
 
 
 const closeLetterBtn =
-  document.getElementById("closeLetterBtn");
+  document.getElementById(
+    "closeLetterBtn"
+  );
 
 
 const memoriesSection1 =
-  document.getElementById("memoriesSection1");
+  document.getElementById(
+    "memoriesSection1"
+  );
 
 
 const memoriesSection2 =
-  document.getElementById("memoriesSection2");
+  document.getElementById(
+    "memoriesSection2"
+  );
 
 
 const gallery1 =
-  document.getElementById("polaroidGallery1");
+  document.getElementById(
+    "polaroidGallery1"
+  );
 
 
 const gallery2 =
-  document.getElementById("polaroidGallery2");
+  document.getElementById(
+    "polaroidGallery2"
+  );
 
 
 const backToLetterBtn =
-  document.getElementById("backToLetterBtn");
+  document.getElementById(
+    "backToLetterBtn"
+  );
 
 
 const photosPage2Btn =
-  document.getElementById("photosPage2Btn");
+  document.getElementById(
+    "photosPage2Btn"
+  );
 
 
 const photosPage1Btn =
-  document.getElementById("photosPage1Btn");
+  document.getElementById(
+    "photosPage1Btn"
+  );
 
 
 const questionsStartBtn =
-  document.getElementById("questionsStartBtn");
+  document.getElementById(
+    "questionsStartBtn"
+  );
 
 
 const questionsSection =
-  document.getElementById("questionsSection");
+  document.getElementById(
+    "questionsSection"
+  );
 
 
 const questionCounter =
-  document.getElementById("questionCounter");
+  document.getElementById(
+    "questionCounter"
+  );
 
 
 const questionText =
-  document.getElementById("questionText");
+  document.getElementById(
+    "questionText"
+  );
 
 
 const answerInput =
-  document.getElementById("answerInput");
+  document.getElementById(
+    "answerInput"
+  );
 
 
 const previousQuestionBtn =
-  document.getElementById("previousQuestionBtn");
+  document.getElementById(
+    "previousQuestionBtn"
+  );
 
 
 const nextQuestionBtn =
-  document.getElementById("nextQuestionBtn");
+  document.getElementById(
+    "nextQuestionBtn"
+  );
 
 
 const finalSection =
-  document.getElementById("finalSection");
+  document.getElementById(
+    "finalSection"
+  );
 
 
 const finalBackBtn =
-  document.getElementById("finalBackBtn");
+  document.getElementById(
+    "finalBackBtn"
+  );
 
 
 const finalPhotosBtn =
-  document.getElementById("finalPhotosBtn");
+  document.getElementById(
+    "finalPhotosBtn"
+  );
 
 
 /* =====================================
-   ЗАГРУЗКА ФОТОГРАФИЙ ИЗ GITHUB
+   МОДАЛЬНОЕ ОКНО
+===================================== */
+
+const photoModal =
+  document.getElementById(
+    "photoModal"
+  );
+
+
+const modalImage =
+  document.getElementById(
+    "modalImage"
+  );
+
+
+const modalCaption =
+  document.getElementById(
+    "modalCaption"
+  );
+
+
+const modalClose =
+  document.getElementById(
+    "modalClose"
+  );
+
+
+const modalPrev =
+  document.getElementById(
+    "modalPrev"
+  );
+
+
+const modalNext =
+  document.getElementById(
+    "modalNext"
+  );
+
+
+const modalOverlay =
+  document.querySelector(
+    ".modal-overlay"
+  );
+
+
+/* =====================================
+   МАССИВ ВСЕХ ФОТО
+===================================== */
+
+let allPhotos =
+  [];
+
+
+let currentPhotoIndex =
+  0;
+
+
+/* =====================================
+   ЗАГРУЗКА ФОТО ИЗ GITHUB
 ===================================== */
 
 async function loadPhotos() {
@@ -146,13 +317,17 @@ async function loadPhotos() {
 
 
     const response =
-      await fetch(apiUrl);
+      await fetch(
+        apiUrl
+      );
 
 
-    if (!response.ok) {
+    if (
+      !response.ok
+    ) {
 
       throw new Error(
-        `GitHub вернул ошибку ${response.status}`
+        "Не удалось загрузить фотографии"
       );
 
     }
@@ -165,19 +340,25 @@ async function loadPhotos() {
     const images =
       files
         .filter(
-          (file) => {
+          file => {
 
             return (
+
               file.type === "file" &&
-              /\.(jpg|jpeg|png|webp|gif)$/i.test(
+
+              /\.(jpg|jpeg|png|webp)$/i.test(
                 file.name
               )
+
             );
 
           }
         )
         .sort(
-          (a, b) => {
+          (
+            a,
+            b
+          ) => {
 
             return a.name.localeCompare(
               b.name,
@@ -191,10 +372,8 @@ async function loadPhotos() {
         );
 
 
-    console.log(
-      "Найдено фотографий:",
-      images.length
-    );
+    allPhotos =
+      images;
 
 
     gallery1.innerHTML =
@@ -205,31 +384,9 @@ async function loadPhotos() {
       "";
 
 
-    if (
-      images.length === 0
-    ) {
-
-      gallery1.innerHTML = `
-
-        <p class="photos-error">
-
-          Фотографии пока не найдены.
-          Проверь папку
-          photos/photos
-
-        </p>
-
-      `;
-
-
-      return;
-
-    }
-
-
-    /* =====================================
+    /* =========================
        ПЕРВЫЕ 15 ФОТО
-    ===================================== */
+    ========================== */
 
     images
       .slice(
@@ -246,21 +403,24 @@ async function loadPhotos() {
           gallery1.appendChild(
 
             createPolaroid(
+
               photo.download_url,
+
               index,
-              photo.name
+
+              index
+
             )
 
           );
-
 
         }
       );
 
 
-    /* =====================================
-       СЛЕДУЮЩИЕ 15 ФОТО
-    ===================================== */
+    /* =========================
+       ФОТО 16–30
+    ========================== */
 
     images
       .slice(
@@ -274,41 +434,40 @@ async function loadPhotos() {
         ) => {
 
 
+          const realIndex =
+            index + 15;
+
+
           gallery2.appendChild(
 
             createPolaroid(
+
               photo.download_url,
-              index + 15,
-              photo.name
+
+              realIndex,
+
+              realIndex
+
             )
 
           );
-
 
         }
       );
 
 
-    /* Если фотографий меньше 16 */
-
     if (
-      images.length <= 15
+      images.length === 0
     ) {
 
-      gallery2.innerHTML = `
-
-        <p class="photos-error">
-
-          Здесь пока больше фотографий нет ❤️
-
-        </p>
-
-      `;
+      gallery1.innerHTML =
+        "<p>Фотографии пока не найдены.</p>";
 
     }
 
 
   }
+
 
   catch (
     error
@@ -316,41 +475,15 @@ async function loadPhotos() {
 
 
     console.error(
-      "Ошибка загрузки фотографий:",
       error
     );
 
 
-    gallery1.innerHTML = `
-
-      <p class="photos-error">
-
-        Не удалось загрузить фотографии.
-
-        <br><br>
-
-        Проверь:
-
-        <br>
-
-        1. Репозиторий должен быть Public
-
-        <br>
-
-        2. Фотографии должны лежать в папке
-        photos/photos
-
-        <br>
-
-        3. Формат должен быть JPG, JPEG, PNG или WEBP
-
-      </p>
-
-    `;
+    gallery1.innerHTML =
+      "<p>Не удалось загрузить фотографии.</p>";
 
 
   }
-
 
 }
 
@@ -360,9 +493,13 @@ async function loadPhotos() {
 ===================================== */
 
 function createPolaroid(
+
   imageUrl,
+
   index,
-  fileName
+
+  photoIndex
+
 ) {
 
 
@@ -374,15 +511,15 @@ function createPolaroid(
 
     "-2deg",
 
-    "5deg",
+    "4deg",
 
     "-3deg",
 
     "2deg",
 
-    "-5deg",
+    "-2deg",
 
-    "4deg"
+    "3deg"
 
   ];
 
@@ -409,6 +546,13 @@ function createPolaroid(
   );
 
 
+  const caption =
+    PHOTO_CAPTIONS[
+      photoIndex
+    ] ||
+    "Одно из воспоминаний ❤️";
+
+
   polaroid.innerHTML = `
 
     <img
@@ -418,17 +562,252 @@ function createPolaroid(
       loading="lazy"
     >
 
-    <p
-      class="polaroid-caption"
-    ></p>
+    <p class="polaroid-caption">
+      ${caption}
+    </p>
 
   `;
 
 
+  /* ОТКРЫТИЕ ФОТО */
+
+  polaroid.addEventListener(
+
+    "click",
+
+    () => {
+
+      openPhoto(
+        photoIndex
+      );
+
+    }
+
+  );
+
+
   return polaroid;
 
+}
+
+
+/* =====================================
+   ОТКРЫТЬ ФОТО
+===================================== */
+
+function openPhoto(
+  index
+) {
+
+
+  currentPhotoIndex =
+    index;
+
+
+  const photo =
+    allPhotos[
+      currentPhotoIndex
+    ];
+
+
+  if (
+    !photo
+  ) {
+
+    return;
+
+  }
+
+
+  modalImage.src =
+    photo.download_url;
+
+
+  modalCaption.textContent =
+
+    PHOTO_CAPTIONS[
+      currentPhotoIndex
+    ] ||
+    "Одно из воспоминаний ❤️";
+
+
+  photoModal.classList.add(
+    "show"
+  );
+
+
+  document.body.style.overflow =
+    "hidden";
 
 }
+
+
+/* =====================================
+   ЗАКРЫТЬ ФОТО
+===================================== */
+
+function closePhoto() {
+
+
+  photoModal.classList.remove(
+    "show"
+  );
+
+
+  document.body.style.overflow =
+    "";
+
+}
+
+
+/* =====================================
+   ПРЕДЫДУЩЕЕ ФОТО
+===================================== */
+
+function previousPhoto() {
+
+
+  currentPhotoIndex--;
+
+
+  if (
+    currentPhotoIndex < 0
+  ) {
+
+    currentPhotoIndex =
+      allPhotos.length - 1;
+
+  }
+
+
+  openPhoto(
+    currentPhotoIndex
+  );
+
+}
+
+
+/* =====================================
+   СЛЕДУЮЩЕЕ ФОТО
+===================================== */
+
+function nextPhoto() {
+
+
+  currentPhotoIndex++;
+
+
+  if (
+    currentPhotoIndex >=
+    allPhotos.length
+  ) {
+
+    currentPhotoIndex =
+      0;
+
+  }
+
+
+  openPhoto(
+    currentPhotoIndex
+  );
+
+}
+
+
+/* =====================================
+   СОБЫТИЯ МОДАЛЬНОГО ОКНА
+===================================== */
+
+modalClose.addEventListener(
+
+  "click",
+
+  closePhoto
+
+);
+
+
+modalOverlay.addEventListener(
+
+  "click",
+
+  closePhoto
+
+);
+
+
+modalPrev.addEventListener(
+
+  "click",
+
+  previousPhoto
+
+);
+
+
+modalNext.addEventListener(
+
+  "click",
+
+  nextPhoto
+
+);
+
+
+/* КЛАВИАТУРА */
+
+document.addEventListener(
+
+  "keydown",
+
+  event => {
+
+
+    if (
+      !photoModal.classList.contains(
+        "show"
+      )
+    ) {
+
+      return;
+
+    }
+
+
+    if (
+      event.key ===
+      "Escape"
+    ) {
+
+      closePhoto();
+
+    }
+
+
+    if (
+      event.key ===
+      "ArrowLeft"
+    ) {
+
+      previousPhoto();
+
+    }
+
+
+    if (
+      event.key ===
+      "ArrowRight"
+    ) {
+
+      nextPhoto();
+
+    }
+
+
+  }
+
+);
 
 
 /* =====================================
@@ -436,7 +815,9 @@ function createPolaroid(
 ===================================== */
 
 envelope.addEventListener(
+
   "click",
+
   () => {
 
 
@@ -462,6 +843,7 @@ envelope.addEventListener(
 
 
   }
+
 );
 
 
@@ -470,8 +852,10 @@ envelope.addEventListener(
 ===================================== */
 
 closeLetterBtn.addEventListener(
+
   "click",
-  (event) => {
+
+  event => {
 
 
     event.stopPropagation();
@@ -499,16 +883,19 @@ closeLetterBtn.addEventListener(
 
 
   }
+
 );
 
 
 /* =====================================
-   ПЕРЕХОД К ФОТОГРАФИЯМ
+   ПЕРЕХОД К ФОТО
 ===================================== */
 
 continueBtn.addEventListener(
+
   "click",
-  (event) => {
+
+  event => {
 
 
     event.stopPropagation();
@@ -527,21 +914,25 @@ continueBtn.addEventListener(
 
       top: 0,
 
-      behavior: "smooth"
+      behavior:
+        "smooth"
 
     });
 
 
   }
+
 );
 
 
 /* =====================================
-   ВОЗВРАТ К ПИСЬМУ
+   НАЗАД К ПИСЬМУ
 ===================================== */
 
 backToLetterBtn.addEventListener(
+
   "click",
+
   () => {
 
 
@@ -558,12 +949,14 @@ backToLetterBtn.addEventListener(
 
       top: 0,
 
-      behavior: "smooth"
+      behavior:
+        "smooth"
 
     });
 
 
   }
+
 );
 
 
@@ -572,7 +965,9 @@ backToLetterBtn.addEventListener(
 ===================================== */
 
 photosPage2Btn.addEventListener(
+
   "click",
+
   () => {
 
 
@@ -590,12 +985,14 @@ photosPage2Btn.addEventListener(
 
       top: 0,
 
-      behavior: "smooth"
+      behavior:
+        "smooth"
 
     });
 
 
   }
+
 );
 
 
@@ -604,7 +1001,9 @@ photosPage2Btn.addEventListener(
 ===================================== */
 
 photosPage1Btn.addEventListener(
+
   "click",
+
   () => {
 
 
@@ -622,21 +1021,25 @@ photosPage1Btn.addEventListener(
 
       top: 0,
 
-      behavior: "smooth"
+      behavior:
+        "smooth"
 
     });
 
 
   }
+
 );
 
 
 /* =====================================
-   ФОТО → ВОПРОСЫ
+   К ВОПРОСАМ
 ===================================== */
 
 questionsStartBtn.addEventListener(
+
   "click",
+
   () => {
 
 
@@ -657,12 +1060,14 @@ questionsStartBtn.addEventListener(
 
       top: 0,
 
-      behavior: "smooth"
+      behavior:
+        "smooth"
 
     });
 
 
   }
+
 );
 
 
@@ -724,19 +1129,15 @@ function showQuestion() {
 
   ) {
 
-
     nextQuestionBtn.textContent =
       "Закончить →";
-
 
   }
 
   else {
 
-
     nextQuestionBtn.textContent =
       "Далее →";
-
 
   }
 
@@ -744,12 +1145,12 @@ function showQuestion() {
 }
 
 
-/* =====================================
-   СОХРАНЕНИЕ ОТВЕТА
-===================================== */
+/* СОХРАНЕНИЕ ОТВЕТА */
 
 answerInput.addEventListener(
+
   "input",
+
   () => {
 
 
@@ -761,28 +1162,25 @@ answerInput.addEventListener(
 
 
   }
+
 );
 
 
-/* =====================================
-   ПРЕДЫДУЩИЙ ВОПРОС
-===================================== */
+/* ПРЕДЫДУЩИЙ ВОПРОС */
 
 previousQuestionBtn.addEventListener(
+
   "click",
+
   () => {
 
 
     if (
-      currentQuestion > 0
+
+      currentQuestion >
+      0
+
     ) {
-
-
-      answers[
-        currentQuestion
-      ] =
-
-        answerInput.value;
 
 
       currentQuestion--;
@@ -795,15 +1193,16 @@ previousQuestionBtn.addEventListener(
 
 
   }
+
 );
 
 
-/* =====================================
-   СЛЕДУЮЩИЙ ВОПРОС
-===================================== */
+/* СЛЕДУЮЩИЙ ВОПРОС */
 
 nextQuestionBtn.addEventListener(
+
   "click",
+
   () => {
 
 
@@ -830,6 +1229,7 @@ nextQuestionBtn.addEventListener(
 
     }
 
+
     else {
 
 
@@ -847,7 +1247,8 @@ nextQuestionBtn.addEventListener(
 
         top: 0,
 
-        behavior: "smooth"
+        behavior:
+          "smooth"
 
       });
 
@@ -856,6 +1257,7 @@ nextQuestionBtn.addEventListener(
 
 
   }
+
 );
 
 
@@ -864,7 +1266,9 @@ nextQuestionBtn.addEventListener(
 ===================================== */
 
 finalBackBtn.addEventListener(
+
   "click",
+
   () => {
 
 
@@ -885,25 +1289,19 @@ finalBackBtn.addEventListener(
     showQuestion();
 
 
-    window.scrollTo({
-
-      top: 0,
-
-      behavior: "smooth"
-
-    });
-
-
   }
+
 );
 
 
 /* =====================================
-   ФИНАЛ → ФОТОГРАФИИ
+   ФИНАЛ → ФОТО
 ===================================== */
 
 finalPhotosBtn.addEventListener(
+
   "click",
+
   () => {
 
 
@@ -921,12 +1319,14 @@ finalPhotosBtn.addEventListener(
 
       top: 0,
 
-      behavior: "smooth"
+      behavior:
+        "smooth"
 
     });
 
 
   }
+
 );
 
 
