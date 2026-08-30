@@ -36,7 +36,9 @@ body {
 
 .scene {
   position: relative;
+
   min-height: 100vh;
+
   overflow-x: hidden;
 }
 
@@ -161,11 +163,14 @@ button:hover {
 
   display: flex;
 
-  align-items: center;
+  align-items: flex-start;
 
   justify-content: center;
 
-  padding: 40px 20px;
+  padding:
+    70px
+    20px
+    100px;
 
   text-align: center;
 }
@@ -207,7 +212,7 @@ button:hover {
 
 
 .hint {
-  margin-bottom: 35px;
+  margin-bottom: 55px;
 
   opacity: 0.75;
 
@@ -224,15 +229,13 @@ button:hover {
 
   display: inline-block;
 
+  margin-top: 25px;
+
   cursor: pointer;
 
   perspective: 1200px;
 
   z-index: 30;
-
-  /* ИЗМЕНЕНО:
-     немного опускаем конверт ниже */
-  margin-top: 45px;
 }
 
 
@@ -368,7 +371,9 @@ button:hover {
 
   z-index: 10;
 
-  padding: 25px;
+  padding:
+    35px
+    30px;
 
   color: #4b3a30;
 
@@ -380,25 +385,26 @@ button:hover {
     0 15px 30px
     rgba(0,0,0,0.25);
 
-  /* ИЗМЕНЕНО:
-     длинное письмо не выходит
-     за пределы экрана */
-  max-height: 70vh;
+  line-height: 1.7;
 
-  overflow-y: auto;
-
-  scrollbar-width: thin;
+  overflow-wrap: break-word;
 }
 
 
-/* Чтобы текст письма было удобно читать */
+.letter-paper h2 {
+  margin-top: 20px;
+
+  font-weight: 400;
+}
+
 
 .letter-paper p {
-  line-height: 1.6;
+  margin:
+    0
+    0
+    18px;
 }
 
-
-/* Кнопки остаются доступными */
 
 .letter-paper button {
   position: relative;
@@ -467,6 +473,13 @@ button:hover {
   pointer-events: none;
 }
 
+
+/*
+   Письмо поднимается вверх.
+
+   transform не зависит от количества текста,
+   поэтому длинное письмо может иметь любую высоту.
+*/
 
 .envelope-wrapper.open
 .letter {
@@ -790,13 +803,20 @@ button:hover {
   .intro {
     align-items: flex-start;
 
-    padding-top: 80px;
+    padding:
+      70px
+      20px
+      80px;
+  }
+
+
+  .hint {
+    margin-bottom: 40px;
   }
 
 
   .envelope-wrapper {
-    /* На телефоне тоже немного ниже */
-    margin-top: 35px;
+    margin-top: 15px;
   }
 
 
@@ -806,10 +826,11 @@ button:hover {
 
 
   .letter-paper {
-    /* Больше места для длинного письма */
-    max-height: 65vh;
+    padding:
+      28px
+      22px;
 
-    padding: 20px;
+    line-height: 1.65;
   }
 
 
