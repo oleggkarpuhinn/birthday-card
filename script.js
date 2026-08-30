@@ -6,8 +6,7 @@ const GITHUB_OWNER = "olegkarpukhin";
 
 const GITHUB_REPOSITORY = "birthday-card";
 
-const PHOTOS_FOLDER =
-  "photos/photos";
+const PHOTOS_FOLDER = "photos/photos";
 
 
 /* =====================================
@@ -45,14 +44,11 @@ const QUESTIONS = [
    ЭЛЕМЕНТЫ СТРАНИЦЫ
 ===================================== */
 
-const envelope =
-  document.getElementById("envelope");
+const envelope = document.getElementById("envelope");
 
-const intro =
-  document.getElementById("intro");
+const intro = document.getElementById("intro");
 
-const continueBtn =
-  document.getElementById("continueBtn");
+const continueBtn = document.getElementById("continueBtn");
 
 const closeLetterBtn =
   document.getElementById("closeLetterBtn");
@@ -120,28 +116,20 @@ async function loadPhotos() {
   const apiUrl =
     `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPOSITORY}/contents/${PHOTOS_FOLDER}`;
 
-
   try {
 
-    const response =
-      await fetch(apiUrl);
-
+    const response = await fetch(apiUrl);
 
     if (!response.ok) {
-
       throw new Error(
         "Не удалось загрузить фотографии"
       );
-
     }
 
+    const files = await response.json();
 
-    const files =
-      await response.json();
-
-
-    const images =
-      files.filter((file) => {
+    const images = files
+      .filter((file) => {
 
         return (
           file.type === "file" &&
@@ -150,53 +138,45 @@ async function loadPhotos() {
           )
         );
 
-      });
+      })
+      .sort((a, b) =>
+        a.name.localeCompare(
+          b.name,
+          "ru"
+        )
+      );
 
 
-    /* Первые 15 */
+    gallery1.innerHTML = "";
+    gallery2.innerHTML = "";
+
 
     images
       .slice(0, 15)
-      .forEach(
-        (
-          photo,
-          index
-        ) => {
+      .forEach((photo, index) => {
 
-          gallery1.appendChild(
+        gallery1.appendChild(
+          createPolaroid(
+            photo.download_url,
+            index
+          )
+        );
 
-            createPolaroid(
-              photo.download_url,
-              index
-            )
+      });
 
-          );
-
-        }
-      );
-
-
-    /* Следующие 15 */
 
     images
       .slice(15, 30)
-      .forEach(
-        (
-          photo,
-          index
-        ) => {
+      .forEach((photo, index) => {
 
-          gallery2.appendChild(
+        gallery2.appendChild(
+          createPolaroid(
+            photo.download_url,
+            index + 15
+          )
+        );
 
-            createPolaroid(
-              photo.download_url,
-              index + 15
-            )
-
-          );
-
-        }
-      );
+      });
 
 
     if (images.length === 0) {
@@ -230,14 +210,12 @@ function createPolaroid(
 ) {
 
   const rotations = [
-
     "-4deg",
     "3deg",
     "-2deg",
     "5deg",
     "-3deg",
     "2deg"
-
   ];
 
 
@@ -250,14 +228,10 @@ function createPolaroid(
 
 
   polaroid.style.setProperty(
-
     "--rotation",
-
     rotations[
-      index %
-      rotations.length
+      index % rotations.length
     ]
-
   );
 
 
@@ -270,7 +244,9 @@ function createPolaroid(
       loading="lazy"
     >
 
-    <p class="polaroid-caption"></p>
+    <p class="polaroid-caption">
+      Подпись к фотографии
+    </p>
 
   `;
 
@@ -288,22 +264,13 @@ envelope.addEventListener(
   "click",
   () => {
 
-    envelope.classList.add(
-      "open"
-    );
-
+    envelope.classList.add("open");
 
     const hint =
-      document.querySelector(
-        ".hint"
-      );
-
+      document.querySelector(".hint");
 
     if (hint) {
-
-      hint.style.opacity =
-        "0";
-
+      hint.style.opacity = "0";
     }
 
   }
@@ -320,23 +287,13 @@ closeLetterBtn.addEventListener(
 
     event.stopPropagation();
 
-
-    envelope.classList.remove(
-      "open"
-    );
-
+    envelope.classList.remove("open");
 
     const hint =
-      document.querySelector(
-        ".hint"
-      );
-
+      document.querySelector(".hint");
 
     if (hint) {
-
-      hint.style.opacity =
-        "1";
-
+      hint.style.opacity = "1";
     }
 
   }
@@ -353,22 +310,13 @@ continueBtn.addEventListener(
 
     event.stopPropagation();
 
+    intro.style.display = "none";
 
-    intro.style.display =
-      "none";
-
-
-    memoriesSection1.classList.add(
-      "show"
-    );
-
+    memoriesSection1.classList.add("show");
 
     window.scrollTo({
-
       top: 0,
-
       behavior: "smooth"
-
     });
 
   }
@@ -383,21 +331,13 @@ backToLetterBtn.addEventListener(
   "click",
   () => {
 
-    memoriesSection1.classList.remove(
-      "show"
-    );
+    memoriesSection1.classList.remove("show");
 
-
-    intro.style.display =
-      "flex";
-
+    intro.style.display = "flex";
 
     window.scrollTo({
-
       top: 0,
-
       behavior: "smooth"
-
     });
 
   }
@@ -412,22 +352,13 @@ photosPage2Btn.addEventListener(
   "click",
   () => {
 
-    memoriesSection1.classList.remove(
-      "show"
-    );
+    memoriesSection1.classList.remove("show");
 
-
-    memoriesSection2.classList.add(
-      "show"
-    );
-
+    memoriesSection2.classList.add("show");
 
     window.scrollTo({
-
       top: 0,
-
       behavior: "smooth"
-
     });
 
   }
@@ -442,22 +373,13 @@ photosPage1Btn.addEventListener(
   "click",
   () => {
 
-    memoriesSection2.classList.remove(
-      "show"
-    );
+    memoriesSection2.classList.remove("show");
 
-
-    memoriesSection1.classList.add(
-      "show"
-    );
-
+    memoriesSection1.classList.add("show");
 
     window.scrollTo({
-
       top: 0,
-
       behavior: "smooth"
-
     });
 
   }
@@ -465,32 +387,22 @@ photosPage1Btn.addEventListener(
 
 
 /* =====================================
-   ПЕРЕХОД К ВОПРОСАМ
+   ФОТО → ВОПРОСЫ
 ===================================== */
 
 questionsStartBtn.addEventListener(
   "click",
   () => {
 
-    memoriesSection2.classList.remove(
-      "show"
-    );
+    memoriesSection2.classList.remove("show");
 
-
-    questionsSection.classList.add(
-      "show"
-    );
-
+    questionsSection.classList.add("show");
 
     showQuestion();
 
-
     window.scrollTo({
-
       top: 0,
-
       behavior: "smooth"
-
     });
 
   }
@@ -501,8 +413,7 @@ questionsStartBtn.addEventListener(
    ВОПРОСЫ
 ===================================== */
 
-let currentQuestion =
-  0;
+let currentQuestion = 0;
 
 
 const answers =
@@ -513,9 +424,7 @@ const answers =
 
 function showQuestion() {
 
-
   questionCounter.textContent =
-
     `Вопрос ${
       currentQuestion + 1
     } из ${
@@ -524,33 +433,22 @@ function showQuestion() {
 
 
   questionText.textContent =
-
-    QUESTIONS[
-      currentQuestion
-    ];
+    QUESTIONS[currentQuestion];
 
 
   answerInput.value =
-
-    answers[
-      currentQuestion
-    ];
+    answers[currentQuestion];
 
 
   previousQuestionBtn.style.visibility =
-
     currentQuestion === 0
-
       ? "hidden"
-
       : "visible";
 
 
   if (
-
     currentQuestion ===
     QUESTIONS.length - 1
-
   ) {
 
     nextQuestionBtn.textContent =
@@ -568,34 +466,32 @@ function showQuestion() {
 }
 
 
-/* Сохранение ответа */
+/* =====================================
+   СОХРАНЕНИЕ ОТВЕТА
+===================================== */
 
 answerInput.addEventListener(
   "input",
   () => {
 
-    answers[
-      currentQuestion
-    ] =
-
+    answers[currentQuestion] =
       answerInput.value;
 
   }
 );
 
 
-/* Предыдущий вопрос */
+/* =====================================
+   ПРЕДЫДУЩИЙ ВОПРОС
+===================================== */
 
 previousQuestionBtn.addEventListener(
   "click",
   () => {
 
-    if (
-      currentQuestion > 0
-    ) {
+    if (currentQuestion > 0) {
 
       currentQuestion--;
-
 
       showQuestion();
 
@@ -605,29 +501,24 @@ previousQuestionBtn.addEventListener(
 );
 
 
-/* Следующий вопрос */
+/* =====================================
+   СЛЕДУЮЩИЙ ВОПРОС
+===================================== */
 
 nextQuestionBtn.addEventListener(
   "click",
   () => {
 
-
-    answers[
-      currentQuestion
-    ] =
-
+    answers[currentQuestion] =
       answerInput.value;
 
 
     if (
-
       currentQuestion <
       QUESTIONS.length - 1
-
     ) {
 
       currentQuestion++;
-
 
       showQuestion();
 
@@ -635,22 +526,13 @@ nextQuestionBtn.addEventListener(
 
     else {
 
-      questionsSection.classList.remove(
-        "show"
-      );
+      questionsSection.classList.remove("show");
 
-
-      finalSection.classList.add(
-        "show"
-      );
-
+      finalSection.classList.add("show");
 
       window.scrollTo({
-
         top: 0,
-
         behavior: "smooth"
-
       });
 
     }
@@ -660,35 +542,33 @@ nextQuestionBtn.addEventListener(
 
 
 /* =====================================
-   ФИНАЛ → НАЗАД К ВОПРОСАМ
+   ФИНАЛ → НАЗАД
 ===================================== */
 
 finalBackBtn.addEventListener(
   "click",
   () => {
 
-    finalSection.classList.remove(
-      "show"
-    );
+    finalSection.classList.remove("show");
 
-
-    questionsSection.classList.add(
-      "show"
-    );
-
+    questionsSection.classList.add("show");
 
     currentQuestion =
       QUESTIONS.length - 1;
 
-
     showQuestion();
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
 
   }
 );
 
 
 /* =====================================
-   ЗАПУСК ЗАГРУЗКИ ФОТО
+   ЗАПУСК
 ===================================== */
 
 loadPhotos();
