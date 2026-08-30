@@ -8,36 +8,36 @@ const GOOGLE_SCRIPT_URL =
    ФОТОГРАФИИ
 ===================================== */
 const PHOTOS = [
-  { image: "photos/photo_2024-05-16_16-29-51.jpg", caption: "" },
-  { image: "photos/photo_2024-05-16_16-29-58 (2).jpg", caption: "" },
-  { image: "photos/photo_2024-05-16_16-29-58.jpg", caption: "" },
-  { image: "photos/photo_2024-05-16_16-29-59.jpg", caption: "" },
-  { image: "photos/photo_2024-06-09_03-10-51.jpg", caption: "" },
-  { image: "photos/photo_2025-03-14_10-29-28.jpg", caption: "" },
-  { image: "photos/photo_2025-03-18_21-06-29.jpg", caption: "" },
-  { image: "photos/photo_2026-06-06_02-42-53.jpg", caption: "" },
-  { image: "photos/photo_2026-06-20_15-24-08.jpg", caption: "" },
-  { image: "photos/photo_2026-06-23_23-10-16 (2).jpg", caption: "" },
-  { image: "photos/photo_2026-06-23_23-10-16 (3).jpg", caption: "" },
-  { image: "photos/photo_2026-06-23_23-10-16 (4).jpg", caption: "" },
-  { image: "photos/photo_2026-06-23_23-10-16.jpg", caption: "" },
-  { image: "photos/photo_2026-06-23_23-10-17.jpg", caption: "" },
-  { image: "photos/photo_2026-06-27_10-36-58 (2).jpg", caption: "" },
-  { image: "photos/photo_2026-06-27_10-36-58.jpg", caption: "" },
-  { image: "photos/photo_2026-07-01_23-29-46.jpg", caption: "" },
-  { image: "photos/photo_2026-07-05_20-13-23.jpg", caption: "" },
-  { image: "photos/photo_2026-07-12_21-01-18.jpg", caption: "" },
-  { image: "photos/photo_2026-07-13_23-09-25.jpg", caption: "" },
-  { image: "photos/photo_2026-07-16_22-02-21.jpg", caption: "" },
-  { image: "photos/photo_2026-07-18_21-08-59.jpg", caption: "" },
-  { image: "photos/photo_2026-07-23_18-28-26.jpg", caption: "" },
-  { image: "photos/photo_2026-08-03_22-42-54.jpg", caption: "" },
-  { image: "photos/photo_2026-08-04_21-09-54.jpg", caption: "" },
-  { image: "photos/photo_2026-08-10_16-33-48.jpg", caption: "" },
-  { image: "photos/photo_2026-08-13_19-41-34.jpg", caption: "" },
-  { image: "photos/photo_2026-08-15_13-33-51.jpg", caption: "" },
-  { image: "photos/photo_2026-08-22_21-30-13.jpg", caption: "" },
-  { image: "photos/photo_2026-08-28_20-07-15.jpg", caption: "" }
+  { image: "photos/photo_2024-05-16_16-29-51.jpg", caption: "✏️ НАПИШИТЕ ЗДЕСЬ ПОДПИСЬ К ФОТО" },
+  { image: "photos/photo_2024-05-16_16-29-58 (2).jpg", caption: "✏️ НАПИШИТЕ ЗДЕСЬ ПОДПИСЬ К ФОТО" },
+  { image: "photos/photo_2024-05-16_16-29-58.jpg", caption: "✏️ НАПИШИТЕ ЗДЕСЬ ПОДПИСЬ К ФОТО" },
+  { image: "photos/photo_2024-05-16_16-29-59.jpg", caption: "✏️ НАПИШИТЕ ЗДЕСЬ ПОДПИСЬ К ФОТО" },
+  { image: "photos/photo_2024-06-09_03-10-51.jpg", caption: "✏️ НАПИШИТЕ ЗДЕСЬ ПОДПИСЬ К ФОТО" },
+  { image: "photos/photo_2025-03-14_10-29-28.jpg", caption: "✏️ НАПИШИТЕ ЗДЕСЬ ПОДПИСЬ К ФОТО" },
+  { image: "photos/photo_2025-03-18_21-06-29.jpg", caption: "✏️ НАПИШИТЕ ЗДЕСЬ ПОДПИСЬ К ФОТО" },
+  { image: "photos/photo_2026-06-06_02-42-53.jpg", caption: "✏️ НАПИШИТЕ ЗДЕСЬ ПОДПИСЬ К ФОТО" },
+  { image: "photos/photo_2026-06-20_15-24-08.jpg", caption: "✏️ НАПИШИТЕ ЗДЕСЬ ПОДПИСЬ К ФОТО" },
+  { image: "photos/photo_2026-06-23_23-10-16 (2).jpg", caption: "✏️ НАПИШИТЕ ЗДЕСЬ ПОДПИСЬ К ФОТО" },
+  { image: "photos/photo_2026-06-23_23-10-16 (3).jpg", caption: "✏️ НАПИШИТЕ ЗДЕСЬ ПОДПИСЬ К ФОТО" },
+  { image: "photos/photo_2026-06-23_23-10-16 (4).jpg", caption: "✏️ НАПИШИТЕ ЗДЕСЬ ПОДПИСЬ К ФОТО" },
+  { image: "photos/photo_2026-06-23_23-10-16.jpg", caption: "✏️ НАПИШИТЕ ЗДЕСЬ ПОДПИСЬ К ФОТО" },
+  { image: "photos/photo_2026-06-23_23-10-17.jpg", caption: "✏️ НАПИШИТЕ ЗДЕСЬ ПОДПИСЬ К ФОТО" },
+  { image: "photos/photo_2026-06-27_10-36-58 (2).jpg", caption: "✏️ НАПИШИТЕ ЗДЕСЬ ПОДПИСЬ К ФОТО" },
+  { image: "photos/photo_2026-06-27_10-36-58.jpg", caption: "✏️ НАПИШИТЕ ЗДЕСЬ ПОДПИСЬ К ФОТО" },
+  { image: "photos/photo_2026-07-01_23-29-46.jpg", caption: "✏️ НАПИШИТЕ ЗДЕСЬ ПОДПИСЬ К ФОТО" },
+  { image: "photos/photo_2026-07-05_20-13-23.jpg", caption: "✏️ НАПИШИТЕ ЗДЕСЬ ПОДПИСЬ К ФОТО" },
+  { image: "photos/photo_2026-07-12_21-01-18.jpg", caption: "✏️ НАПИШИТЕ ЗДЕСЬ ПОДПИСЬ К ФОТО" },
+  { image: "photos/photo_2026-07-13_23-09-25.jpg", caption: "✏️ НАПИШИТЕ ЗДЕСЬ ПОДПИСЬ К ФОТО" },
+  { image: "photos/photo_2026-07-16_22-02-21.jpg", caption: "✏️ НАПИШИТЕ ЗДЕСЬ ПОДПИСЬ К ФОТО" },
+  { image: "photos/photo_2026-07-18_21-08-59.jpg", caption: "✏️ НАПИШИТЕ ЗДЕСЬ ПОДПИСЬ К ФОТО" },
+  { image: "photos/photo_2026-07-23_18-28-26.jpg", caption: "✏️ НАПИШИТЕ ЗДЕСЬ ПОДПИСЬ К ФОТО" },
+  { image: "photos/photo_2026-08-03_22-42-54.jpg", caption: "✏️ НАПИШИТЕ ЗДЕСЬ ПОДПИСЬ К ФОТО" },
+  { image: "photos/photo_2026-08-04_21-09-54.jpg", caption: "✏️ НАПИШИТЕ ЗДЕСЬ ПОДПИСЬ К ФОТО" },
+  { image: "photos/photo_2026-08-10_16-33-48.jpg", caption: "✏️ НАПИШИТЕ ЗДЕСЬ ПОДПИСЬ К ФОТО" },
+  { image: "photos/photo_2026-08-13_19-41-34.jpg", caption: "✏️ НАПИШИТЕ ЗДЕСЬ ПОДПИСЬ К ФОТО" },
+  { image: "photos/photo_2026-08-15_13-33-51.jpg", caption: "✏️ НАПИШИТЕ ЗДЕСЬ ПОДПИСЬ К ФОТО" },
+  { image: "photos/photo_2026-08-22_21-30-13.jpg", caption: "✏️ НАПИШИТЕ ЗДЕСЬ ПОДПИСЬ К ФОТО" },
+  { image: "photos/photo_2026-08-28_20-07-15.jpg", caption: "✏️ НАПИШИТЕ ЗДЕСЬ ПОДПИСЬ К ФОТО" }
 ];
 
 /* =====================================
@@ -165,15 +165,13 @@ photoModalClose.addEventListener("click", closePhotoModal);
 photoModalOverlay.addEventListener("click", closePhotoModal);
 
 /* =====================================
-   АНИМАЦИЯ КОНВЕРТА И ПИСЬМА (ИСПРАВЛЕНО)
+   АНИМАЦИЯ КОНВЕРТА И ПИСЬМА
 ===================================== */
 envelope.addEventListener("click", () => {
   if (envelope.classList.contains("open")) return;
 
-  // 1. Получаем текущие координаты конверта на экране
   const rect = envelope.getBoundingClientRect();
 
-  // 2. Устанавливаем письму начальные координаты ВНУТРИ конверта
   letter.style.position = "fixed";
   letter.style.top = `${rect.top + 15}px`;
   letter.style.left = `${rect.left + (rect.width * 0.075)}px`;
@@ -185,13 +183,10 @@ envelope.addEventListener("click", () => {
   letter.style.transition = "all 0.8s cubic-bezier(0.4, 0, 0.2, 1)";
   letter.style.pointerEvents = "none";
 
-  // 3. Форсируем перерисовку для плавной анимации
   letter.offsetHeight;
 
-  // 4. Открываем клапан конверта
   envelope.classList.add("open");
 
-  // 5. С небольшой задержкой запускаем анимацию письма в центр экрана
   setTimeout(() => {
     letter.style.top = "50%";
     letter.style.left = "50%";
@@ -208,7 +203,6 @@ closeLetterBtn.addEventListener("click", (event) => {
   event.preventDefault();
   event.stopPropagation();
 
-  // 1. Возвращаем письмо в координаты конверта
   const rect = envelope.getBoundingClientRect();
   letter.style.top = `${rect.top + 15}px`;
   letter.style.left = `${rect.left + (rect.width * 0.075)}px`;
@@ -218,12 +212,10 @@ closeLetterBtn.addEventListener("click", (event) => {
   letter.style.zIndex = "2";
   letter.style.pointerEvents = "none";
 
-  // 2. Закрываем клапан
   setTimeout(() => {
     envelope.classList.remove("open");
     letter.style.opacity = "0";
     
-    // 3. Очищаем инлайн-стили после завершения анимации
     setTimeout(() => {
       letter.style = "";
     }, 800);
