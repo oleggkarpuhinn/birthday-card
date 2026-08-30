@@ -44,7 +44,7 @@ const PHOTOS = [
    ВОПРОСЫ
 ===================================== */
 const QUESTIONS = [
-  "Какое воспоминание обо мне первым приходит тебе в голову?",
+  "Ответь фотографией — какой момент с нами ты бы сохранила навсегда?",
   "Что тебе больше всего нравится в наших отношениях?",
   "Какой момент со мной тебе хотелось бы пережить ещё раз?",
   "Есть ли что-то, что ты давно хотела мне сказать?",
@@ -91,6 +91,13 @@ const photoModalOverlay = document.getElementById("photoModalOverlay");
 const photoModalClose = document.getElementById("photoModalClose");
 const modalImage = document.getElementById("modalImage");
 const modalCaption = document.getElementById("modalCaption");
+
+// Новые элементы для загрузки фото
+const photoUpload = document.getElementById("photoUpload");
+const photoInput = document.getElementById("photoInput");
+const photoPreview = document.getElementById("photoPreview");
+const previewImage = document.getElementById("previewImage");
+const photoRemoveBtn = document.getElementById("photoRemoveBtn");
 
 /* =====================================
    СТРАНИЦЫ
@@ -223,6 +230,63 @@ closeLetterBtn.addEventListener("click", (event) => {
 });
 
 /* =====================================
+   ЗАГРУЗКА ФОТО (для 1 вопроса)
+===================================== */
+let answerPhotoBase64 = null; // base64 выбранного фото
+
+// Сжатие фото через canvas
+function compressImage(file, maxWidth = 1200, quality = 0.75) {
+  return new Promise((resolve) => {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const img = new Image();
+      img.onload = () => {
+        const canvas = document.createElement("canvas");
+        let width = img.width;
+        let height = img.height;
+        
+        if (width > maxWidth) {
+          height = (height * maxWidth) / width;
+          width = maxWidth;
+        }
+        
+        canvas.width = width;
+        canvas.height = height;
+        const ctx = canvas.getContext("2d");
+        ctx.drawImage(img, 0, 0, width, height);
+        
+        // Возвращаем base64 строку
+        resolve(canvas.toDataURL("image/jpeg", quality));
+      };
+      img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
+// Обработка выбора файла
+photoInput.addEventListener("change", async (e) => {
+  const file = e.target.files[0];
+  if (!file) return;
+  
+  // Сжимаем фото
+  const compressed = await compressImage(file);
+  answerPhotoBase64 = compressed;
+  
+  // Показываем превью
+  previewImage.src = compressed;
+  photoPreview.style.display = "flex";
+});
+
+// Удаление фото
+photoRemoveBtn.addEventListener("click", () => {
+  answerPhotoBase64 = null;
+  photoInput.value = "";
+  photoPreview.style.display = "none";
+  previewImage.src = "";
+});
+
+/* =====================================
    НАВИГАЦИЯ
 ===================================== */
 continueBtn.addEventListener("click", (event) => {
@@ -257,12 +321,24 @@ const answers = new Array(QUESTIONS.length).fill("");
 function showQuestion() {
   questionCounter.textContent = `Вопрос ${currentQuestion + 1} из ${QUESTIONS.length}`;
   questionText.textContent = QUESTIONS[currentQuestion];
-  answerInput.value = answers[currentQuestion];
+  
+  // КЛЮЧЕВОЕ: переключаем между текстом и фото
+  if (currentQuestion === 0) {
+    // Первый вопрос — показываем загрузку фото
+    answerInput.style.display = "none";
+    photoUpload.style.display = "block";
+  } else {
+    // Остальные — показываем текст
+    answerInput.style.display = "block";
+    photoUpload.style.display = "none";
+    answerInput.value = answers[currentQuestion];
+  }
   
   previousQuestionBtn.style.visibility = currentQuestion === 0 ? "hidden" : "visible";
   nextQuestionBtn.textContent = currentQuestion === QUESTIONS.length - 1 ? "Закончить →" : "Далее →";
 }
 
+// Сохранение текстовых ответов
 answerInput.addEventListener("input", () => {
   answers[currentQuestion] = answerInput.value;
 });
@@ -275,7 +351,11 @@ previousQuestionBtn.addEventListener("click", () => {
 });
 
 nextQuestionBtn.addEventListener("click", () => {
-  answers[currentQuestion] = answerInput.value;
+  // Сохраняем текущий ответ
+  if (currentQuestion !== 0) {
+    answers[currentQuestion] = answerInput.value;
+  }
+  
   if (currentQuestion < QUESTIONS.length - 1) {
     currentQuestion++;
     showQuestion();
@@ -284,12 +364,16 @@ nextQuestionBtn.addEventListener("click", () => {
   }
 });
 
+/* =====================================
+   ОТПРАВКА ОТВЕТОВ + ФОТО
+===================================== */
 async function sendAnswersToGoogleSheets() {
   nextQuestionBtn.disabled = true;
   nextQuestionBtn.textContent = "Сохраняем...";
 
   const data = {
     answers: answers,
+    photoBase64: answerPhotoBase64, // base64 фото для 1 вопроса (или null)
     submittedAt: new Date().toLocaleString("ru-RU")
   };
 
