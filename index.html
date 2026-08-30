@@ -2,7 +2,6 @@
 <html lang="ru">
 
 <head>
-
   <meta charset="UTF-8">
 
   <meta
@@ -16,7 +15,6 @@
     rel="stylesheet"
     href="style.css"
   >
-
 </head>
 
 
@@ -31,7 +29,7 @@
 
 
     <!-- =========================
-         ПЕРВАЯ СТРАНИЦА
+         СТРАНИЦА 1 — КОНВЕРТ
     ========================== -->
 
     <section
@@ -150,7 +148,7 @@
 
 
     <!-- =========================
-         ФОТОГРАФИИ 1
+         ФОТО 1
     ========================== -->
 
     <section
@@ -171,8 +169,8 @@
 
 
         <p class="section-description">
-          Иногда фотографии сохраняют чуть больше,
-          чем просто один момент.
+          Иногда фотографии сохраняют
+          чуть больше, чем просто один момент.
         </p>
 
       </div>
@@ -209,7 +207,7 @@
 
 
     <!-- =========================
-         ФОТОГРАФИИ 2
+         ФОТО 2
     ========================== -->
 
     <section
@@ -379,7 +377,7 @@
 
 
     <!-- =========================
-         ОКНО ПРОСМОТРА ФОТО
+         ОТКРЫТОЕ ФОТО
     ========================== -->
 
     <div
@@ -387,57 +385,39 @@
       id="photoModal"
     >
 
-      <div class="modal-overlay"></div>
+      <div
+        class="photo-modal-backdrop"
+        id="photoModalBackdrop"
+      ></div>
 
 
-      <div class="modal-content">
+      <div class="photo-modal-content">
 
         <button
-          class="modal-close"
-          id="modalClose"
+          class="photo-modal-close"
+          id="photoModalClose"
           type="button"
+          aria-label="Закрыть"
         >
           ×
         </button>
 
 
-        <button
-          class="modal-arrow modal-prev"
-          id="modalPrev"
-          type="button"
+        <img
+          id="modalImage"
+          src=""
+          alt="Воспоминание"
         >
-          ←
-        </button>
 
 
-        <div class="modal-polaroid">
-
-          <img
-            id="modalImage"
-            src=""
-            alt="Воспоминание"
-          >
-
-
-          <p
-            id="modalCaption"
-          ></p>
-
-        </div>
-
-
-        <button
-          class="modal-arrow modal-next"
-          id="modalNext"
-          type="button"
-        >
-          →
-        </button>
+        <p
+          class="photo-modal-caption"
+          id="modalCaption"
+        ></p>
 
       </div>
 
     </div>
-
 
   </div>
 
