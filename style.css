@@ -6,11 +6,9 @@
   box-sizing: border-box;
 }
 
-
 html {
   scroll-behavior: smooth;
 }
-
 
 body {
   margin: 0;
@@ -46,10 +44,16 @@ body {
 }
 
 
+/* =====================================
+   ФОНОВАЯ ТЕКСТУРА
+===================================== */
+
 .background-texture {
   position: fixed;
 
   inset: 0;
+
+  z-index: 0;
 
   pointer-events: none;
 
@@ -66,8 +70,14 @@ body {
 }
 
 
+/* =====================================
+   СВЕТОВЫЕ ПЯТНА
+===================================== */
+
 .light {
   position: fixed;
+
+  z-index: 0;
 
   width: 500px;
   height: 500px;
@@ -81,14 +91,12 @@ body {
   opacity: 0.25;
 }
 
-
 .light-1 {
   top: -200px;
   left: -150px;
 
   background: #d7a77d;
 }
-
 
 .light-2 {
   right: -200px;
@@ -127,13 +135,17 @@ button {
     background 0.2s ease;
 }
 
-
 button:hover {
   transform:
     translateY(-2px);
 
   background:
     #a8755c;
+}
+
+button:active {
+  transform:
+    translateY(0);
 }
 
 
@@ -149,7 +161,6 @@ button:hover {
     #f5eee7;
 }
 
-
 .secondary-button:hover {
   background:
     rgba(255,255,255,0.08);
@@ -157,10 +168,14 @@ button:hover {
 
 
 /* =====================================
-   КОНВЕРТ
+   ПЕРВАЯ СТРАНИЦА
 ===================================== */
 
 .intro {
+  position: relative;
+
+  z-index: 2;
+
   min-height: 100vh;
 
   display: flex;
@@ -257,6 +272,8 @@ button:hover {
 }
 
 
+/* ЗАДНЯЯ ЧАСТЬ */
+
 .envelope-back {
   position: absolute;
 
@@ -274,12 +291,16 @@ button:hover {
 }
 
 
+/* ПЕРЕДНЯЯ ЧАСТЬ */
+
 .envelope-front {
   position: absolute;
 
   inset: 0;
 
   z-index: 4;
+
+  pointer-events: none;
 
   clip-path:
     polygon(
@@ -295,6 +316,8 @@ button:hover {
 }
 
 
+/* КЛАПАН */
+
 .envelope-flap {
   position: absolute;
 
@@ -306,6 +329,8 @@ button:hover {
   height: 55%;
 
   z-index: 5;
+
+  pointer-events: none;
 
   transform-origin:
     top;
@@ -326,6 +351,8 @@ button:hover {
 }
 
 
+/* ПЕЧАТЬ */
+
 .seal {
   position: absolute;
 
@@ -333,6 +360,8 @@ button:hover {
   top: 45%;
 
   z-index: 6;
+
+  pointer-events: none;
 
   transform:
     translate(
@@ -361,6 +390,10 @@ button:hover {
     opacity 0.4s ease;
 }
 
+
+/* =====================================
+   ПИСЬМО
+===================================== */
 
 .letter {
   position: absolute;
@@ -405,7 +438,7 @@ button:hover {
   width: 100%;
 
   margin-top:
-    20px;
+    15px;
 }
 
 
@@ -415,6 +448,12 @@ button:hover {
 
   border-color:
     rgba(75,58,48,0.3);
+}
+
+
+.letter-paper .secondary-button:hover {
+  background:
+    rgba(75,58,48,0.06);
 }
 
 
@@ -439,7 +478,9 @@ button:hover {
 }
 
 
-/* ОТКРЫТЫЙ КОНВЕРТ */
+/* =====================================
+   ОТКРЫТЫЙ КОНВЕРТ
+===================================== */
 
 .envelope-wrapper.open
 .envelope-flap {
@@ -466,8 +507,20 @@ button:hover {
 }
 
 
+/* Чтобы кнопки письма были нажимаемыми */
+
+.envelope-wrapper.open
+.letter-paper {
+  position: relative;
+
+  z-index: 10;
+
+  pointer-events: auto;
+}
+
+
 /* =====================================
-   ФОТОГРАФИИ
+   СТРАНИЦЫ С ФОТО
 ===================================== */
 
 .memories-section {
@@ -492,6 +545,10 @@ button:hover {
   display: block;
 }
 
+
+/* =====================================
+   ЗАГОЛОВОК ФОТОГРАФИЙ
+===================================== */
 
 .memories-header {
   max-width:
@@ -536,6 +593,10 @@ button:hover {
 }
 
 
+/* =====================================
+   ГАЛЕРЕЯ POLAROID
+===================================== */
+
 .polaroid-gallery {
   width:
     min(
@@ -565,7 +626,13 @@ button:hover {
 }
 
 
+/* =====================================
+   ОДНА ФОТОГРАФИЯ
+===================================== */
+
 .polaroid {
+  position: relative;
+
   padding:
     12px
     12px
@@ -589,6 +656,9 @@ button:hover {
   transition:
     transform
     0.25s ease;
+
+  cursor:
+    default;
 }
 
 
@@ -629,8 +699,15 @@ button:hover {
 
   font-style:
     italic;
+
+  font-size:
+    16px;
 }
 
+
+/* =====================================
+   НАВИГАЦИЯ МЕЖДУ СТРАНИЦАМИ
+===================================== */
 
 .page-navigation {
   display: flex;
@@ -650,7 +727,7 @@ button:hover {
 
 
 /* =====================================
-   ВОПРОСЫ
+   СТРАНИЦА ВОПРОСОВ
 ===================================== */
 
 .questions-section,
@@ -679,6 +756,10 @@ button:hover {
   display: flex;
 }
 
+
+/* =====================================
+   КАРТОЧКА ВОПРОСА И ФИНАЛА
+===================================== */
 
 .question-card,
 .final-card {
@@ -750,6 +831,10 @@ button:hover {
 }
 
 
+/* =====================================
+   ПОЛЕ ДЛЯ ОТВЕТА
+===================================== */
+
 #answerInput {
   width: 100%;
 
@@ -781,13 +866,30 @@ button:hover {
   background:
     rgba(255,255,255,0.6);
 
-  font:
+  font-family:
     inherit;
 
   font-size:
     17px;
+
+  line-height:
+    1.6;
 }
 
+
+#answerInput:focus {
+  border-color:
+    #95664f;
+
+  box-shadow:
+    0 0 0 3px
+    rgba(149,102,79,0.15);
+}
+
+
+/* =====================================
+   КНОПКИ ВОПРОСОВ
+===================================== */
 
 .question-navigation {
   display: flex;
@@ -806,9 +908,61 @@ button:hover {
 }
 
 
+/* Вторичные кнопки внутри карточки */
+
+.question-card
+.secondary-button,
+.final-card
+.secondary-button {
+  color:
+    #4b3a30;
+
+  border-color:
+    rgba(75,58,48,0.3);
+}
+
+
+.question-card
+.secondary-button:hover,
+.final-card
+.secondary-button:hover {
+  background:
+    rgba(75,58,48,0.06);
+}
+
+
+/* =====================================
+   ФИНАЛЬНАЯ СТРАНИЦА
+===================================== */
+
 .final-card p {
   line-height:
     1.7;
+
+  font-size:
+    18px;
+}
+
+
+/* =====================================
+   АДАПТАЦИЯ ДЛЯ ПЛАНШЕТОВ
+===================================== */
+
+@media (
+  max-width: 900px
+) {
+
+  .polaroid-gallery {
+    grid-template-columns:
+      repeat(
+        2,
+        minmax(
+          0,
+          1fr
+        )
+      );
+  }
+
 }
 
 
@@ -829,9 +983,21 @@ button:hover {
   }
 
 
+  .intro h1 {
+    font-size:
+      42px;
+  }
+
+
   .envelope {
     height:
       230px;
+  }
+
+
+  .letter-paper {
+    padding:
+      18px;
   }
 
 
@@ -843,12 +1009,28 @@ button:hover {
   }
 
 
+  .memories-section {
+    padding:
+      60px
+      18px;
+  }
+
+
+  .memories-header {
+    margin-bottom:
+      40px;
+  }
+
+
   .polaroid-gallery {
     grid-template-columns:
       1fr;
 
     max-width:
       330px;
+
+    gap:
+      35px;
   }
 
 
@@ -859,6 +1041,37 @@ button:hover {
 
     align-items:
       stretch;
+  }
+
+
+  .page-navigation button,
+  .question-navigation button {
+    width:
+      100%;
+  }
+
+
+  .questions-section,
+  .final-section {
+    padding:
+      20px;
+  }
+
+
+  .question-card,
+  .final-card {
+    padding:
+      30px
+      20px;
+
+    border-radius:
+      18px;
+  }
+
+
+  #answerInput {
+    min-height:
+      180px;
   }
 
 }
