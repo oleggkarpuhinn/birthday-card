@@ -53,8 +53,6 @@ body {
 
   pointer-events: none;
 
-  z-index: 0;
-
   opacity: 0.15;
 
   background-image:
@@ -65,6 +63,8 @@ body {
 
   background-size:
     8px 8px;
+
+  z-index: 0;
 }
 
 
@@ -80,9 +80,9 @@ body {
 
   pointer-events: none;
 
-  z-index: 0;
-
   opacity: 0.25;
+
+  z-index: 0;
 }
 
 
@@ -125,10 +125,17 @@ button {
 
   font-size: 16px;
 
+  position: relative;
+
+  z-index: 20;
+
+  pointer-events: auto;
+
   transition:
     transform 0.2s ease,
     opacity 0.2s ease,
-    background 0.2s ease;
+    background 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 
@@ -138,6 +145,10 @@ button:hover {
 
   background:
     #a8755c;
+
+  box-shadow:
+    0 8px 20px
+    rgba(0,0,0,0.18);
 }
 
 
@@ -147,7 +158,7 @@ button:hover {
 
   border:
     1px solid
-    rgba(255,255,255,0.3);
+    rgba(255,255,255,0.45);
 
   color:
     #f5eee7;
@@ -161,7 +172,7 @@ button:hover {
 
 
 /* =====================================
-   СТРАНИЦА С КОНВЕРТОМ
+   КОНВЕРТ — ПЕРВАЯ СТРАНИЦА
 ===================================== */
 
 .intro {
@@ -186,7 +197,7 @@ button:hover {
 .intro-content {
   position: relative;
 
-  z-index: 2;
+  z-index: 10;
 
   width:
     min(700px, 100%);
@@ -206,10 +217,6 @@ button:hover {
 
   opacity:
     0.7;
-
-  transition:
-    opacity 0.4s ease,
-    transform 0.4s ease;
 }
 
 
@@ -230,18 +237,10 @@ button:hover {
 
   font-weight:
     400;
-
-  transition:
-    opacity 0.4s ease,
-    transform 0.4s ease;
 }
 
 
 .hint {
-  position: relative;
-
-  z-index: 1;
-
   margin-bottom:
     35px;
 
@@ -249,25 +248,7 @@ button:hover {
     0.75;
 
   transition:
-    opacity 0.4s ease,
-    transform 0.4s ease;
-}
-
-
-/* =====================================
-   ПРИ ОТКРЫТИИ ПИСЬМА СКРЫВАЕМ
-   ВСЕ НАДПИСИ СЗАДИ
-===================================== */
-
-.intro.letter-open h1,
-.intro.letter-open .small-text,
-.intro.letter-open .hint {
-  opacity: 0;
-
-  transform:
-    translateY(-15px);
-
-  pointer-events: none;
+    opacity 0.3s ease;
 }
 
 
@@ -276,16 +257,16 @@ button:hover {
 ===================================== */
 
 .envelope-wrapper {
-  position: relative;
-
-  z-index: 5;
-
   display: inline-block;
 
   cursor: pointer;
 
   perspective:
     1200px;
+
+  position: relative;
+
+  z-index: 20;
 }
 
 
@@ -300,6 +281,8 @@ button:hover {
 
   height:
     270px;
+
+  z-index: 20;
 }
 
 
@@ -307,6 +290,8 @@ button:hover {
   position: absolute;
 
   inset: 0;
+
+  z-index: 1;
 
   background:
     #b77d5e;
@@ -338,6 +323,8 @@ button:hover {
 
   background:
     #9e674e;
+
+  pointer-events: none;
 }
 
 
@@ -365,6 +352,8 @@ button:hover {
 
   background:
     #c18b6b;
+
+  pointer-events: none;
 
   transition:
     transform
@@ -403,6 +392,8 @@ button:hover {
   color:
     #f8dfb5;
 
+  pointer-events: none;
+
   transition:
     opacity 0.4s ease;
 }
@@ -426,16 +417,13 @@ button:hover {
     translateX(-50%);
 
   transition:
-    transform 0.9s ease,
-    z-index 0.1s ease;
+    transform 0.9s ease;
+
+  pointer-events: none;
 }
 
 
 .letter-paper {
-  position: relative;
-
-  z-index: 20;
-
   padding:
     25px;
 
@@ -451,20 +439,24 @@ button:hover {
   box-shadow:
     0 15px 30px
     rgba(0,0,0,0.25);
+
+  pointer-events: auto;
 }
 
 
 .letter-paper button {
-  position: relative;
-
-  z-index: 30;
-
   display: block;
 
   width: 100%;
 
   margin-top:
-    20px;
+    15px;
+
+  position: relative;
+
+  z-index: 100;
+
+  cursor: pointer;
 }
 
 
@@ -473,7 +465,7 @@ button:hover {
     #4b3a30;
 
   border-color:
-    rgba(75,58,48,0.3);
+    rgba(75,58,48,0.4);
 }
 
 
@@ -502,11 +494,6 @@ button:hover {
    ОТКРЫТЫЙ КОНВЕРТ
 ===================================== */
 
-.envelope-wrapper.open {
-  z-index: 50;
-}
-
-
 .envelope-wrapper.open
 .envelope-flap {
   transform:
@@ -524,11 +511,23 @@ button:hover {
 
 .envelope-wrapper.open
 .letter {
-  z-index: 100;
-
   transform:
     translateX(-50%)
     translateY(-190px);
+
+  z-index: 100;
+}
+
+
+/* При открытии прячем надписи за письмом */
+
+.envelope-wrapper.open {
+  z-index: 100;
+}
+
+
+.envelope-wrapper.open ~ * {
+  pointer-events: none;
 }
 
 
@@ -541,7 +540,7 @@ button:hover {
 
   position: relative;
 
-  z-index: 2;
+  z-index: 5;
 
   min-height: 100vh;
 
@@ -602,17 +601,9 @@ button:hover {
 }
 
 
-.loading-text {
-  grid-column:
-    1 / -1;
-
-  font-size:
-    18px;
-
-  opacity:
-    0.8;
-}
-
+/* =====================================
+   ГАЛЕРЕЯ
+===================================== */
 
 .polaroid-gallery {
   width:
@@ -644,8 +635,6 @@ button:hover {
 
 
 .polaroid {
-  position: relative;
-
   padding:
     12px
     12px
@@ -669,6 +658,8 @@ button:hover {
   transition:
     transform
     0.25s ease;
+
+  position: relative;
 }
 
 
@@ -712,6 +703,10 @@ button:hover {
 }
 
 
+/* =====================================
+   НАВИГАЦИЯ ФОТО
+===================================== */
+
 .page-navigation {
   display: flex;
 
@@ -730,7 +725,7 @@ button:hover {
 
 
 /* =====================================
-   ВОПРОСЫ И ФИНАЛ
+   ВОПРОСЫ
 ===================================== */
 
 .questions-section,
@@ -739,7 +734,7 @@ button:hover {
 
   position: relative;
 
-  z-index: 3;
+  z-index: 10;
 
   min-height: 100vh;
 
@@ -795,6 +790,10 @@ button:hover {
 
   text-align:
     center;
+
+  position: relative;
+
+  z-index: 20;
 }
 
 
@@ -829,6 +828,10 @@ button:hover {
     1.35;
 }
 
+
+/* =====================================
+   ПОЛЕ ОТВЕТА
+===================================== */
 
 #answerInput {
   width: 100%;
@@ -869,6 +872,16 @@ button:hover {
 }
 
 
+#answerInput:focus {
+  border-color:
+    #95664f;
+
+  box-shadow:
+    0 0 0 3px
+    rgba(149,102,79,0.15);
+}
+
+
 .question-navigation {
   display: flex;
 
@@ -886,9 +899,138 @@ button:hover {
 }
 
 
+/* =====================================
+   ФИНАЛЬНАЯ СТРАНИЦА
+===================================== */
+
 .final-card p {
   line-height:
     1.7;
+}
+
+
+.final-navigation {
+  display: flex;
+
+  justify-content:
+    center;
+
+  align-items:
+    center;
+
+  gap:
+    18px;
+
+  margin-top:
+    35px;
+
+  flex-wrap:
+    wrap;
+
+  position: relative;
+
+  z-index: 100;
+}
+
+
+/* КНОПКИ ФИНАЛА */
+
+.final-navigation button {
+  display: inline-flex !important;
+
+  align-items: center;
+
+  justify-content: center;
+
+  min-width: 230px;
+
+  min-height: 54px;
+
+  padding:
+    15px
+    24px;
+
+  border-radius:
+    10px;
+
+  font-family:
+    inherit;
+
+  font-size:
+    16px;
+
+  font-weight:
+    500;
+
+  cursor:
+    pointer !important;
+
+  pointer-events:
+    auto !important;
+
+  position:
+    relative;
+
+  z-index:
+    1000 !important;
+
+  opacity:
+    1 !important;
+
+  visibility:
+    visible !important;
+}
+
+
+/* ПЕРВАЯ КНОПКА */
+
+#finalBackBtn {
+  background:
+    #95664f !important;
+
+  color:
+    #fff8f1 !important;
+
+  border:
+    1px solid
+    #95664f !important;
+}
+
+
+#finalBackBtn:hover {
+  background:
+    #a8755c !important;
+
+  transform:
+    translateY(-3px);
+}
+
+
+/* ВТОРАЯ КНОПКА */
+
+#finalPhotosBtn {
+  background:
+    #4b3a30 !important;
+
+  color:
+    #fff8f1 !important;
+
+  border:
+    1px solid
+    #4b3a30 !important;
+
+  box-shadow:
+    0 8px 20px
+    rgba(0,0,0,0.18);
+}
+
+
+#finalPhotosBtn:hover {
+  background:
+    #38271f !important;
+
+  transform:
+    translateY(-3px);
 }
 
 
@@ -899,6 +1041,7 @@ button:hover {
 @media (
   max-width: 600px
 ) {
+
 
   .intro {
     align-items:
@@ -933,12 +1076,35 @@ button:hover {
 
 
   .page-navigation,
-  .question-navigation {
+  .question-navigation,
+  .final-navigation {
     flex-direction:
       column;
 
     align-items:
       stretch;
+
+    width:
+      100%;
   }
+
+
+  .page-navigation button,
+  .question-navigation button,
+  .final-navigation button {
+    width:
+      100%;
+
+    min-width:
+      0;
+  }
+
+
+  .final-card {
+    padding:
+      30px
+      20px;
+  }
+
 
 }
