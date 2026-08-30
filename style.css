@@ -319,21 +319,22 @@ button:hover {
 }
 
 /* =====================================
-   ГАЛЕРЕЯ (ОБНОВЛЕНО ДЛЯ СИММЕТРИИ)
+   ГАЛЕРЕЯ (ПЕРЕКЛЮЧЕНО НА FLEXBOX)
 ===================================== */
 .polaroid-gallery {
-  width: min(1200px, 100%);
+  width: 100%;
+  max-width: 1100px;
   margin: 0 auto;
-  display: grid;
-  /* Фиксированный размер ячейки не дает фото растягиваться, а justify-content центрирует последний ряд */
-  grid-template-columns: repeat(auto-fill, minmax(240px, 250px));
-  gap: 45px;
-  justify-content: center; /* Ключевое свойство: центрирует 3 последние фотки */
-  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; /* КЛЮЧЕВОЕ: центрирует последний ряд */
+  gap: 40px;
+  align-items: start;
 }
 
 .polaroid {
   position: relative;
+  flex: 0 0 250px; /* Фиксированная ширина 250px */
   padding: 12px 12px 25px;
   color: #4b3a30;
   background: #f6f0e6;
@@ -357,10 +358,10 @@ button:hover {
 }
 
 /* =====================================
-   ПОДПИСИ К ФОТО (ОБНОВЛЕНО)
+   ПОДПИСИ К ФОТО
 ===================================== */
 .polaroid-caption {
-  min-height: 45px; /* Увеличено, чтобы влезало 1-2 строки текста */
+  min-height: 45px;
   margin: 15px 0 0;
   padding: 0 5px;
   text-align: center;
@@ -540,8 +541,11 @@ button:hover {
   }
 
   .polaroid-gallery {
-    grid-template-columns: 1fr;
-    max-width: 300px;
+    gap: 30px;
+  }
+
+  .polaroid {
+    flex: 0 0 280px; /* На телефоне чуть шире */
   }
 
   .page-navigation,
