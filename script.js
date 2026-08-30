@@ -2,28 +2,12 @@
    НАСТРОЙКИ GITHUB
 ===================================== */
 
-/*
-  ВАЖНО:
+const GITHUB_OWNER =
+  "olegkarpukhin";
 
-  На случай различий в написании username
-  пробуем оба варианта.
 
-  Рабочий репозиторий будет найден автоматически.
-*/
-
-const GITHUB_REPOSITORIES = [
-
-  {
-    owner: "oleggkarpuhinn",
-    repository: "birthday-card"
-  },
-
-  {
-    owner: "olegkarpukhin",
-    repository: "birthday-card"
-  }
-
-];
+const GITHUB_REPOSITORY =
+  "birthday-card";
 
 
 const PHOTOS_FOLDER =
@@ -57,13 +41,6 @@ const QUESTIONS = [
   "И последнее: что ты хочешь сказать мне прямо сейчас?"
 
 ];
-
-
-/* =====================================
-   КОЛИЧЕСТВО ФОТО НА СТРАНИЦЕ
-===================================== */
-
-const PHOTOS_PER_PAGE = 15;
 
 
 /* =====================================
@@ -150,311 +127,230 @@ const finalBackBtn =
   document.getElementById("finalBackBtn");
 
 
+const finalPhotosBtn =
+  document.getElementById("finalPhotosBtn");
+
+
 /* =====================================
-   ЗАГРУЗКА ВСЕХ ФОТОГРАФИЙ ИЗ GITHUB
+   ЗАГРУЗКА ФОТОГРАФИЙ ИЗ GITHUB
 ===================================== */
 
 async function loadPhotos() {
 
 
-  /*
-    Очищаем галереи
-  */
-
-  gallery1.innerHTML = "";
-
-  gallery2.innerHTML = "";
+  const apiUrl =
+    `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPOSITORY}/contents/${PHOTOS_FOLDER}`;
 
 
-  let images = null;
+  try {
 
 
-  /*
-    Пробуем найти репозиторий
-  */
-
-  for (
-
-    const github of
-    GITHUB_REPOSITORIES
-
-  ) {
+    const response =
+      await fetch(apiUrl);
 
 
-    const apiUrl =
+    if (!response.ok) {
 
-      `https://api.github.com/repos/${github.owner}/${github.repository}/contents/${PHOTOS_FOLDER}?ref=main`;
-
-
-    try {
-
-
-      const response =
-        await fetch(
-
-          apiUrl,
-
-          {
-            cache: "no-store"
-          }
-
-        );
-
-
-      if (
-
-        !response.ok
-
-      ) {
-
-        continue;
-
-      }
-
-
-      const files =
-        await response.json();
-
-
-      if (
-
-        Array.isArray(files)
-
-      ) {
-
-
-        images =
-
-          files.filter(
-
-            file =>
-
-              file.type === "file" &&
-
-              /\.(jpg|jpeg|png|webp|gif)$/i.test(
-                file.name
-              )
-
-          );
-
-
-        if (
-
-          images.length > 0
-
-        ) {
-
-          console.log(
-
-            "Фотографии найдены:",
-
-            images.length,
-
-            github.owner
-
-          );
-
-
-          break;
-
-        }
-
-      }
-
-    }
-
-    catch (
-
-      error
-
-    ) {
-
-      console.error(
-
-        "Ошибка загрузки:",
-
-        error
-
+      throw new Error(
+        `GitHub вернул ошибку ${response.status}`
       );
 
     }
 
+
+    const files =
+      await response.json();
+
+
+    const images =
+      files
+        .filter(
+          (file) => {
+
+            return (
+              file.type === "file" &&
+              /\.(jpg|jpeg|png|webp|gif)$/i.test(
+                file.name
+              )
+            );
+
+          }
+        )
+        .sort(
+          (a, b) => {
+
+            return a.name.localeCompare(
+              b.name,
+              undefined,
+              {
+                numeric: true
+              }
+            );
+
+          }
+        );
+
+
+    console.log(
+      "Найдено фотографий:",
+      images.length
+    );
+
+
+    gallery1.innerHTML =
+      "";
+
+
+    gallery2.innerHTML =
+      "";
+
+
+    if (
+      images.length === 0
+    ) {
+
+      gallery1.innerHTML = `
+
+        <p class="photos-error">
+
+          Фотографии пока не найдены.
+          Проверь папку
+          photos/photos
+
+        </p>
+
+      `;
+
+
+      return;
+
+    }
+
+
+    /* =====================================
+       ПЕРВЫЕ 15 ФОТО
+    ===================================== */
+
+    images
+      .slice(
+        0,
+        15
+      )
+      .forEach(
+        (
+          photo,
+          index
+        ) => {
+
+
+          gallery1.appendChild(
+
+            createPolaroid(
+              photo.download_url,
+              index,
+              photo.name
+            )
+
+          );
+
+
+        }
+      );
+
+
+    /* =====================================
+       СЛЕДУЮЩИЕ 15 ФОТО
+    ===================================== */
+
+    images
+      .slice(
+        15,
+        30
+      )
+      .forEach(
+        (
+          photo,
+          index
+        ) => {
+
+
+          gallery2.appendChild(
+
+            createPolaroid(
+              photo.download_url,
+              index + 15,
+              photo.name
+            )
+
+          );
+
+
+        }
+      );
+
+
+    /* Если фотографий меньше 16 */
+
+    if (
+      images.length <= 15
+    ) {
+
+      gallery2.innerHTML = `
+
+        <p class="photos-error">
+
+          Здесь пока больше фотографий нет ❤️
+
+        </p>
+
+      `;
+
+    }
+
+
   }
 
-
-  /*
-    Если фотографии не найдены
-  */
-
-  if (
-
-    !images ||
-
-    images.length === 0
-
+  catch (
+    error
   ) {
+
+
+    console.error(
+      "Ошибка загрузки фотографий:",
+      error
+    );
 
 
     gallery1.innerHTML = `
 
-      <p class="photo-error">
+      <p class="photos-error">
 
         Не удалось загрузить фотографии.
+
+        <br><br>
+
+        Проверь:
+
+        <br>
+
+        1. Репозиторий должен быть Public
+
+        <br>
+
+        2. Фотографии должны лежать в папке
+        photos/photos
+
+        <br>
+
+        3. Формат должен быть JPG, JPEG, PNG или WEBP
 
       </p>
 
     `;
 
 
-    return;
-
   }
 
-
-  /*
-    Сортировка файлов.
-
-    Важно:
-    natural sort корректно сортирует
-    числа в названиях файлов.
-  */
-
-  images.sort(
-
-    (
-      first,
-      second
-    ) =>
-
-      first.name.localeCompare(
-
-        second.name,
-
-        "ru",
-
-        {
-          numeric: true,
-          sensitivity: "base"
-        }
-
-      )
-
-  );
-
-
-  /*
-    ПЕРВЫЕ 15 ФОТО
-  */
-
-  const firstPage =
-
-    images.slice(
-
-      0,
-
-      PHOTOS_PER_PAGE
-
-    );
-
-
-  firstPage.forEach(
-
-    (
-      photo,
-      index
-    ) => {
-
-
-      gallery1.appendChild(
-
-        createPolaroid(
-
-          photo.download_url,
-
-          index
-
-        )
-
-      );
-
-    }
-
-  );
-
-
-  /*
-    ВСЕ ОСТАЛЬНЫЕ ФОТО
-
-    То есть если фотографий больше 30,
-    они тоже будут добавлены.
-
-    Все фотографии после первых 15
-    попадут на вторую страницу.
-  */
-
-  const secondPage =
-
-    images.slice(
-
-      PHOTOS_PER_PAGE
-
-    );
-
-
-  secondPage.forEach(
-
-    (
-      photo,
-      index
-    ) => {
-
-
-      gallery2.appendChild(
-
-        createPolaroid(
-
-          photo.download_url,
-
-          index + PHOTOS_PER_PAGE
-
-        )
-
-      );
-
-    }
-
-  );
-
-
-  /*
-    Если фотографий меньше 16,
-    кнопка второй страницы не нужна
-  */
-
-  if (
-
-    secondPage.length === 0
-
-  ) {
-
-    photosPage2Btn.style.display =
-      "none";
-
-  }
-
-  else {
-
-    photosPage2Btn.style.display =
-      "inline-block";
-
-  }
-
-
-  console.log(
-
-    `Загружено фотографий: ${images.length}`
-
-  );
 
 }
 
@@ -464,11 +360,9 @@ async function loadPhotos() {
 ===================================== */
 
 function createPolaroid(
-
   imageUrl,
-
-  index
-
+  index,
+  fileName
 ) {
 
 
@@ -480,21 +374,23 @@ function createPolaroid(
 
     "-2deg",
 
-    "4deg",
+    "5deg",
 
     "-3deg",
 
     "2deg",
 
-    "5deg",
+    "-5deg",
 
-    "-5deg"
+    "4deg"
 
   ];
 
 
   const polaroid =
-    document.createElement("article");
+    document.createElement(
+      "article"
+    );
 
 
   polaroid.className =
@@ -512,15 +408,6 @@ function createPolaroid(
 
   );
 
-
-  /*
-    ПОДПИСИ.
-
-    Пока оставляем пустыми,
-    как ты просил.
-
-    Позже можно будет добавить.
-  */
 
   polaroid.innerHTML = `
 
@@ -540,6 +427,7 @@ function createPolaroid(
 
   return polaroid;
 
+
 }
 
 
@@ -548,42 +436,32 @@ function createPolaroid(
 ===================================== */
 
 envelope.addEventListener(
-
   "click",
-
   () => {
 
 
     envelope.classList.add(
-
       "open"
-
     );
 
 
     const hint =
-
       document.querySelector(
-
         ".hint"
-
       );
 
 
     if (
-
       hint
-
     ) {
-
 
       hint.style.opacity =
         "0";
 
     }
 
-  }
 
+  }
 );
 
 
@@ -592,57 +470,45 @@ envelope.addEventListener(
 ===================================== */
 
 closeLetterBtn.addEventListener(
-
   "click",
-
-  event => {
+  (event) => {
 
 
     event.stopPropagation();
 
 
     envelope.classList.remove(
-
       "open"
-
     );
 
 
     const hint =
-
       document.querySelector(
-
         ".hint"
-
       );
 
 
     if (
-
       hint
-
     ) {
-
 
       hint.style.opacity =
         "1";
 
     }
 
-  }
 
+  }
 );
 
 
 /* =====================================
-   ПЕРЕХОД К ФОТО
+   ПЕРЕХОД К ФОТОГРАФИЯМ
 ===================================== */
 
 continueBtn.addEventListener(
-
   "click",
-
-  event => {
+  (event) => {
 
 
     event.stopPropagation();
@@ -653,9 +519,7 @@ continueBtn.addEventListener(
 
 
     memoriesSection1.classList.add(
-
       "show"
-
     );
 
 
@@ -667,8 +531,8 @@ continueBtn.addEventListener(
 
     });
 
-  }
 
+  }
 );
 
 
@@ -677,16 +541,12 @@ continueBtn.addEventListener(
 ===================================== */
 
 backToLetterBtn.addEventListener(
-
   "click",
-
   () => {
 
 
     memoriesSection1.classList.remove(
-
       "show"
-
     );
 
 
@@ -702,8 +562,8 @@ backToLetterBtn.addEventListener(
 
     });
 
-  }
 
+  }
 );
 
 
@@ -712,23 +572,17 @@ backToLetterBtn.addEventListener(
 ===================================== */
 
 photosPage2Btn.addEventListener(
-
   "click",
-
   () => {
 
 
     memoriesSection1.classList.remove(
-
       "show"
-
     );
 
 
     memoriesSection2.classList.add(
-
       "show"
-
     );
 
 
@@ -740,8 +594,8 @@ photosPage2Btn.addEventListener(
 
     });
 
-  }
 
+  }
 );
 
 
@@ -750,23 +604,17 @@ photosPage2Btn.addEventListener(
 ===================================== */
 
 photosPage1Btn.addEventListener(
-
   "click",
-
   () => {
 
 
     memoriesSection2.classList.remove(
-
       "show"
-
     );
 
 
     memoriesSection1.classList.add(
-
       "show"
-
     );
 
 
@@ -778,38 +626,28 @@ photosPage1Btn.addEventListener(
 
     });
 
-  }
 
+  }
 );
 
 
 /* =====================================
-   ПЕРЕХОД К ВОПРОСАМ
+   ФОТО → ВОПРОСЫ
 ===================================== */
 
 questionsStartBtn.addEventListener(
-
   "click",
-
   () => {
 
 
     memoriesSection2.classList.remove(
-
       "show"
-
     );
 
 
     questionsSection.classList.add(
-
       "show"
-
     );
-
-
-    currentQuestion =
-      0;
 
 
     showQuestion();
@@ -823,8 +661,8 @@ questionsStartBtn.addEventListener(
 
     });
 
-  }
 
+  }
 );
 
 
@@ -837,12 +675,11 @@ let currentQuestion =
 
 
 const answers =
-
   new Array(
-
     QUESTIONS.length
-
-  ).fill("");
+  ).fill(
+    ""
+  );
 
 
 function showQuestion() {
@@ -871,43 +708,14 @@ function showQuestion() {
     ];
 
 
-  /*
-    На первом вопросе
-    можно вернуться к фотографиям.
-  */
-
-  if (
+  previousQuestionBtn.style.visibility =
 
     currentQuestion === 0
 
-  ) {
+      ? "hidden"
 
+      : "visible";
 
-    previousQuestionBtn.style.visibility =
-      "visible";
-
-
-    previousQuestionBtn.textContent =
-      "← К фотографиям";
-
-  }
-
-  else {
-
-
-    previousQuestionBtn.style.visibility =
-      "visible";
-
-
-    previousQuestionBtn.textContent =
-      "← Назад";
-
-  }
-
-
-  /*
-    Последняя кнопка
-  */
 
   if (
 
@@ -920,6 +728,7 @@ function showQuestion() {
     nextQuestionBtn.textContent =
       "Закончить →";
 
+
   }
 
   else {
@@ -928,7 +737,9 @@ function showQuestion() {
     nextQuestionBtn.textContent =
       "Далее →";
 
+
   }
+
 
 }
 
@@ -938,9 +749,7 @@ function showQuestion() {
 ===================================== */
 
 answerInput.addEventListener(
-
   "input",
-
   () => {
 
 
@@ -950,73 +759,42 @@ answerInput.addEventListener(
 
       answerInput.value;
 
-  }
 
+  }
 );
 
 
 /* =====================================
-   НАЗАД
+   ПРЕДЫДУЩИЙ ВОПРОС
 ===================================== */
 
 previousQuestionBtn.addEventListener(
-
   "click",
-
   () => {
 
 
-    /*
-      Если первый вопрос —
-      возвращаемся к фотографиям
-    */
-
     if (
-
-      currentQuestion === 0
-
+      currentQuestion > 0
     ) {
 
 
-      questionsSection.classList.remove(
+      answers[
+        currentQuestion
+      ] =
 
-        "show"
-
-      );
-
-
-      memoriesSection2.classList.add(
-
-        "show"
-
-      );
+        answerInput.value;
 
 
-      window.scrollTo({
-
-        top: 0,
-
-        behavior: "smooth"
-
-      });
+      currentQuestion--;
 
 
-      return;
+      showQuestion();
+
 
     }
 
 
-    /*
-      Предыдущий вопрос
-    */
-
-    currentQuestion--;
-
-
-    showQuestion();
-
   }
-
 );
 
 
@@ -1025,9 +803,7 @@ previousQuestionBtn.addEventListener(
 ===================================== */
 
 nextQuestionBtn.addEventListener(
-
   "click",
-
   () => {
 
 
@@ -1051,22 +827,19 @@ nextQuestionBtn.addEventListener(
 
       showQuestion();
 
+
     }
 
     else {
 
 
       questionsSection.classList.remove(
-
         "show"
-
       );
 
 
       finalSection.classList.add(
-
         "show"
-
       );
 
 
@@ -1078,40 +851,34 @@ nextQuestionBtn.addEventListener(
 
       });
 
+
     }
 
-  }
 
+  }
 );
 
 
 /* =====================================
-   ФИНАЛ → НАЗАД
+   ФИНАЛ → ВОПРОСЫ
 ===================================== */
 
 finalBackBtn.addEventListener(
-
   "click",
-
   () => {
 
 
     finalSection.classList.remove(
-
       "show"
-
     );
 
 
     questionsSection.classList.add(
-
       "show"
-
     );
 
 
     currentQuestion =
-
       QUESTIONS.length - 1;
 
 
@@ -1126,8 +893,40 @@ finalBackBtn.addEventListener(
 
     });
 
-  }
 
+  }
+);
+
+
+/* =====================================
+   ФИНАЛ → ФОТОГРАФИИ
+===================================== */
+
+finalPhotosBtn.addEventListener(
+  "click",
+  () => {
+
+
+    finalSection.classList.remove(
+      "show"
+    );
+
+
+    memoriesSection2.classList.add(
+      "show"
+    );
+
+
+    window.scrollTo({
+
+      top: 0,
+
+      behavior: "smooth"
+
+    });
+
+
+  }
 );
 
 
