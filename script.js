@@ -194,6 +194,7 @@ const QUESTIONS = [
 ===================================== */
 
 const envelope = document.getElementById("envelope");
+
 const intro = document.getElementById("intro");
 
 const continueBtn =
@@ -249,6 +250,13 @@ const nextQuestionBtn =
   document.getElementById("nextQuestionBtn");
 
 
+/* НОВАЯ КНОПКА:
+   ВОПРОСЫ → ФОТОГРАФИИ */
+
+const backToPhotosBtn =
+  document.getElementById("backToPhotosBtn");
+
+
 const finalSection =
   document.getElementById("finalSection");
 
@@ -257,7 +265,7 @@ const finalBackBtn =
 
 
 /* =====================================
-   СТРАНИЦЫ
+   ПЕРЕКЛЮЧЕНИЕ СТРАНИЦ
 ===================================== */
 
 function hideAllSections() {
@@ -344,14 +352,12 @@ function createGalleries() {
 function createPolaroid(photo, index) {
 
   const rotations = [
-
     "-4deg",
     "3deg",
     "-2deg",
     "5deg",
     "-3deg",
     "2deg"
-
   ];
 
 
@@ -407,10 +413,7 @@ function createPolaroid(photo, index) {
    УВЕЛИЧЕНИЕ ФОТО
 ===================================== */
 
-function openPhotoModal(
-  imageUrl,
-  caption
-) {
+function openPhotoModal(imageUrl, caption) {
 
   const oldModal =
     document.getElementById("photoModal");
@@ -442,12 +445,10 @@ function openPhotoModal(
         ×
       </button>
 
-
       <img
         src="${imageUrl}"
         alt="Фотография"
       >
-
 
       <p>
         ${caption}
@@ -475,16 +476,20 @@ function openPhotoModal(
   );
 
 
-  modal
-    .querySelector(".photo-modal-close")
-    .addEventListener(
-      "click",
-      () => {
-
-        modal.remove();
-
-      }
+  const closeButton =
+    modal.querySelector(
+      ".photo-modal-close"
     );
+
+
+  closeButton.addEventListener(
+    "click",
+    () => {
+
+      modal.remove();
+
+    }
+  );
 
 }
 
@@ -524,7 +529,6 @@ closeLetterBtn.addEventListener(
 
     event.stopPropagation();
 
-
     envelope.classList.remove("open");
 
 
@@ -554,7 +558,6 @@ continueBtn.addEventListener(
 
     event.stopPropagation();
 
-
     goToSection(
       memoriesSection1
     );
@@ -564,7 +567,7 @@ continueBtn.addEventListener(
 
 
 /* =====================================
-   ФОТО → ПИСЬМО
+   ФОТО 1 → ПИСЬМО
 ===================================== */
 
 backToLetterBtn.addEventListener(
@@ -620,7 +623,6 @@ questionsStartBtn.addEventListener(
     goToSection(
       questionsSection
     );
-
 
     showQuestion();
 
@@ -681,6 +683,8 @@ function showQuestion() {
 }
 
 
+/* СОХРАНЕНИЕ ОТВЕТА */
+
 answerInput.addEventListener(
   "input",
   () => {
@@ -691,6 +695,8 @@ answerInput.addEventListener(
   }
 );
 
+
+/* НАЗАД ПО ВОПРОСАМ */
 
 previousQuestionBtn.addEventListener(
   "click",
@@ -707,6 +713,8 @@ previousQuestionBtn.addEventListener(
   }
 );
 
+
+/* ДАЛЕЕ ПО ВОПРОСАМ */
 
 nextQuestionBtn.addEventListener(
   "click",
@@ -737,6 +745,26 @@ nextQuestionBtn.addEventListener(
 
   }
 );
+
+
+/* =====================================
+   ВОПРОСЫ → ФОТОГРАФИИ
+===================================== */
+
+if (backToPhotosBtn) {
+
+  backToPhotosBtn.addEventListener(
+    "click",
+    () => {
+
+      goToSection(
+        memoriesSection2
+      );
+
+    }
+  );
+
+}
 
 
 /* =====================================
