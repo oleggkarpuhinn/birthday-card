@@ -34,7 +34,7 @@ body {
 
 
 /* =====================================
-   СЦЕНА
+   ОСНОВНАЯ СЦЕНА
 ===================================== */
 
 .scene {
@@ -50,6 +50,8 @@ body {
   position: fixed;
 
   inset: 0;
+
+  z-index: 0;
 
   pointer-events: none;
 
@@ -68,6 +70,8 @@ body {
 
 .light {
   position: fixed;
+
+  z-index: 0;
 
   width: 500px;
   height: 500px;
@@ -115,19 +119,24 @@ button {
 
   color: #fff8f1;
 
-  background:
-    #95664f;
+  background: #95664f;
 
-  font-family:
-    inherit;
+  font-family: inherit;
 
-  font-size:
-    16px;
+  font-size: 16px;
+
+  font-weight: 600;
 
   transition:
     transform 0.2s ease,
-    background 0.2s ease,
-    opacity 0.2s ease;
+    opacity 0.2s ease,
+    background 0.2s ease;
+
+  position: relative;
+
+  z-index: 10;
+
+  pointer-events: auto;
 }
 
 
@@ -142,11 +151,11 @@ button:hover {
 
 .secondary-button {
   background:
-    transparent;
+    rgba(255,255,255,0.05);
 
   border:
     1px solid
-    rgba(255,255,255,0.45);
+    rgba(255,255,255,0.4);
 
   color:
     #f5eee7;
@@ -166,7 +175,7 @@ button:hover {
 .intro {
   position: relative;
 
-  z-index: 2;
+  z-index: 10;
 
   min-height: 100vh;
 
@@ -176,8 +185,7 @@ button:hover {
 
   justify-content: center;
 
-  padding:
-    40px 20px;
+  padding: 40px 20px;
 
   text-align: center;
 }
@@ -186,7 +194,7 @@ button:hover {
 .intro-content {
   position: relative;
 
-  z-index: 10;
+  z-index: 20;
 
   width:
     min(700px, 100%);
@@ -242,16 +250,16 @@ button:hover {
 ===================================== */
 
 .envelope-wrapper {
-  position: relative;
-
-  z-index: 20;
-
   display: inline-block;
 
   cursor: pointer;
 
   perspective:
     1200px;
+
+  position: relative;
+
+  z-index: 50;
 }
 
 
@@ -266,6 +274,8 @@ button:hover {
 
   height:
     270px;
+
+  z-index: 50;
 }
 
 
@@ -273,6 +283,8 @@ button:hover {
   position: absolute;
 
   inset: 0;
+
+  z-index: 1;
 
   background:
     #b77d5e;
@@ -304,6 +316,8 @@ button:hover {
 
   background:
     #9e674e;
+
+  pointer-events: none;
 }
 
 
@@ -311,7 +325,6 @@ button:hover {
   position: absolute;
 
   top: 0;
-
   left: 0;
 
   width: 100%;
@@ -335,6 +348,8 @@ button:hover {
   transition:
     transform
     0.8s ease;
+
+  pointer-events: none;
 }
 
 
@@ -371,6 +386,8 @@ button:hover {
 
   transition:
     opacity 0.4s ease;
+
+  pointer-events: none;
 }
 
 
@@ -389,6 +406,8 @@ button:hover {
 
   transition:
     transform 0.9s ease;
+
+  pointer-events: none;
 }
 
 
@@ -408,6 +427,8 @@ button:hover {
   box-shadow:
     0 15px 30px
     rgba(0,0,0,0.25);
+
+  pointer-events: auto;
 }
 
 
@@ -427,10 +448,36 @@ button:hover {
 
   border-color:
     rgba(75,58,48,0.3);
+
+  background:
+    rgba(255,255,255,0.3);
 }
 
 
-/* ОТКРЫТЫЙ КОНВЕРТ */
+.letter-date {
+  opacity:
+    0.65;
+
+  font-size:
+    14px;
+}
+
+
+.letter-signature {
+  margin-top:
+    25px;
+
+  text-align:
+    right;
+
+  font-style:
+    italic;
+}
+
+
+/* =====================================
+   ОТКРЫТЫЙ КОНВЕРТ
+===================================== */
 
 .envelope-wrapper.open
 .envelope-flap {
@@ -453,7 +500,7 @@ button:hover {
     translateX(-50%)
     translateY(-190px);
 
-  z-index: 50;
+  z-index: 100;
 }
 
 
@@ -466,7 +513,7 @@ button:hover {
 
   position: relative;
 
-  z-index: 2;
+  z-index: 10;
 
   min-height: 100vh;
 
@@ -541,39 +588,36 @@ button:hover {
   margin:
     0 auto;
 
-  display:
-    flex;
+  display: flex;
 
-  justify-content:
-    center;
+  flex-wrap: wrap;
 
-  align-items:
-    flex-start;
+  justify-content: center;
 
-  flex-wrap:
-    wrap;
+  align-items: flex-start;
 
   gap:
-    45px
-    35px;
+    45px;
+
+  padding:
+    10px 0 20px;
 }
 
 
-/* =====================================
-   POLAROID
-===================================== */
-
 .polaroid {
-  flex:
-    0 0 245px;
-
   width:
-    245px;
+    min(
+      270px,
+      85vw
+    );
+
+  flex:
+    0 0 270px;
 
   padding:
     12px
     12px
-    24px;
+    25px;
 
   color:
     #4b3a30;
@@ -590,12 +634,12 @@ button:hover {
       var(--rotation)
     );
 
-  cursor:
-    pointer;
-
   transition:
     transform 0.25s ease,
     box-shadow 0.25s ease;
+
+  cursor:
+    pointer;
 
   position:
     relative;
@@ -605,14 +649,13 @@ button:hover {
 .polaroid:hover {
   transform:
     rotate(0deg)
-    scale(1.06);
+    scale(1.05);
+
+  z-index: 5;
 
   box-shadow:
     0 25px 50px
     rgba(0,0,0,0.4);
-
-  z-index:
-    5;
 }
 
 
@@ -629,9 +672,6 @@ button:hover {
 
   background:
     #ddd;
-
-  pointer-events:
-    none;
 }
 
 
@@ -640,18 +680,19 @@ button:hover {
     20px;
 
   margin:
-    14px 0 0;
+    15px 0 0;
 
   text-align:
     center;
 
   font-style:
     italic;
-
-  font-size:
-    14px;
 }
 
+
+/* =====================================
+   НАВИГАЦИЯ
+===================================== */
 
 .page-navigation {
   display: flex;
@@ -667,6 +708,12 @@ button:hover {
 
   margin-top:
     60px;
+
+  position:
+    relative;
+
+  z-index:
+    20;
 }
 
 
@@ -680,7 +727,7 @@ button:hover {
 
   position: relative;
 
-  z-index: 3;
+  z-index: 10;
 
   min-height: 100vh;
 
@@ -810,8 +857,7 @@ button:hover {
 }
 
 
-.question-navigation,
-.final-navigation {
+.question-navigation {
   display: flex;
 
   justify-content:
@@ -828,14 +874,65 @@ button:hover {
 }
 
 
+/* =====================================
+   ФИНАЛ
+===================================== */
+
 .final-card p {
   line-height:
     1.7;
 }
 
 
+.final-navigation {
+  display: flex;
+
+  justify-content:
+    center;
+
+  align-items:
+    center;
+
+  gap:
+    15px;
+
+  flex-wrap:
+    wrap;
+
+  margin-top:
+    35px;
+
+  position:
+    relative;
+
+  z-index:
+    100;
+}
+
+
+.final-navigation button {
+  display:
+    inline-flex !important;
+
+  visibility:
+    visible !important;
+
+  opacity:
+    1 !important;
+
+  pointer-events:
+    auto !important;
+
+  align-items:
+    center;
+
+  justify-content:
+    center;
+}
+
+
 /* =====================================
-   МОДАЛЬНОЕ ОКНО ФОТО
+   ОТКРЫТОЕ ФОТО
 ===================================== */
 
 .photo-modal {
@@ -843,7 +940,7 @@ button:hover {
 
   inset: 0;
 
-  z-index: 1000;
+  z-index: 10000;
 
   display: none;
 
@@ -854,123 +951,92 @@ button:hover {
     center;
 
   padding:
-    40px;
-
-  opacity: 0;
-
-  transition:
-    opacity 0.3s ease;
+    30px;
 }
 
 
 .photo-modal.show {
   display: flex;
-
-  opacity: 1;
 }
 
 
-.modal-overlay {
+.photo-modal-backdrop {
   position: absolute;
 
   inset: 0;
 
   background:
-    rgba(
-      20,
-      12,
-      8,
-      0.9
-    );
+    rgba(0,0,0,0.82);
 
   backdrop-filter:
     blur(8px);
 }
 
 
-.modal-content {
+.photo-modal-content {
   position: relative;
 
   z-index: 2;
 
   width:
     min(
-      1100px,
-      100%
+      850px,
+      95vw
     );
 
-  min-height:
-    600px;
-
-  display: flex;
-
-  align-items:
-    center;
-
-  justify-content:
-    center;
-
-  padding:
-    70px
-    100px;
-
-  border-radius:
-    18px;
-
-  background:
-    rgba(
-      20,
-      13,
-      9,
-      0.88
-    );
-
-  box-shadow:
-    0 30px 100px
-    rgba(0,0,0,0.6);
-}
-
-
-.modal-polaroid {
-  width:
-    min(
-      500px,
-      80vw
-    );
+  max-height:
+    92vh;
 
   padding:
     18px
     18px
-    35px;
+    25px;
 
   background:
     #f6f0e6;
 
-  color:
-    #4b3a30;
-
   box-shadow:
-    0 25px 60px
-    rgba(0,0,0,0.5);
+    0 30px 100px
+    rgba(0,0,0,0.6);
 
   transform:
-    rotate(
-      -1deg
-    );
+    rotate(-1deg);
 
   animation:
     photoAppear
-    0.35s ease;
+    0.3s ease;
 }
 
 
-.modal-polaroid img {
+@keyframes photoAppear {
+
+  from {
+    opacity: 0;
+
+    transform:
+      scale(0.92)
+      rotate(-3deg);
+  }
+
+
+  to {
+    opacity: 1;
+
+    transform:
+      scale(1)
+      rotate(-1deg);
+  }
+
+}
+
+
+.photo-modal-content img {
   display: block;
 
   width: 100%;
 
   max-height:
-    65vh;
+    75vh;
 
   object-fit:
     contain;
@@ -980,157 +1046,66 @@ button:hover {
 }
 
 
-.modal-polaroid p {
+.photo-modal-caption {
   margin:
-    22px 0 0;
+    20px
+    10px
+    5px;
+
+  color:
+    #4b3a30;
+
+  font-size:
+    clamp(
+      18px,
+      3vw,
+      24px
+    );
 
   text-align:
     center;
 
-  font-size:
-    18px;
-
   font-style:
     italic;
-
-  line-height:
-    1.5;
 }
 
 
-/* КРЕСТИК */
-
-.modal-close {
+.photo-modal-close {
   position: absolute;
 
-  top: 20px;
-  right: 25px;
+  top: -15px;
+  right: -15px;
 
   z-index: 5;
 
-  width: 45px;
-  height: 45px;
+  width: 48px;
+  height: 48px;
 
   padding: 0;
 
   border-radius: 50%;
 
-  background:
-    transparent;
+  font-size: 32px;
 
-  color:
-    #f5eee7;
+  line-height: 1;
 
-  border:
-    1px solid
-    rgba(255,255,255,0.4);
+  display: flex;
 
-  font-size:
-    28px;
+  align-items: center;
 
-  line-height:
-    1;
-}
-
-
-.modal-close:hover {
-  background:
-    rgba(255,255,255,0.1);
-}
-
-
-/* СТРЕЛКИ */
-
-.modal-arrow {
-  position: absolute;
-
-  top: 50%;
-
-  transform:
-    translateY(-50%);
-
-  z-index: 5;
-
-  width: 60px;
-  height: 60px;
-
-  padding: 0;
-
-  border-radius:
-    50%;
-
-  background:
-    rgba(255,255,255,0.12);
-
-  border:
-    1px solid
-    rgba(255,255,255,0.2);
-
-  color:
-    white;
-
-  font-size:
-    26px;
-}
-
-
-.modal-arrow:hover {
-  transform:
-    translateY(-50%)
-    scale(1.08);
+  justify-content: center;
 
   background:
     #95664f;
 }
 
 
-.modal-prev {
-  left: 25px;
-}
-
-
-.modal-next {
-  right: 25px;
-}
-
-
-/* АНИМАЦИЯ */
-
-@keyframes photoAppear {
-
-  from {
-
-    opacity: 0;
-
-    transform:
-      scale(0.9)
-      rotate(
-        -4deg
-      );
-
-  }
-
-  to {
-
-    opacity: 1;
-
-    transform:
-      scale(1)
-      rotate(
-        -1deg
-      );
-
-  }
-
-}
-
-
 /* =====================================
-   МОБИЛЬНАЯ ВЕРСИЯ
+   ТЕЛЕФОНЫ
 ===================================== */
 
 @media (
-  max-width: 700px
+  max-width: 600px
 ) {
 
   .intro {
@@ -1158,12 +1133,13 @@ button:hover {
 
   .polaroid-gallery {
     gap:
-      35px;
+      30px;
   }
 
 
   .polaroid {
-    flex-basis:
+    flex:
+      0 0
       min(
         280px,
         85vw
@@ -1188,59 +1164,33 @@ button:hover {
   }
 
 
+  .page-navigation button,
+  .question-navigation button,
+  .final-navigation button {
+    width: 100%;
+  }
+
+
   .photo-modal {
     padding:
       15px;
   }
 
 
-  .modal-content {
-    min-height:
-      100vh;
-
+  .photo-modal-content {
     padding:
-      80px
       10px
-      70px;
-
-    border-radius:
-      0;
-  }
-
-
-  .modal-polaroid {
-    width:
-      82vw;
-  }
-
-
-  .modal-prev {
-    left:
-      5px;
-  }
-
-
-  .modal-next {
-    right:
-      5px;
-  }
-
-
-  .modal-arrow {
-    width:
-      48px;
-
-    height:
-      48px;
-  }
-
-
-  .modal-close {
-    top:
+      10px
       20px;
+  }
+
+
+  .photo-modal-close {
+    top:
+      -10px;
 
     right:
-      15px;
+      -5px;
   }
 
 }
