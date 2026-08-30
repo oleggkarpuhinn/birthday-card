@@ -16,7 +16,7 @@ rotation:
 const PHOTOS = [
 
 {
-image: "photos/photo1.jpg",
+image: "photos/photos/photo_2024-05-16_16-29-51.jpg",
 caption: "Первый момент",
 rotation: "-4deg"
 },
