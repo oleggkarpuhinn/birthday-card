@@ -1,5 +1,5 @@
 /* =====================================
-   GOOGLE SHEETS (ТВОЯ ССЫЛКА)
+   GOOGLE SHEETS
 ===================================== */
 const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyTnBP_TMV3b14BQB_LyIrgfVz51mFGXRtxZRsJpBFht3QkUt8PRX5-H5vDALPFpYbBcg/exec";
 
@@ -12,16 +12,16 @@ const PHOTOS = [
   { image: "photos/photo_2024-05-16_16-29-58.jpg", caption: "✏️ НАПИШИТЕ ЗДЕСЬ ПОДПИСЬ К ФОТО" },
   { image: "photos/photo_2024-05-16_16-29-59.jpg", caption: "✏️ НАПИШИТЕ ЗДЕСЬ ПОДПИСЬ К ФОТО" },
   { image: "photos/photo_2024-06-09_03-10-51.jpg", caption: "✏️ НАПИШИТЕ ЗДЕСЬ ПОДПИСЬ К ФОТО" },
-  { image: "photos/photo_2025-03-14_10-29-28.jpg", caption: "✏️ НАПИШИТЕ ЗДЕСЬ ПОДПИСЬ К ФОТО" },
+  { image: "photos/photo_2025-03-14_10-29-28.jpg", caption: "️ НАПИШИТЕ ЗДЕСЬ ПОДПИСЬ К ФОТО" },
   { image: "photos/photo_2025-03-18_21-06-29.jpg", caption: "✏️ НАПИШИТЕ ЗДЕСЬ ПОДПИСЬ К ФОТО" },
   { image: "photos/photo_2026-06-06_02-42-53.jpg", caption: "✏️ НАПИШИТЕ ЗДЕСЬ ПОДПИСЬ К ФОТО" },
-  { image: "photos/photo_2026-06-20_15-24-08.jpg", caption: "✏️ НАПИШИТЕ ЗДЕСЬ ПОДПИСЬ К ФОТО" },
+  { image: "photos/photo_2026-06-20_15-24-08.jpg", caption: "️ НАПИШИТЕ ЗДЕСЬ ПОДПИСЬ К ФОТО" },
   { image: "photos/photo_2026-06-23_23-10-16 (2).jpg", caption: "✏️ НАПИШИТЕ ЗДЕСЬ ПОДПИСЬ К ФОТО" },
   { image: "photos/photo_2026-06-23_23-10-16 (3).jpg", caption: "✏️ НАПИШИТЕ ЗДЕСЬ ПОДПИСЬ К ФОТО" },
   { image: "photos/photo_2026-06-23_23-10-16 (4).jpg", caption: "✏️ НАПИШИТЕ ЗДЕСЬ ПОДПИСЬ К ФОТО" },
   { image: "photos/photo_2026-06-23_23-10-16.jpg", caption: "✏️ НАПИШИТЕ ЗДЕСЬ ПОДПИСЬ К ФОТО" },
-  { image: "photos/photo_2026-06-23_23-10-17.jpg", caption: "✏️ НАПИШИТЕ ЗДЕСЬ ПОДПИСЬ К ФОТО" },
-  { image: "photos/photo_2026-06-27_10-36-58 (2).jpg", caption: "✏️ НАПИШИТЕ ЗДЕСЬ ПОДПИСЬ К ФОТО" },
+  { image: "photos/photo_2026-06-23_23-10-17.jpg", caption: "️ НАПИШИТЕ ЗДЕСЬ ПОДПИСЬ К ФОТО" },
+  { image: "photos/photo_2026-06-27_10-36-58 (2).jpg", caption: "️ НАПИШИТЕ ЗДЕСЬ ПОДПИСЬ К ФОТО" },
   { image: "photos/photo_2026-06-27_10-36-58.jpg", caption: "✏️ НАПИШИТЕ ЗДЕСЬ ПОДПИСЬ К ФОТО" },
   { image: "photos/photo_2026-07-01_23-29-46.jpg", caption: "✏️ НАПИШИТЕ ЗДЕСЬ ПОДПИСЬ К ФОТО" },
   { image: "photos/photo_2026-07-05_20-13-23.jpg", caption: "✏️ НАПИШИТЕ ЗДЕСЬ ПОДПИСЬ К ФОТО" },
@@ -43,7 +43,7 @@ const PHOTOS = [
    ВОПРОСЫ
 ===================================== */
 const QUESTIONS = [
-  "Ответь фотографией — какой момент с нами ты бы сохранила навсегда?",
+  "Вставь ссылку на фото — какой момент с нами ты бы сохранила навсегда?",
   "Что тебе больше всего нравится в наших отношениях?",
   "Какой момент со мной тебе хотелось бы пережить ещё раз?",
   "Есть ли что-то, что ты давно хотела мне сказать?",
@@ -90,12 +90,6 @@ const photoModalOverlay = document.getElementById("photoModalOverlay");
 const photoModalClose = document.getElementById("photoModalClose");
 const modalImage = document.getElementById("modalImage");
 const modalCaption = document.getElementById("modalCaption");
-
-const photoUpload = document.getElementById("photoUpload");
-const photoInput = document.getElementById("photoInput");
-const photoPreview = document.getElementById("photoPreview");
-const previewImage = document.getElementById("previewImage");
-const photoRemoveBtn = document.getElementById("photoRemoveBtn");
 
 /* =====================================
    НАВИГАЦИЯ ПО СТРАНИЦАМ
@@ -184,7 +178,7 @@ envelope.addEventListener("click", () => {
   letter.style.transition = "all 0.8s cubic-bezier(0.4, 0, 0.2, 1)";
   letter.style.pointerEvents = "none";
 
-  letter.offsetHeight; // Триггер перерисовки
+  letter.offsetHeight;
   envelope.classList.add("open");
 
   setTimeout(() => {
@@ -220,52 +214,6 @@ closeLetterBtn.addEventListener("click", (event) => {
 });
 
 /* =====================================
-   ЗАГРУЗКА И СЖАТИЕ ФОТО
-===================================== */
-let answerPhotoBase64 = null;
-
-function compressImage(file, maxWidth = 1200, quality = 0.75) {
-  return new Promise((resolve) => {
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      const img = new Image();
-      img.onload = () => {
-        const canvas = document.createElement("canvas");
-        let width = img.width;
-        let height = img.height;
-        if (width > maxWidth) {
-          height = (height * maxWidth) / width;
-          width = maxWidth;
-        }
-        canvas.width = width;
-        canvas.height = height;
-        const ctx = canvas.getContext("2d");
-        ctx.drawImage(img, 0, 0, width, height);
-        resolve(canvas.toDataURL("image/jpeg", quality));
-      };
-      img.src = e.target.result;
-    };
-    reader.readAsDataURL(file);
-  });
-}
-
-photoInput.addEventListener("change", async (e) => {
-  const file = e.target.files[0];
-  if (!file) return;
-  const compressed = await compressImage(file);
-  answerPhotoBase64 = compressed;
-  previewImage.src = compressed;
-  photoPreview.style.display = "flex";
-});
-
-photoRemoveBtn.addEventListener("click", () => {
-  answerPhotoBase64 = null;
-  photoInput.value = "";
-  photoPreview.style.display = "none";
-  previewImage.src = "";
-});
-
-/* =====================================
    КНОПКИ НАВИГАЦИИ
 ===================================== */
 continueBtn.addEventListener("click", (e) => { e.preventDefault(); goToSection(memoriesSection1); });
@@ -287,14 +235,12 @@ function showQuestion() {
   questionCounter.textContent = `Вопрос ${currentQuestion + 1} из ${QUESTIONS.length}`;
   questionText.textContent = QUESTIONS[currentQuestion];
   
-  if (currentQuestion === 0) {
-    answerInput.style.display = "none";
-    photoUpload.style.display = "block";
-  } else {
-    answerInput.style.display = "block";
-    photoUpload.style.display = "none";
-    answerInput.value = answers[currentQuestion];
-  }
+  // Все вопросы теперь текстовые (включая первый!)
+  answerInput.style.display = "block";
+  answerInput.value = answers[currentQuestion];
+  answerInput.placeholder = currentQuestion === 0 
+    ? "Вставь сюда ссылку на фотографию (например, из ВКонтакте или Telegram)..." 
+    : "Напиши здесь то, что думаешь...";
   
   previousQuestionBtn.style.visibility = currentQuestion === 0 ? "hidden" : "visible";
   nextQuestionBtn.textContent = currentQuestion === QUESTIONS.length - 1 ? "Закончить →" : "Далее →";
@@ -312,9 +258,7 @@ previousQuestionBtn.addEventListener("click", () => {
 });
 
 nextQuestionBtn.addEventListener("click", () => {
-  if (currentQuestion !== 0) {
-    answers[currentQuestion] = answerInput.value;
-  }
+  answers[currentQuestion] = answerInput.value;
   
   if (currentQuestion < QUESTIONS.length - 1) {
     currentQuestion++;
@@ -333,7 +277,6 @@ async function sendAnswersToGoogleSheets() {
 
   const data = {
     answers: answers,
-    photoBase64: answerPhotoBase64,
     submittedAt: new Date().toLocaleString("ru-RU")
   };
 
