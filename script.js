@@ -3,11 +3,8 @@
 ===================================== */
 
 const GITHUB_OWNER = "olegkarpukhin";
-
 const GITHUB_REPOSITORY = "birthday-card";
-
-const PHOTOS_FOLDER =
-  "photos/photos";
+const GITHUB_BRANCH = "main";
 
 
 /* =====================================
@@ -101,9 +98,6 @@ const previousQuestionBtn =
 const nextQuestionBtn =
   document.getElementById("nextQuestionBtn");
 
-const backToPhotosBtn =
-  document.getElementById("backToPhotosBtn");
-
 
 const finalSection =
   document.getElementById("finalSection");
@@ -111,38 +105,25 @@ const finalSection =
 const finalBackBtn =
   document.getElementById("finalBackBtn");
 
-const finalPhotosBtn =
-  document.getElementById("finalPhotosBtn");
-
 
 /* =====================================
-   ФУНКЦИЯ ПРОКРУТКИ НАВЕРХ
-===================================== */
-
-function scrollToTop() {
-
-  window.scrollTo({
-
-    top: 0,
-
-    behavior: "smooth"
-
-  });
-
-}
-
-
-/* =====================================
-   ЗАГРУЗКА ВСЕХ ФОТОГРАФИЙ ИЗ GITHUB
+   ЗАГРУЗКА ВСЕХ ФОТОГРАФИЙ С GITHUB
 ===================================== */
 
 async function loadPhotos() {
 
-  const apiUrl =
-    `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPOSITORY}/contents/${PHOTOS_FOLDER}`;
+  gallery1.innerHTML =
+    "<p class='loading-text'>Загружаю воспоминания...</p>";
+
+  gallery2.innerHTML =
+    "<p class='loading-text'>Загружаю воспоминания...</p>";
 
 
   try {
+
+    const apiUrl =
+      `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPOSITORY}/git/trees/${GITHUB_BRANCH}?recursive=1`;
+
 
     const response =
       await fetch(apiUrl);
@@ -151,56 +132,59 @@ async function loadPhotos() {
     if (!response.ok) {
 
       throw new Error(
-        "Не удалось загрузить фотографии"
+        `GitHub вернул ошибку: ${response.status}`
       );
 
     }
 
 
-    const files =
+    const data =
       await response.json();
 
 
     const images =
-      files
+      data.tree
         .filter((file) => {
 
           return (
 
-            file.type === "file" &&
+            file.type === "blob" &&
+
+            file.path.startsWith("photos/") &&
 
             /\.(jpg|jpeg|png|webp)$/i.test(
-              file.name
+              file.path
             )
 
           );
 
         })
+        .sort((a, b) =>
 
-        .sort((a, b) => {
-
-          return a.name.localeCompare(
-
-            b.name,
-
-            "ru",
-
+          a.path.localeCompare(
+            b.path,
+            undefined,
             {
-              numeric: true
+              numeric: true,
+              sensitivity: "base"
             }
+          )
 
-          );
+        );
 
-        });
-
-
-    /* =====================================
-       ОЧИЩАЕМ ГАЛЕРЕИ
-    ====================================== */
 
     gallery1.innerHTML = "";
-
     gallery2.innerHTML = "";
+
+
+    if (images.length === 0) {
+
+      gallery1.innerHTML =
+        "<p class='loading-text'>Фотографии пока не найдены.</p>";
+
+      return;
+
+    }
 
 
     /* =====================================
@@ -210,93 +194,76 @@ async function loadPhotos() {
     images
       .slice(0, 15)
       .forEach(
-
         (photo, index) => {
+
+          const imageUrl =
+            `https://raw.githubusercontent.com/${GITHUB_OWNER}/${GITHUB_REPOSITORY}/${GITHUB_BRANCH}/${encodeURI(photo.path)}`;
+
 
           gallery1.appendChild(
 
             createPolaroid(
-
-              photo.download_url,
-
+              imageUrl,
               index
-
             )
 
           );
 
         }
-
       );
 
 
     /* =====================================
-       ВСЕ ОСТАЛЬНЫЕ ФОТО
-
-       НЕ ТОЛЬКО ДО 30 —
-       ЗАГРУЗЯТСЯ ВСЕ,
-       КОТОРЫЕ ЕСТЬ В ПАПКЕ
+       СЛЕДУЮЩИЕ 15 ФОТО
     ====================================== */
 
     images
-      .slice(15)
+      .slice(15, 30)
       .forEach(
-
         (photo, index) => {
+
+          const imageUrl =
+            `https://raw.githubusercontent.com/${GITHUB_OWNER}/${GITHUB_REPOSITORY}/${GITHUB_BRANCH}/${encodeURI(photo.path)}`;
+
 
           gallery2.appendChild(
 
             createPolaroid(
-
-              photo.download_url,
-
+              imageUrl,
               index + 15
-
             )
 
           );
 
         }
-
       );
 
 
-    /* =====================================
-       ЕСЛИ ФОТО НЕ НАЙДЕНЫ
-    ====================================== */
+    console.log(
+      `Найдено фотографий: ${images.length}`
+    );
 
-    if (images.length === 0) {
-
-      gallery1.innerHTML =
-        "<p>Фотографии пока не найдены.</p>";
-
-      gallery2.innerHTML =
-        "";
-
-    }
-
-
-    /* =====================================
-       ЕСЛИ ФОТО МЕНЬШЕ ИЛИ РАВНО 15
-       СКРЫВАЕМ КНОПКУ ВТОРОЙ СТРАНИЦЫ
-    ====================================== */
-
-    if (images.length <= 15) {
-
-      photosPage2Btn.style.display =
-        "none";
-
-    }
 
   }
 
   catch (error) {
 
-    console.error(error);
+    console.error(
+      "Ошибка загрузки фотографий:",
+      error
+    );
 
 
     gallery1.innerHTML =
-      "<p>Не удалось загрузить фотографии.</p>";
+      `
+        <p class="loading-text">
+          Не удалось загрузить фотографии.
+        </p>
+      `;
+
+
+    gallery2.innerHTML =
+      "";
 
   }
 
@@ -317,13 +284,9 @@ function createPolaroid(
     "-4deg",
     "3deg",
     "-2deg",
-    "5deg",
-    "-3deg",
-    "2deg",
-    "-5deg",
     "4deg",
-    "-1deg",
-    "3deg"
+    "-3deg",
+    "2deg"
 
   ];
 
@@ -353,7 +316,7 @@ function createPolaroid(
     <img
       class="polaroid-image"
       src="${imageUrl}"
-      alt="Воспоминание"
+      alt="Воспоминание ${index + 1}"
       loading="lazy"
     >
 
@@ -380,18 +343,9 @@ envelope.addEventListener(
     );
 
 
-    const hint =
-      document.querySelector(
-        ".hint"
-      );
-
-
-    if (hint) {
-
-      hint.style.opacity =
-        "0";
-
-    }
+    intro.classList.add(
+      "letter-open"
+    );
 
   }
 );
@@ -413,25 +367,16 @@ closeLetterBtn.addEventListener(
     );
 
 
-    const hint =
-      document.querySelector(
-        ".hint"
-      );
-
-
-    if (hint) {
-
-      hint.style.opacity =
-        "1";
-
-    }
+    intro.classList.remove(
+      "letter-open"
+    );
 
   }
 );
 
 
 /* =====================================
-   ПИСЬМО → ФОТОГРАФИИ
+   ПЕРЕХОД К ФОТО 1
 ===================================== */
 
 continueBtn.addEventListener(
@@ -450,14 +395,20 @@ continueBtn.addEventListener(
     );
 
 
-    scrollToTop();
+    window.scrollTo({
+
+      top: 0,
+
+      behavior: "smooth"
+
+    });
 
   }
 );
 
 
 /* =====================================
-   ФОТО → ПИСЬМО
+   ВОЗВРАТ К ПИСЬМУ
 ===================================== */
 
 backToLetterBtn.addEventListener(
@@ -473,7 +424,23 @@ backToLetterBtn.addEventListener(
       "flex";
 
 
-    scrollToTop();
+    envelope.classList.add(
+      "open"
+    );
+
+
+    intro.classList.add(
+      "letter-open"
+    );
+
+
+    window.scrollTo({
+
+      top: 0,
+
+      behavior: "smooth"
+
+    });
 
   }
 );
@@ -497,7 +464,13 @@ photosPage2Btn.addEventListener(
     );
 
 
-    scrollToTop();
+    window.scrollTo({
+
+      top: 0,
+
+      behavior: "smooth"
+
+    });
 
   }
 );
@@ -521,14 +494,20 @@ photosPage1Btn.addEventListener(
     );
 
 
-    scrollToTop();
+    window.scrollTo({
+
+      top: 0,
+
+      behavior: "smooth"
+
+    });
 
   }
 );
 
 
 /* =====================================
-   ФОТО → ВОПРОСЫ
+   ПЕРЕХОД К ВОПРОСАМ
 ===================================== */
 
 questionsStartBtn.addEventListener(
@@ -548,31 +527,13 @@ questionsStartBtn.addEventListener(
     showQuestion();
 
 
-    scrollToTop();
+    window.scrollTo({
 
-  }
-);
+      top: 0,
 
+      behavior: "smooth"
 
-/* =====================================
-   ВОПРОСЫ → ПОСЛЕДНЯЯ СТРАНИЦА ФОТО
-===================================== */
-
-backToPhotosBtn.addEventListener(
-  "click",
-  () => {
-
-    questionsSection.classList.remove(
-      "show"
-    );
-
-
-    memoriesSection2.classList.add(
-      "show"
-    );
-
-
-    scrollToTop();
+    });
 
   }
 );
@@ -618,13 +579,13 @@ function showQuestion() {
     ];
 
 
-  previousQuestionBtn.style.display =
+  previousQuestionBtn.style.visibility =
 
     currentQuestion === 0
 
-      ? "none"
+      ? "hidden"
 
-      : "inline-block";
+      : "visible";
 
 
   if (
@@ -649,10 +610,6 @@ function showQuestion() {
 }
 
 
-/* =====================================
-   СОХРАНЕНИЕ ОТВЕТА
-===================================== */
-
 answerInput.addEventListener(
   "input",
   () => {
@@ -667,10 +624,6 @@ answerInput.addEventListener(
 );
 
 
-/* =====================================
-   ПРЕДЫДУЩИЙ ВОПРОС
-===================================== */
-
 previousQuestionBtn.addEventListener(
   "click",
   () => {
@@ -684,18 +637,11 @@ previousQuestionBtn.addEventListener(
 
       showQuestion();
 
-
-      scrollToTop();
-
     }
 
   }
 );
 
-
-/* =====================================
-   СЛЕДУЮЩИЙ ВОПРОС
-===================================== */
 
 nextQuestionBtn.addEventListener(
   "click",
@@ -721,9 +667,6 @@ nextQuestionBtn.addEventListener(
 
       showQuestion();
 
-
-      scrollToTop();
-
     }
 
     else {
@@ -738,7 +681,13 @@ nextQuestionBtn.addEventListener(
       );
 
 
-      scrollToTop();
+      window.scrollTo({
+
+        top: 0,
+
+        behavior: "smooth"
+
+      });
 
     }
 
@@ -771,31 +720,13 @@ finalBackBtn.addEventListener(
     showQuestion();
 
 
-    scrollToTop();
+    window.scrollTo({
 
-  }
-);
+      top: 0,
 
+      behavior: "smooth"
 
-/* =====================================
-   ФИНАЛ → ФОТОГРАФИИ
-===================================== */
-
-finalPhotosBtn.addEventListener(
-  "click",
-  () => {
-
-    finalSection.classList.remove(
-      "show"
-    );
-
-
-    memoriesSection2.classList.add(
-      "show"
-    );
-
-
-    scrollToTop();
+    });
 
   }
 );
