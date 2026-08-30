@@ -6,7 +6,9 @@ const GITHUB_OWNER = "olegkarpukhin";
 
 const GITHUB_REPOSITORY = "birthday-card";
 
-const PHOTOS_FOLDER = "photos/photos";
+/* Фотографии лежат в папке photos */
+
+const PHOTOS_FOLDER = "photos";
 
 
 /* =====================================
@@ -42,11 +44,14 @@ const QUESTIONS = [
    ЭЛЕМЕНТЫ СТРАНИЦЫ
 ===================================== */
 
-const envelope = document.getElementById("envelope");
+const envelope =
+  document.getElementById("envelope");
 
-const intro = document.getElementById("intro");
+const intro =
+  document.getElementById("intro");
 
-const continueBtn = document.getElementById("continueBtn");
+const continueBtn =
+  document.getElementById("continueBtn");
 
 const closeLetterBtn =
   document.getElementById("closeLetterBtn");
@@ -106,13 +111,15 @@ const finalBackBtn =
 
 
 /* =====================================
-   СОСТОЯНИЕ
+   СОСТОЯНИЕ ВОПРОСОВ
 ===================================== */
 
 let currentQuestion = 0;
 
 const answers =
-  new Array(QUESTIONS.length).fill("");
+  new Array(
+    QUESTIONS.length
+  ).fill("");
 
 
 /* =====================================
@@ -121,51 +128,24 @@ const answers =
 
 function hideAllPages() {
 
-  intro.style.display = "none";
+  intro.style.display =
+    "none";
 
-  memoriesSection1.classList.remove("show");
+  memoriesSection1.classList.remove(
+    "show"
+  );
 
-  memoriesSection2.classList.remove("show");
+  memoriesSection2.classList.remove(
+    "show"
+  );
 
-  questionsSection.classList.remove("show");
+  questionsSection.classList.remove(
+    "show"
+  );
 
-  finalSection.classList.remove("show");
-
-}
-
-
-/* =====================================
-   ПОКАЗАТЬ СТРАНИЦУ ФОТО 1
-===================================== */
-
-function showPhotosPage1() {
-
-  hideAllPages();
-
-  memoriesSection1.classList.add("show");
-
-  window.scrollTo({
-    top: 0,
-    behavior: "smooth"
-  });
-
-}
-
-
-/* =====================================
-   ПОКАЗАТЬ СТРАНИЦУ ФОТО 2
-===================================== */
-
-function showPhotosPage2() {
-
-  hideAllPages();
-
-  memoriesSection2.classList.add("show");
-
-  window.scrollTo({
-    top: 0,
-    behavior: "smooth"
-  });
+  finalSection.classList.remove(
+    "show"
+  );
 
 }
 
@@ -178,7 +158,48 @@ function showLetter() {
 
   hideAllPages();
 
-  intro.style.display = "flex";
+  intro.style.display =
+    "flex";
+
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+
+}
+
+
+/* =====================================
+   ПОКАЗАТЬ ФОТО 1
+===================================== */
+
+function showPhotosPage1() {
+
+  hideAllPages();
+
+  memoriesSection1.classList.add(
+    "show"
+  );
+
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+
+}
+
+
+/* =====================================
+   ПОКАЗАТЬ ФОТО 2
+===================================== */
+
+function showPhotosPage2() {
+
+  hideAllPages();
+
+  memoriesSection2.classList.add(
+    "show"
+  );
 
   window.scrollTo({
     top: 0,
@@ -196,7 +217,9 @@ function showQuestionsPage() {
 
   hideAllPages();
 
-  questionsSection.classList.add("show");
+  questionsSection.classList.add(
+    "show"
+  );
 
   showQuestion();
 
@@ -216,7 +239,9 @@ function showFinalPage() {
 
   hideAllPages();
 
-  finalSection.classList.add("show");
+  finalSection.classList.add(
+    "show"
+  );
 
   window.scrollTo({
     top: 0,
@@ -235,24 +260,32 @@ envelope.addEventListener(
   function (event) {
 
     /* Если нажали на кнопку —
-       конверт не трогаем */
+       конверт не реагирует */
 
     if (
       event.target.closest("button")
     ) {
+
       return;
+
     }
 
-    envelope.classList.add("open");
+
+    envelope.classList.add(
+      "open"
+    );
 
 
     const hint =
-      document.querySelector(".hint");
+      document.querySelector(
+        ".hint"
+      );
 
 
     if (hint) {
 
-      hint.style.opacity = "0";
+      hint.style.opacity =
+        "0";
 
     }
 
@@ -272,16 +305,22 @@ closeLetterBtn.addEventListener(
 
     event.stopPropagation();
 
-    envelope.classList.remove("open");
+
+    envelope.classList.remove(
+      "open"
+    );
 
 
     const hint =
-      document.querySelector(".hint");
+      document.querySelector(
+        ".hint"
+      );
 
 
     if (hint) {
 
-      hint.style.opacity = "1";
+      hint.style.opacity =
+        "1";
 
     }
 
@@ -290,22 +329,16 @@ closeLetterBtn.addEventListener(
 
 
 /* =====================================
-   ПРОДОЛЖИТЬ → ФОТОГРАФИИ
+   ПРОДОЛЖИТЬ → ФОТО
 ===================================== */
 
 continueBtn.addEventListener(
   "click",
   function (event) {
 
-    /* Самое важное:
-       не даём клику попасть в envelope */
-
     event.preventDefault();
 
     event.stopPropagation();
-
-
-    /* Переходим на первую страницу фото */
 
     showPhotosPage1();
 
@@ -314,7 +347,7 @@ continueBtn.addEventListener(
 
 
 /* =====================================
-   НАЗАД К ПИСЬМУ
+   ФОТО 1 → НАЗАД К ПИСЬМУ
 ===================================== */
 
 backToLetterBtn.addEventListener(
@@ -324,12 +357,12 @@ backToLetterBtn.addEventListener(
     showLetter();
 
 
-    /* Письмо остаётся открытым */
-
     setTimeout(
       function () {
 
-        envelope.classList.add("open");
+        envelope.classList.add(
+          "open"
+        );
 
       },
       100
@@ -392,23 +425,22 @@ function showQuestion() {
 
 
   questionText.textContent =
-    QUESTIONS[currentQuestion];
+    QUESTIONS[
+      currentQuestion
+    ];
 
 
   answerInput.value =
-    answers[currentQuestion];
+    answers[
+      currentQuestion
+    ];
 
-
-  /* На первом вопросе
-     кнопку назад скрываем */
 
   previousQuestionBtn.style.visibility =
     currentQuestion === 0
       ? "hidden"
       : "visible";
 
-
-  /* Последний вопрос */
 
   if (
     currentQuestion ===
@@ -438,7 +470,9 @@ answerInput.addEventListener(
   "input",
   function () {
 
-    answers[currentQuestion] =
+    answers[
+      currentQuestion
+    ] =
       answerInput.value;
 
   }
@@ -453,11 +487,15 @@ previousQuestionBtn.addEventListener(
   "click",
   function () {
 
-    answers[currentQuestion] =
+    answers[
+      currentQuestion
+    ] =
       answerInput.value;
 
 
-    if (currentQuestion > 0) {
+    if (
+      currentQuestion > 0
+    ) {
 
       currentQuestion--;
 
@@ -477,11 +515,11 @@ nextQuestionBtn.addEventListener(
   "click",
   function () {
 
-    answers[currentQuestion] =
+    answers[
+      currentQuestion
+    ] =
       answerInput.value;
 
-
-    /* Если ещё есть вопросы */
 
     if (
       currentQuestion <
@@ -494,8 +532,6 @@ nextQuestionBtn.addEventListener(
 
     }
 
-    /* Если это последний вопрос */
-
     else {
 
       showFinalPage();
@@ -507,7 +543,7 @@ nextQuestionBtn.addEventListener(
 
 
 /* =====================================
-   ФИНАЛ → НАЗАД К ВОПРОСАМ
+   ФИНАЛ → ВОПРОСЫ
 ===================================== */
 
 finalBackBtn.addEventListener(
@@ -516,7 +552,6 @@ finalBackBtn.addEventListener(
 
     currentQuestion =
       QUESTIONS.length - 1;
-
 
     showQuestionsPage();
 
@@ -540,7 +575,9 @@ async function loadPhotos() {
       await fetch(apiUrl);
 
 
-    if (!response.ok) {
+    if (
+      !response.ok
+    ) {
 
       throw new Error(
         "Не удалось загрузить фотографии"
@@ -553,16 +590,21 @@ async function loadPhotos() {
       await response.json();
 
 
+    /* Берём только изображения */
+
     const images =
       files
         .filter(
           function (file) {
 
             return (
+
               file.type === "file" &&
-              /\.(jpg|jpeg|png|webp)$/i.test(
+
+              /\.(jpg|jpeg|png|webp|gif)$/i.test(
                 file.name
               )
+
             );
 
           }
@@ -584,15 +626,20 @@ async function loadPhotos() {
 
     /* Очищаем галереи */
 
-    gallery1.innerHTML = "";
+    gallery1.innerHTML =
+      "";
 
-    gallery2.innerHTML = "";
+    gallery2.innerHTML =
+      "";
 
 
     /* Первые 15 фотографий */
 
     images
-      .slice(0, 15)
+      .slice(
+        0,
+        15
+      )
       .forEach(
         function (
           photo,
@@ -613,10 +660,13 @@ async function loadPhotos() {
       );
 
 
-    /* Следующие 15 */
+    /* Следующие 15 фотографий */
 
     images
-      .slice(15, 30)
+      .slice(
+        15,
+        30
+      )
       .forEach(
         function (
           photo,
@@ -637,7 +687,11 @@ async function loadPhotos() {
       );
 
 
-    if (images.length === 0) {
+    /* Сообщение если фото не найдены */
+
+    if (
+      images.length === 0
+    ) {
 
       gallery1.innerHTML =
         "<p>Фотографии пока не найдены.</p>";
@@ -645,15 +699,19 @@ async function loadPhotos() {
     }
 
 
-    /* Если фотографий меньше 16,
-       вторая страница всё равно
-       остаётся рабочей */
+    console.log(
+      "Найдено фотографий:",
+      images.length
+    );
 
   }
 
   catch (error) {
 
-    console.error(error);
+    console.error(
+      "Ошибка загрузки фотографий:",
+      error
+    );
 
 
     gallery1.innerHTML =
@@ -687,7 +745,9 @@ function createPolaroid(
 
 
   const polaroid =
-    document.createElement("article");
+    document.createElement(
+      "article"
+    );
 
 
   polaroid.className =
@@ -696,6 +756,7 @@ function createPolaroid(
 
   polaroid.style.setProperty(
     "--rotation",
+
     rotations[
       index %
       rotations.length
@@ -718,8 +779,6 @@ function createPolaroid(
   `;
 
 
-  /* Открытие увеличенного фото */
-
   polaroid.addEventListener(
     "click",
     function () {
@@ -739,7 +798,7 @@ function createPolaroid(
 
 
 /* =====================================
-   УВЕЛИЧЕННОЕ ФОТО
+   УВЕЛИЧЕНИЕ ФОТО
 ===================================== */
 
 function openPhotoModal(
@@ -753,7 +812,9 @@ function openPhotoModal(
     );
 
 
-  if (oldModal) {
+  if (
+    oldModal
+  ) {
 
     oldModal.remove();
 
@@ -761,7 +822,9 @@ function openPhotoModal(
 
 
   const modal =
-    document.createElement("div");
+    document.createElement(
+      "div"
+    );
 
 
   modal.className =
