@@ -275,7 +275,7 @@ const finalPhotosBtn =
 
 
 /* =====================================
-   ОКНО ФОТО
+   ОКНО УВЕЛИЧЕННОЙ ФОТОГРАФИИ
 ===================================== */
 
 const photoModal =
@@ -301,7 +301,7 @@ const modalCaption =
 
 
 /* =====================================
-   ПЕРЕКЛЮЧЕНИЕ СТРАНИЦ
+   СТРАНИЦЫ
 ===================================== */
 
 function hideAllSections() {
@@ -379,10 +379,12 @@ function createGalleries() {
       (photo, index) => {
 
         gallery1.appendChild(
+
           createPolaroid(
             photo,
             index
           )
+
         );
 
       }
@@ -395,10 +397,12 @@ function createGalleries() {
       (photo, index) => {
 
         gallery2.appendChild(
+
           createPolaroid(
             photo,
             index + 15
           )
+
         );
 
       }
@@ -779,7 +783,7 @@ function showQuestion() {
 
 
 /* =====================================
-   СОХРАНЕНИЕ ТЕКУЩЕГО ОТВЕТА
+   СОХРАНЕНИЕ ОТВЕТА
 ===================================== */
 
 answerInput.addEventListener(
@@ -882,7 +886,8 @@ async function sendAnswersToGoogleSheets() {
 
   const data = {
 
-    answers: answers,
+    answers:
+      answers,
 
     submittedAt:
       new Date()
@@ -896,12 +901,9 @@ async function sendAnswersToGoogleSheets() {
   try {
 
     /*
-      mode: no-cors позволяет отправить
-      данные с GitHub Pages в Google Apps
-      Script без блокировки CORS.
-
-      Важно: ответ сервера браузер не сможет
-      прочитать, но запрос будет отправлен.
+      no-cors нужен для того,
+      чтобы GitHub Pages мог отправить
+      POST-запрос в Google Apps Script.
     */
 
     await fetch(
@@ -934,8 +936,9 @@ async function sendAnswersToGoogleSheets() {
 
 
     /*
-      После успешной отправки fetch
-      сразу переходим на финальную страницу.
+      При no-cors браузер не может
+      прочитать ответ сервера,
+      но POST-запрос отправляется.
     */
 
     goToSection(
@@ -943,6 +946,7 @@ async function sendAnswersToGoogleSheets() {
     );
 
   }
+
 
   catch (error) {
 
@@ -953,14 +957,9 @@ async function sendAnswersToGoogleSheets() {
 
 
     alert(
-
-      "Не удалось отправить ответы. Проверь подключение к интернету и попробуй ещё раз."
-
+      "Не удалось отправить ответы. Попробуй ещё раз."
     );
 
-  }
-
-  finally {
 
     nextQuestionBtn.disabled =
       false;
