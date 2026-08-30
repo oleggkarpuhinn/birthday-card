@@ -4,28 +4,14 @@
 
 <head>
 
-  <!-- Кодировка сайта -->
-
   <meta charset="UTF-8">
 
-  <!-- Адаптация под телефон -->
-
-<meta
-name="viewport"
-content="width=device-width, initial-scale=1.0"
-
->
-
-  <!-- Название вкладки браузера -->
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
 
   <title>Для тебя</title>
-
-  <!-- =====================================
-       ПОДКЛЮЧЕНИЕ CSS
-
-       Файл должен называться:
-       style.css
-  ====================================== -->
 
   <link
     rel="stylesheet"
@@ -34,280 +20,244 @@ content="width=device-width, initial-scale=1.0"
 
 </head>
 
+
 <body>
 
   <div class="scene">
 
-```
-<!-- =====================================
-     ФОНОВЫЕ ДЕКОРАЦИИ
-====================================== -->
 
-<div class="background-texture"></div>
+    <!-- ФОНОВЫЕ ДЕКОРАЦИИ -->
 
-<div class="light light-1"></div>
+    <div class="background-texture"></div>
 
-<div class="light light-2"></div>
+    <div class="light light-1"></div>
+
+    <div class="light light-2"></div>
 
 
-<!-- =====================================
-     ЭКРАН 1 — КОНВЕРТ
-====================================== -->
+    <!-- ЭКРАН 1 — КОНВЕРТ -->
 
-<section class="intro" id="intro">
-
-  <div class="intro-content">
-
-
-    <!-- =================================
-         ИМЯ ДЕВУШКИ
-
-         МЕНЯЙ ЗДЕСЬ
-    ================================== -->
-
-    <p class="small-text">
-      Для
-    </p>
-
-    <h1 id="girlName">
-      Моей дорогой Лизы
-    </h1>
-
-
-    <!-- Подсказка -->
-
-    <p class="hint">
-      Нажми на письмо, чтобы открыть
-    </p>
-
-
-    <!-- =================================
-         КОНВЕРТ
-    ================================== -->
-
-    <div
-      class="envelope-wrapper"
-      id="envelope"
+    <section
+      class="intro"
+      id="intro"
     >
 
-      <div class="envelope">
-
-        <!-- Задняя часть конверта -->
-
-        <div class="envelope-back"></div>
+      <div class="intro-content">
 
 
-        <!-- =================================
-             ПЕРВОЕ ПИСЬМО
-
-             ТЕКСТ МОЖНО МЕНЯТЬ ЗДЕСЬ
-        ================================== -->
-
-        <div class="letter">
-
-          <div class="letter-paper">
-
-            <p class="letter-date">
-              Небольшое письмо для тебя
-            </p>
+        <p class="small-text">
+          Для
+        </p>
 
 
-            <h2>
-              Привет :)
-            </h2>
+        <h1 id="girlName">
+          Моей дорогой Лизы
+        </h1>
 
 
-            <p>
-              Я долго думал, как тебя поздравить.
-            </p>
+        <p class="hint">
+          Нажми на письмо, чтобы открыть
+        </p>
 
 
-            <p>
-              И в какой-то момент решил,
-              что обычного сообщения
-              будет недостаточно.
-            </p>
+        <!-- КОНВЕРТ -->
+
+        <div
+          class="envelope-wrapper"
+          id="envelope"
+        >
+
+          <div class="envelope">
 
 
-            <p>
-              Поэтому сделал для тебя небольшую открытку.
-              Здесь есть несколько вещей,
-              которые мне хотелось показать
-              и сказать именно тебе.
-            </p>
+            <div class="envelope-back"></div>
 
 
-            <!-- =================================
-                 ТВОЯ ПОДПИСЬ
-            ================================== -->
+            <!-- ПИСЬМО -->
 
-            <p class="letter-signature">
-              — ОКР
-            </p>
+            <div class="letter">
+
+              <div class="letter-paper">
 
 
-            <!-- КНОПКА ПЕРЕХОДА -->
+                <p class="letter-date">
+                  Небольшое письмо для тебя
+                </p>
 
-            <button id="continueBtn">
-              Продолжить →
-            </button>
+
+                <h2>
+                  Привет :)
+                </h2>
+
+
+                <p>
+                  Я долго думал, как тебя поздравить.
+                </p>
+
+
+                <p>
+                  И в какой-то момент решил,
+                  что обычного сообщения
+                  будет недостаточно.
+                </p>
+
+
+                <p>
+                  Поэтому сделал для тебя небольшую открытку.
+                  Здесь есть несколько вещей,
+                  которые мне хотелось показать
+                  и сказать именно тебе.
+                </p>
+
+
+                <p class="letter-signature">
+                  — ОКР
+                </p>
+
+
+                <button
+                  id="continueBtn"
+                  type="button"
+                >
+                  Продолжить →
+                </button>
+
+
+              </div>
+
+            </div>
+
+
+            <!-- ПЕРЕДНЯЯ ЧАСТЬ КОНВЕРТА -->
+
+            <div class="envelope-front"></div>
+
+
+            <!-- КЛАПАН -->
+
+            <div class="envelope-flap"></div>
+
+
+            <!-- ПЕЧАТЬ -->
+
+            <div class="seal">
+              ✦
+            </div>
+
 
           </div>
 
         </div>
 
+      </div>
 
-        <!-- Передняя часть конверта -->
-
-        <div class="envelope-front"></div>
-
-
-        <!-- Клапан конверта -->
-
-        <div class="envelope-flap"></div>
+    </section>
 
 
-        <!-- Печать -->
+    <!-- ЭКРАН 2 — ВОСПОМИНАНИЯ -->
 
-        <div class="seal">
-          ✦
-        </div>
+    <section
+      class="memories-section"
+      id="memoriesSection"
+    >
+
+
+      <div class="memories-header">
+
+
+        <p class="section-subtitle">
+          Несколько моментов
+        </p>
+
+
+        <h2>
+          Которые хочется сохранить
+        </h2>
+
+
+        <p class="section-description">
+          Иногда фотографии сохраняют
+          чуть больше, чем просто один момент.
+        </p>
+
 
       </div>
 
-    </div>
 
-  </div>
+      <!-- ГАЛЕРЕЯ POLAROID -->
 
-</section>
-
-
-
-<!-- =====================================
-     ЭКРАН 2 — ВОСПОМИНАНИЯ
-
-     ФОТОГРАФИИ ДОБАВЛЯЮТСЯ
-     АВТОМАТИЧЕСКИ ЧЕРЕЗ script.js
-====================================== -->
-
-<section
-  class="memories-section"
-  id="memoriesSection"
->
-
-  <div class="memories-header">
+      <div
+        class="polaroid-gallery"
+        id="polaroidGallery"
+      ></div>
 
 
-    <p class="section-subtitle">
-      Несколько моментов
-    </p>
+      <!-- КНОПКА ДАЛЬШЕ -->
+
+      <button
+        class="memories-next-button"
+        id="memoriesNextBtn"
+        type="button"
+      >
+        Продолжить →
+      </button>
 
 
-    <h2>
-      Которые хочется сохранить
-    </h2>
+      <!-- ВОЗВРАТ К ПИСЬМУ -->
+
+      <button
+        class="back-to-letter"
+        id="backBtn"
+        type="button"
+      >
+        ← Вернуться к письму
+      </button>
 
 
-    <p class="section-description">
-      Иногда фотографии сохраняют
-      чуть больше, чем просто один момент.
-    </p>
-
-  </div>
+    </section>
 
 
-  <!-- =================================
-       ГАЛЕРЕЯ POLAROID
+    <!-- ЭКРАН 3 -->
 
-       ФОТОГРАФИИ СЮДА ДОБАВИТ script.js
-  ================================== -->
-
-  <div
-    class="polaroid-gallery"
-    id="polaroidGallery"
-  ></div>
+    <section
+      class="placeholder-section"
+      id="placeholderSection"
+    >
 
 
-
-  <!-- =================================
-       КНОПКА ПЕРЕХОДА ДАЛЬШЕ
-  ================================== -->
-
-  <button
-    class="memories-next-button"
-    id="memoriesNextBtn"
-  >
-    Продолжить →
-  </button>
+      <div class="placeholder-card">
 
 
-
-  <!-- =================================
-       ВОЗВРАТ К ПИСЬМУ
-  ================================== -->
-
-  <button
-    class="back-to-letter"
-    id="backBtn"
-  >
-    ← Вернуться к письму
-  </button>
+        <p class="small-text">
+          Следующая страница
+        </p>
 
 
-</section>
+        <h2>
+          А теперь твоя очередь
+        </h2>
 
 
-
-<!-- =====================================
-     ЭКРАН 3 — ПОКА ВРЕМЕННАЯ ЗАГЛУШКА
-
-     ПОЗЖЕ ЗДЕСЬ БУДЕТ:
-     ИНТЕРАКТИВНОЕ ПИСЬМО ОТ НЕЁ ТЕБЕ
-====================================== -->
-
-<section
-  class="placeholder-section"
-  id="placeholderSection"
->
-
-  <div class="placeholder-card">
+        <p>
+          Здесь позже появится страница,
+          где можно будет оставить
+          своё сообщение.
+        </p>
 
 
-    <p class="small-text">
-      Следующая страница
-    </p>
+      </div>
 
 
-    <h2>
-      А теперь твоя очередь
-    </h2>
-
-
-    <p>
-      Здесь позже появится страница,
-      где можно будет оставить
-      своё сообщение.
-    </p>
+    </section>
 
 
   </div>
 
-</section>
-```
 
-  </div>
-
-  <!-- =====================================
-       ПОДКЛЮЧЕНИЕ JAVASCRIPT
-
-       Файл должен называться:
-       script.js
-
-       Эта строка должна быть
-       в самом конце body
-  ====================================== -->
+  <!-- JAVASCRIPT -->
 
   <script src="script.js"></script>
+
 
 </body>
 
