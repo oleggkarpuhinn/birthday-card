@@ -1,439 +1,1110 @@
-<!DOCTYPE html>
-<html lang="ru">
+/* =====================================
+   ОБЩИЕ НАСТРОЙКИ
+===================================== */
 
-<head>
+* {
+  box-sizing: border-box;
+}
 
-  <meta charset="UTF-8">
 
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
+html {
+  scroll-behavior: smooth;
+}
 
-  <title>Для тебя ❤️</title>
 
-  <link
-    rel="stylesheet"
-    href="style.css"
-  >
+body {
+  margin: 0;
 
-</head>
+  min-height: 100vh;
 
+  color: #f5eee7;
 
-<body>
+  background:
+    radial-gradient(
+      circle at top,
+      #7a5c48,
+      #38271f 70%
+    );
 
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+}
 
-  <div class="scene">
 
+/* =====================================
+   ОСНОВНАЯ СЦЕНА
+===================================== */
 
-    <div class="background-texture"></div>
+.scene {
+  position: relative;
 
-    <div class="light light-1"></div>
-    <div class="light light-2"></div>
+  min-height: 100vh;
 
+  overflow-x: hidden;
+}
 
-    <!-- =====================================
-         СТРАНИЦА 1 — КОНВЕРТ
-    ====================================== -->
 
-    <section
-      class="intro"
-      id="intro"
-    >
+.background-texture {
+  position: fixed;
 
+  inset: 0;
 
-      <div class="intro-content">
+  pointer-events: none;
 
+  opacity: 0.15;
 
-        <p class="small-text">
-          Для
-        </p>
+  background-image:
+    radial-gradient(
+      rgba(255,255,255,0.08) 1px,
+      transparent 1px
+    );
 
+  background-size:
+    8px 8px;
 
-        <h1>
-          Моей дорогой Лизы
-        </h1>
+  z-index: 0;
+}
 
 
-        <p class="hint">
-          Нажми на письмо, чтобы открыть
-        </p>
+.light {
+  position: fixed;
 
+  width: 500px;
+  height: 500px;
 
-        <div
-          class="envelope-wrapper"
-          id="envelope"
-        >
+  border-radius: 50%;
 
+  filter: blur(120px);
 
-          <div class="envelope">
+  pointer-events: none;
 
+  opacity: 0.25;
 
-            <div class="envelope-back"></div>
+  z-index: 0;
+}
 
 
-            <!-- ПИСЬМО -->
+.light-1 {
+  top: -200px;
+  left: -150px;
 
-            <div class="letter">
+  background: #d7a77d;
+}
 
 
-              <div class="letter-paper">
+.light-2 {
+  right: -200px;
+  bottom: -200px;
 
+  background: #8e6b58;
+}
 
-                <p class="letter-date">
-                  Небольшое письмо для тебя
-                </p>
 
+/* =====================================
+   КНОПКИ
+===================================== */
 
-                <h2>
-                  Привет :)
-                </h2>
+button {
+  cursor: pointer;
 
+  border: none;
 
-                <p>
-                  Я долго думал, как тебя поздравить.
-                </p>
+  padding:
+    14px
+    25px;
 
+  border-radius: 8px;
 
-                <p>
-                  И в какой-то момент решил,
-                  что обычного сообщения
-                  будет недостаточно.
-                </p>
+  color: #fff8f1;
 
+  background: #95664f;
 
-                <p>
-                  Поэтому сделал для тебя
-                  небольшую открытку.
-                </p>
+  font-family: inherit;
 
+  font-size: 16px;
 
-                <p>
-                  Здесь есть несколько вещей,
-                  которые мне хотелось показать
-                  и сказать именно тебе.
-                </p>
+  position: relative;
 
+  z-index: 20;
 
-                <p class="letter-signature">
-                  — ОКР
-                </p>
+  pointer-events: auto;
 
+  transition:
+    transform 0.2s ease,
+    opacity 0.2s ease,
+    background 0.2s ease,
+    box-shadow 0.2s ease;
+}
 
-                <button
-                  id="continueBtn"
-                  type="button"
-                >
-                  Продолжить →
-                </button>
 
+button:hover {
+  transform:
+    translateY(-2px);
 
-                <button
-                  id="closeLetterBtn"
-                  type="button"
-                  class="secondary-button"
-                >
-                  ← Закрыть письмо
-                </button>
+  background:
+    #a8755c;
 
+  box-shadow:
+    0 8px 20px
+    rgba(0,0,0,0.18);
+}
 
-              </div>
 
+.secondary-button {
+  background:
+    transparent;
 
-            </div>
+  border:
+    1px solid
+    rgba(255,255,255,0.45);
 
+  color:
+    #f5eee7;
+}
 
-            <!-- КОНВЕРТ -->
 
-            <div class="envelope-front"></div>
+.secondary-button:hover {
+  background:
+    rgba(255,255,255,0.08);
+}
 
-            <div class="envelope-flap"></div>
 
+/* =====================================
+   КОНВЕРТ — ПЕРВАЯ СТРАНИЦА
+===================================== */
 
-            <div class="seal">
-              ✦
-            </div>
+.intro {
+  position: relative;
 
+  z-index: 2;
 
-          </div>
+  min-height: 100vh;
 
+  display: flex;
 
-        </div>
+  align-items: center;
 
+  justify-content: center;
 
-      </div>
+  padding: 40px 20px;
 
+  text-align: center;
+}
 
-    </section>
 
+.intro-content {
+  position: relative;
 
+  z-index: 10;
 
-    <!-- =====================================
-         СТРАНИЦА 2 — ФОТОГРАФИИ 1
-    ====================================== -->
+  width:
+    min(700px, 100%);
+}
 
-    <section
-      class="memories-section"
-      id="memoriesSection1"
-    >
 
+.small-text,
+.section-subtitle {
+  letter-spacing:
+    4px;
 
-      <div class="memories-header">
+  text-transform:
+    uppercase;
 
+  font-size:
+    12px;
 
-        <p class="section-subtitle">
-          Несколько моментов
-        </p>
+  opacity:
+    0.7;
+}
 
 
-        <h2>
-          Которые хочется сохранить
-        </h2>
+.intro h1 {
+  position: relative;
 
+  z-index: 1;
 
-        <p class="section-description">
-          Иногда фотографии сохраняют
-          чуть больше, чем просто один момент.
-        </p>
+  margin:
+    15px 0 10px;
 
+  font-size:
+    clamp(
+      42px,
+      7vw,
+      72px
+    );
 
-      </div>
+  font-weight:
+    400;
+}
 
 
+.hint {
+  margin-bottom:
+    35px;
 
-      <div
-        class="polaroid-gallery"
-        id="polaroidGallery1"
-      ></div>
+  opacity:
+    0.75;
 
+  transition:
+    opacity 0.3s ease;
+}
 
 
-      <div class="page-navigation">
+/* =====================================
+   КОНВЕРТ
+===================================== */
 
+.envelope-wrapper {
+  display: inline-block;
 
-        <button
-          id="backToLetterBtn"
-          type="button"
-          class="secondary-button"
-        >
-          ← К письму
-        </button>
+  cursor: pointer;
 
+  perspective:
+    1200px;
 
-        <button
-          id="photosPage2Btn"
-          type="button"
-        >
-          Ещё воспоминания →
-        </button>
+  position: relative;
 
+  z-index: 20;
+}
 
-      </div>
 
+.envelope {
+  position: relative;
 
-    </section>
+  width:
+    min(
+      420px,
+      85vw
+    );
 
+  height:
+    270px;
 
+  z-index: 20;
+}
 
-    <!-- =====================================
-         СТРАНИЦА 3 — ФОТОГРАФИИ 2
-    ====================================== -->
 
-    <section
-      class="memories-section"
-      id="memoriesSection2"
-    >
+.envelope-back {
+  position: absolute;
 
+  inset: 0;
 
-      <div class="memories-header">
+  z-index: 1;
 
+  background:
+    #b77d5e;
 
-        <p class="section-subtitle">
-          Продолжение
-        </p>
+  border-radius:
+    4px;
 
+  box-shadow:
+    0 20px 50px
+    rgba(0,0,0,0.35);
+}
 
-        <h2>
-          Ещё немного воспоминаний
-        </h2>
 
+.envelope-front {
+  position: absolute;
 
-        <p class="section-description">
-          Некоторые моменты просто хочется
-          оставить здесь навсегда.
-        </p>
+  inset: 0;
 
+  z-index: 4;
 
-      </div>
+  clip-path:
+    polygon(
+      0 0,
+      50% 55%,
+      100% 0,
+      100% 100%,
+      0 100%
+    );
 
+  background:
+    #9e674e;
 
+  pointer-events: none;
+}
 
-      <div
-        class="polaroid-gallery"
-        id="polaroidGallery2"
-      ></div>
 
+.envelope-flap {
+  position: absolute;
 
+  top: 0;
 
-      <div class="page-navigation">
+  left: 0;
 
+  width: 100%;
+  height: 55%;
 
-        <button
-          id="photosPage1Btn"
-          type="button"
-          class="secondary-button"
-        >
-          ← Предыдущие фотографии
-        </button>
+  z-index: 5;
 
+  transform-origin:
+    top;
 
-        <button
-          id="questionsStartBtn"
-          type="button"
-        >
-          А теперь твоя очередь →
-        </button>
+  clip-path:
+    polygon(
+      0 0,
+      100% 0,
+      50% 100%
+    );
 
+  background:
+    #c18b6b;
 
-      </div>
+  pointer-events: none;
 
+  transition:
+    transform
+    0.8s ease;
+}
 
-    </section>
 
+.seal {
+  position: absolute;
 
+  left: 50%;
+  top: 45%;
 
-    <!-- =====================================
-         ВОПРОСЫ
-    ====================================== -->
+  z-index: 6;
 
-    <section
-      class="questions-section"
-      id="questionsSection"
-    >
+  transform:
+    translate(
+      -50%,
+      -50%
+    );
 
+  width: 45px;
+  height: 45px;
 
-      <div class="question-card">
+  border-radius: 50%;
 
+  display: flex;
 
-        <p
-          class="question-counter"
-          id="questionCounter"
-        >
-          Вопрос 1 из 10
-        </p>
+  align-items: center;
 
+  justify-content: center;
 
-        <h2
-          id="questionText"
-        >
-          Вопрос
-        </h2>
+  background:
+    #774838;
 
+  color:
+    #f8dfb5;
 
-        <textarea
-          id="answerInput"
-          placeholder="Напиши здесь то, что думаешь..."
-        ></textarea>
+  pointer-events: none;
 
+  transition:
+    opacity 0.4s ease;
+}
 
 
-        <div class="question-navigation">
+/* =====================================
+   ПИСЬМО
+===================================== */
 
+.letter {
+  position: absolute;
 
-          <button
-            id="previousQuestionBtn"
-            type="button"
-            class="secondary-button"
-          >
-            ← Назад
-          </button>
+  left: 50%;
+  bottom: 15px;
 
+  z-index: 3;
 
-          <button
-            id="nextQuestionBtn"
-            type="button"
-          >
-            Далее →
-          </button>
+  width: 85%;
 
+  transform:
+    translateX(-50%);
 
-        </div>
+  transition:
+    transform 0.9s ease;
 
+  pointer-events: none;
+}
 
-      </div>
 
+.letter-paper {
+  padding:
+    25px;
 
-    </section>
+  color:
+    #4b3a30;
 
+  text-align:
+    left;
 
+  background:
+    #f5eee1;
 
-    <!-- =====================================
-         ФИНАЛ
-    ====================================== -->
+  box-shadow:
+    0 15px 30px
+    rgba(0,0,0,0.25);
 
-    <section
-      class="final-section"
-      id="finalSection"
-    >
+  pointer-events: auto;
+}
 
 
-      <div class="final-card">
+.letter-paper button {
+  display: block;
 
+  width: 100%;
 
-        <p class="small-text">
-          Вот и всё
-        </p>
+  margin-top:
+    15px;
 
+  position: relative;
 
-        <h2>
-          Спасибо, что прошла этот путь ❤️
-        </h2>
+  z-index: 100;
 
+  cursor: pointer;
+}
 
-        <p>
-          Теперь эта история стала немного больше,
-          потому что в ней появились и твои слова.
-        </p>
 
+.letter-paper .secondary-button {
+  color:
+    #4b3a30;
 
+  border-color:
+    rgba(75,58,48,0.4);
+}
 
-        <div class="final-navigation">
 
+.letter-date {
+  opacity:
+    0.65;
 
-          <button
-            id="finalBackBtn"
-            type="button"
-          >
-            ← Вернуться к вопросам
-          </button>
+  font-size:
+    14px;
+}
 
 
+.letter-signature {
+  margin-top:
+    25px;
 
-          <button
-            id="finalPhotosBtn"
-            type="button"
-            class="secondary-button"
-          >
-            ← Вернуться к фотографиям
-          </button>
+  text-align:
+    right;
 
+  font-style:
+    italic;
+}
 
-        </div>
 
+/* =====================================
+   ОТКРЫТЫЙ КОНВЕРТ
+===================================== */
 
-      </div>
+.envelope-wrapper.open
+.envelope-flap {
+  transform:
+    rotateX(180deg);
 
+  z-index: 1;
+}
 
-    </section>
 
+.envelope-wrapper.open
+.seal {
+  opacity: 0;
+}
 
-  </div>
 
+.envelope-wrapper.open
+.letter {
+  transform:
+    translateX(-50%)
+    translateY(-190px);
 
+  z-index: 100;
+}
 
-  <script src="script.js"></script>
 
+/* При открытии прячем надписи за письмом */
 
-</body>
+.envelope-wrapper.open {
+  z-index: 100;
+}
 
-</html>
+
+.envelope-wrapper.open ~ * {
+  pointer-events: none;
+}
+
+
+/* =====================================
+   ФОТОГРАФИИ
+===================================== */
+
+.memories-section {
+  display: none;
+
+  position: relative;
+
+  z-index: 5;
+
+  min-height: 100vh;
+
+  padding:
+    70px
+    25px;
+
+  text-align:
+    center;
+}
+
+
+.memories-section.show {
+  display: block;
+}
+
+
+.memories-header {
+  max-width:
+    750px;
+
+  margin:
+    0 auto 60px;
+}
+
+
+.memories-header h2 {
+  margin:
+    15px 0;
+
+  font-size:
+    clamp(
+      42px,
+      6vw,
+      70px
+    );
+
+  font-weight:
+    400;
+}
+
+
+.section-description {
+  max-width:
+    500px;
+
+  margin:
+    0 auto;
+
+  opacity:
+    0.75;
+
+  line-height:
+    1.6;
+
+  font-style:
+    italic;
+}
+
+
+/* =====================================
+   ГАЛЕРЕЯ
+===================================== */
+
+.polaroid-gallery {
+  width:
+    min(
+      1200px,
+      100%
+    );
+
+  margin:
+    0 auto;
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(
+      auto-fit,
+      minmax(
+        220px,
+        1fr
+      )
+    );
+
+  gap:
+    45px;
+
+  align-items:
+    center;
+}
+
+
+.polaroid {
+  padding:
+    12px
+    12px
+    25px;
+
+  color:
+    #4b3a30;
+
+  background:
+    #f6f0e6;
+
+  box-shadow:
+    0 18px 35px
+    rgba(0,0,0,0.28);
+
+  transform:
+    rotate(
+      var(--rotation)
+    );
+
+  transition:
+    transform
+    0.25s ease;
+
+  position: relative;
+}
+
+
+.polaroid:hover {
+  transform:
+    rotate(0deg)
+    scale(1.04);
+
+  z-index: 5;
+}
+
+
+.polaroid-image {
+  display: block;
+
+  width: 100%;
+
+  aspect-ratio:
+    1 / 1;
+
+  object-fit:
+    cover;
+
+  background:
+    #ddd;
+}
+
+
+.polaroid-caption {
+  min-height:
+    20px;
+
+  margin:
+    15px 0 0;
+
+  text-align:
+    center;
+
+  font-style:
+    italic;
+}
+
+
+/* =====================================
+   НАВИГАЦИЯ ФОТО
+===================================== */
+
+.page-navigation {
+  display: flex;
+
+  justify-content:
+    center;
+
+  gap:
+    15px;
+
+  flex-wrap:
+    wrap;
+
+  margin-top:
+    60px;
+}
+
+
+/* =====================================
+   ВОПРОСЫ
+===================================== */
+
+.questions-section,
+.final-section {
+  display: none;
+
+  position: relative;
+
+  z-index: 10;
+
+  min-height: 100vh;
+
+  align-items:
+    center;
+
+  justify-content:
+    center;
+
+  padding:
+    30px;
+}
+
+
+.questions-section.show,
+.final-section.show {
+  display: flex;
+}
+
+
+.question-card,
+.final-card {
+  width:
+    min(
+      700px,
+      100%
+    );
+
+  padding:
+    clamp(
+      25px,
+      6vw,
+      55px
+    );
+
+  border-radius:
+    25px;
+
+  color:
+    #4b3a30;
+
+  background:
+    rgba(
+      246,
+      240,
+      230,
+      0.96
+    );
+
+  box-shadow:
+    0 25px 70px
+    rgba(0,0,0,0.25);
+
+  text-align:
+    center;
+
+  position: relative;
+
+  z-index: 20;
+}
+
+
+.question-counter {
+  opacity:
+    0.55;
+
+  letter-spacing:
+    2px;
+
+  text-transform:
+    uppercase;
+
+  font-size:
+    12px;
+}
+
+
+.question-card h2,
+.final-card h2 {
+  font-size:
+    clamp(
+      28px,
+      4vw,
+      46px
+    );
+
+  font-weight:
+    400;
+
+  line-height:
+    1.35;
+}
+
+
+/* =====================================
+   ПОЛЕ ОТВЕТА
+===================================== */
+
+#answerInput {
+  width: 100%;
+
+  min-height:
+    220px;
+
+  margin-top:
+    20px;
+
+  padding:
+    20px;
+
+  resize:
+    vertical;
+
+  border:
+    1px solid
+    rgba(0,0,0,0.15);
+
+  border-radius:
+    15px;
+
+  outline:
+    none;
+
+  color:
+    #4b3a30;
+
+  background:
+    rgba(255,255,255,0.6);
+
+  font:
+    inherit;
+
+  font-size:
+    17px;
+}
+
+
+#answerInput:focus {
+  border-color:
+    #95664f;
+
+  box-shadow:
+    0 0 0 3px
+    rgba(149,102,79,0.15);
+}
+
+
+.question-navigation {
+  display: flex;
+
+  justify-content:
+    center;
+
+  gap:
+    15px;
+
+  flex-wrap:
+    wrap;
+
+  margin-top:
+    30px;
+}
+
+
+/* =====================================
+   ФИНАЛЬНАЯ СТРАНИЦА
+===================================== */
+
+.final-card p {
+  line-height:
+    1.7;
+}
+
+
+.final-navigation {
+  display: flex;
+
+  justify-content:
+    center;
+
+  align-items:
+    center;
+
+  gap:
+    18px;
+
+  margin-top:
+    35px;
+
+  flex-wrap:
+    wrap;
+
+  position: relative;
+
+  z-index: 100;
+}
+
+
+/* КНОПКИ ФИНАЛА */
+
+.final-navigation button {
+  display: inline-flex !important;
+
+  align-items: center;
+
+  justify-content: center;
+
+  min-width: 230px;
+
+  min-height: 54px;
+
+  padding:
+    15px
+    24px;
+
+  border-radius:
+    10px;
+
+  font-family:
+    inherit;
+
+  font-size:
+    16px;
+
+  font-weight:
+    500;
+
+  cursor:
+    pointer !important;
+
+  pointer-events:
+    auto !important;
+
+  position:
+    relative;
+
+  z-index:
+    1000 !important;
+
+  opacity:
+    1 !important;
+
+  visibility:
+    visible !important;
+}
+
+
+/* ПЕРВАЯ КНОПКА */
+
+#finalBackBtn {
+  background:
+    #95664f !important;
+
+  color:
+    #fff8f1 !important;
+
+  border:
+    1px solid
+    #95664f !important;
+}
+
+
+#finalBackBtn:hover {
+  background:
+    #a8755c !important;
+
+  transform:
+    translateY(-3px);
+}
+
+
+/* ВТОРАЯ КНОПКА */
+
+#finalPhotosBtn {
+  background:
+    #4b3a30 !important;
+
+  color:
+    #fff8f1 !important;
+
+  border:
+    1px solid
+    #4b3a30 !important;
+
+  box-shadow:
+    0 8px 20px
+    rgba(0,0,0,0.18);
+}
+
+
+#finalPhotosBtn:hover {
+  background:
+    #38271f !important;
+
+  transform:
+    translateY(-3px);
+}
+
+
+/* =====================================
+   ТЕЛЕФОНЫ
+===================================== */
+
+@media (
+  max-width: 600px
+) {
+
+
+  .intro {
+    align-items:
+      flex-start;
+
+    padding-top:
+      80px;
+  }
+
+
+  .envelope {
+    height:
+      230px;
+  }
+
+
+  .envelope-wrapper.open
+  .letter {
+    transform:
+      translateX(-50%)
+      translateY(-150px);
+  }
+
+
+  .polaroid-gallery {
+    grid-template-columns:
+      1fr;
+
+    max-width:
+      330px;
+  }
+
+
+  .page-navigation,
+  .question-navigation,
+  .final-navigation {
+    flex-direction:
+      column;
+
+    align-items:
+      stretch;
+
+    width:
+      100%;
+  }
+
+
+  .page-navigation button,
+  .question-navigation button,
+  .final-navigation button {
+    width:
+      100%;
+
+    min-width:
+      0;
+  }
+
+
+  .final-card {
+    padding:
+      30px
+      20px;
+  }
+
+
+}
