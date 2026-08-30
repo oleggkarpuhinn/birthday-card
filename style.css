@@ -196,19 +196,19 @@ button:hover {
 }
 
 /* =====================================
-   ПИСЬМО (ИСПРАВЛЕНО)
+   ПИСЬМО
 ===================================== */
 .letter {
   position: absolute;
-  top: 15px; /* Спрятано внутри конверта */
+  top: 15px;
   left: 50%;
   width: 85%;
-  height: 75%; /* Ограничено высотой, чтобы не торчать */
+  height: 75%;
   transform: translateX(-50%);
-  z-index: 2; /* Позади передней части (4) и клапана (5) */
+  z-index: 2;
   transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
   pointer-events: none;
-  opacity: 0; /* Полностью скрыто до открытия */
+  opacity: 0;
 }
 
 .letter-paper {
@@ -265,7 +265,6 @@ button:hover {
   pointer-events: none;
 }
 
-/* Финальное состояние письма (центрирование на экране) */
 .envelope-wrapper.open .letter {
   position: fixed;
   top: 50%;
@@ -319,12 +318,17 @@ button:hover {
   font-style: italic;
 }
 
+/* =====================================
+   ГАЛЕРЕЯ (ОБНОВЛЕНО ДЛЯ СИММЕТРИИ)
+===================================== */
 .polaroid-gallery {
   width: min(1200px, 100%);
   margin: 0 auto;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  /* Фиксированный размер ячейки не дает фото растягиваться, а justify-content центрирует последний ряд */
+  grid-template-columns: repeat(auto-fill, minmax(240px, 250px));
   gap: 45px;
+  justify-content: center; /* Ключевое свойство: центрирует 3 последние фотки */
   align-items: center;
 }
 
@@ -352,13 +356,23 @@ button:hover {
   background: #ddd;
 }
 
+/* =====================================
+   ПОДПИСИ К ФОТО (ОБНОВЛЕНО)
+===================================== */
 .polaroid-caption {
-  min-height: 20px;
+  min-height: 45px; /* Увеличено, чтобы влезало 1-2 строки текста */
   margin: 15px 0 0;
+  padding: 0 5px;
   text-align: center;
   font-style: italic;
+  font-size: 15px;
+  line-height: 1.4;
+  color: #5a4a3e;
 }
 
+/* =====================================
+   НАВИГАЦИЯ
+===================================== */
 .page-navigation {
   position: relative;
   z-index: 50;
@@ -527,7 +541,7 @@ button:hover {
 
   .polaroid-gallery {
     grid-template-columns: 1fr;
-    max-width: 330px;
+    max-width: 300px;
   }
 
   .page-navigation,
