@@ -33,6 +33,10 @@ body {
 }
 
 
+/* =====================================
+   ОСНОВНАЯ СЦЕНА
+===================================== */
+
 .scene {
   position: relative;
 
@@ -47,15 +51,13 @@ body {
 
   inset: 0;
 
-  z-index: 0;
-
   pointer-events: none;
 
   opacity: 0.15;
 
   background-image:
     radial-gradient(
-      rgba(255,255,255,0.08) 1px,
+      rgba(255, 255, 255, 0.08) 1px,
       transparent 1px
     );
 
@@ -105,11 +107,9 @@ body {
 button {
   position: relative;
 
-  z-index: 100;
+  z-index: 50;
 
   cursor: pointer;
-
-  pointer-events: auto;
 
   border: none;
 
@@ -126,6 +126,8 @@ button {
   font-family: inherit;
 
   font-size: 16px;
+
+  pointer-events: auto;
 
   transition:
     transform 0.2s ease,
@@ -149,27 +151,27 @@ button:hover {
 
   border:
     1px solid
-    rgba(255,255,255,0.45);
+    rgba(0, 0, 0, 0.35);
 
   color:
-    #f5eee7;
+    #000000 !important;
 }
 
 
 .secondary-button:hover {
   background:
-    rgba(255,255,255,0.08);
+    rgba(255, 255, 255, 0.25);
 }
 
 
 /* =====================================
-   ПЕРВАЯ СТРАНИЦА
+   КОНВЕРТ — ПЕРВАЯ СТРАНИЦА
 ===================================== */
 
 .intro {
   position: relative;
 
-  z-index: 10;
+  z-index: 2;
 
   min-height: 100vh;
 
@@ -188,7 +190,7 @@ button:hover {
 .intro-content {
   position: relative;
 
-  z-index: 20;
+  z-index: 10;
 
   width:
     min(700px, 100%);
@@ -246,7 +248,7 @@ button:hover {
 .envelope-wrapper {
   position: relative;
 
-  z-index: 50;
+  z-index: 20;
 
   display: inline-block;
 
@@ -259,8 +261,6 @@ button:hover {
 
 .envelope {
   position: relative;
-
-  z-index: 20;
 
   width:
     min(
@@ -278,8 +278,6 @@ button:hover {
 
   inset: 0;
 
-  z-index: 1;
-
   background:
     #b77d5e;
 
@@ -288,7 +286,9 @@ button:hover {
 
   box-shadow:
     0 20px 50px
-    rgba(0,0,0,0.35);
+    rgba(0, 0, 0, 0.35);
+
+  z-index: 1;
 }
 
 
@@ -298,6 +298,8 @@ button:hover {
   inset: 0;
 
   z-index: 4;
+
+  pointer-events: none;
 
   clip-path:
     polygon(
@@ -310,8 +312,6 @@ button:hover {
 
   background:
     #9e674e;
-
-  pointer-events: none;
 }
 
 
@@ -323,10 +323,11 @@ button:hover {
   left: 0;
 
   width: 100%;
-
   height: 55%;
 
   z-index: 5;
+
+  pointer-events: none;
 
   transform-origin:
     top;
@@ -342,7 +343,8 @@ button:hover {
     #c18b6b;
 
   transition:
-    transform 0.8s ease;
+    transform
+    0.8s ease;
 }
 
 
@@ -350,7 +352,6 @@ button:hover {
   position: absolute;
 
   left: 50%;
-
   top: 45%;
 
   z-index: 6;
@@ -362,7 +363,6 @@ button:hover {
     );
 
   width: 45px;
-
   height: 45px;
 
   border-radius: 50%;
@@ -372,6 +372,8 @@ button:hover {
   align-items: center;
 
   justify-content: center;
+
+  pointer-events: none;
 
   background:
     #774838;
@@ -388,12 +390,13 @@ button:hover {
   position: absolute;
 
   left: 50%;
-
   bottom: 15px;
 
   z-index: 3;
 
   width: 85%;
+
+  pointer-events: none;
 
   transform:
     translateX(-50%);
@@ -413,14 +416,14 @@ button:hover {
   text-align:
     left;
 
+  pointer-events: auto;
+
   background:
     #f5eee1;
 
   box-shadow:
     0 15px 30px
-    rgba(0,0,0,0.25);
-
-  pointer-events: auto;
+    rgba(0, 0, 0, 0.25);
 }
 
 
@@ -430,16 +433,20 @@ button:hover {
   width: 100%;
 
   margin-top:
-    15px;
+    20px;
+
+  position: relative;
+
+  z-index: 999;
 }
 
 
 .letter-paper .secondary-button {
   color:
-    #4b3a30;
+    #000000 !important;
 
   border-color:
-    rgba(75,58,48,0.3);
+    rgba(0, 0, 0, 0.35);
 }
 
 
@@ -489,23 +496,9 @@ button:hover {
     translateX(-50%)
     translateY(-190px);
 
-  z-index: 100;
-}
+  z-index: 20;
 
-
-/* Скрываем надпись за письмом */
-
-.intro.letter-open
-.intro-content > .small-text,
-
-.intro.letter-open
-.intro-content > h1,
-
-.intro.letter-open
-.hint {
-  opacity: 0;
-
-  pointer-events: none;
+  pointer-events: auto;
 }
 
 
@@ -532,11 +525,21 @@ button:hover {
 
 
 .memories-section.show {
-  display: block;
+  display: block !important;
+
+  visibility: visible;
+
+  opacity: 1;
+
+  pointer-events: auto;
 }
 
 
 .memories-header {
+  position: relative;
+
+  z-index: 10;
+
   max-width:
     750px;
 
@@ -581,34 +584,50 @@ button:hover {
 
 /* =====================================
    ГАЛЕРЕЯ
-
-   FLEX позволяет центрировать
-   последние фотографии автоматически
 ===================================== */
 
 .polaroid-gallery {
+  position: relative;
+
+  z-index: 10;
+
   width:
     min(
-      1250px,
+      1200px,
       100%
     );
 
   margin:
     0 auto;
 
-  display: flex;
+  display: grid;
 
-  justify-content:
-    center;
-
-  align-items:
-    flex-start;
-
-  flex-wrap:
-    wrap;
+  grid-template-columns:
+    repeat(
+      auto-fit,
+      minmax(
+        220px,
+        1fr
+      )
+    );
 
   gap:
     45px;
+
+  align-items:
+    center;
+
+  justify-items:
+    center;
+}
+
+
+/* Последняя карточка,
+   если она одна в последнем ряду */
+
+.polaroid:last-child:nth-child(3n + 1) {
+  grid-column:
+    2;
 }
 
 
@@ -619,11 +638,12 @@ button:hover {
 .polaroid {
   position: relative;
 
-  width:
-    260px;
+  z-index: 10;
 
-  flex:
-    0 0 260px;
+  width: 100%;
+
+  max-width:
+    300px;
 
   padding:
     12px
@@ -638,19 +658,20 @@ button:hover {
 
   box-shadow:
     0 18px 35px
-    rgba(0,0,0,0.28);
+    rgba(0, 0, 0, 0.28);
+
+  cursor: pointer;
 
   transform:
     rotate(
       var(--rotation)
     );
 
-  cursor:
-    pointer;
-
   transition:
-    transform 0.25s ease,
-    box-shadow 0.25s ease;
+    transform
+    0.25s ease,
+    box-shadow
+    0.25s ease;
 }
 
 
@@ -659,12 +680,11 @@ button:hover {
     rotate(0deg)
     scale(1.04);
 
-  box-shadow:
-    0 25px 45px
-    rgba(0,0,0,0.4);
+  z-index: 30;
 
-  z-index:
-    5;
+  box-shadow:
+    0 25px 50px
+    rgba(0, 0, 0, 0.35);
 }
 
 
@@ -699,6 +719,10 @@ button:hover {
 }
 
 
+/* =====================================
+   НАВИГАЦИЯ МЕЖДУ СТРАНИЦАМИ
+===================================== */
+
 .page-navigation {
   position: relative;
 
@@ -720,8 +744,15 @@ button:hover {
 }
 
 
+.page-navigation button {
+  pointer-events: auto;
+
+  z-index: 200;
+}
+
+
 /* =====================================
-   ВОПРОСЫ
+   ВОПРОСЫ И ФИНАЛ
 ===================================== */
 
 .questions-section,
@@ -730,7 +761,7 @@ button:hover {
 
   position: relative;
 
-  z-index: 20;
+  z-index: 10;
 
   min-height: 100vh;
 
@@ -747,12 +778,22 @@ button:hover {
 
 .questions-section.show,
 .final-section.show {
-  display: flex;
+  display: flex !important;
+
+  visibility: visible;
+
+  opacity: 1;
+
+  pointer-events: auto;
 }
 
 
 .question-card,
 .final-card {
+  position: relative;
+
+  z-index: 20;
+
   width:
     min(
       700px,
@@ -782,7 +823,7 @@ button:hover {
 
   box-shadow:
     0 25px 70px
-    rgba(0,0,0,0.25);
+    rgba(0, 0, 0, 0.25);
 
   text-align:
     center;
@@ -822,6 +863,10 @@ button:hover {
 
 
 #answerInput {
+  position: relative;
+
+  z-index: 30;
+
   width: 100%;
 
   min-height:
@@ -838,7 +883,7 @@ button:hover {
 
   border:
     1px solid
-    rgba(0,0,0,0.15);
+    rgba(0, 0, 0, 0.15);
 
   border-radius:
     15px;
@@ -850,19 +895,19 @@ button:hover {
     #4b3a30;
 
   background:
-    rgba(255,255,255,0.6);
+    rgba(255, 255, 255, 0.6);
 
   font:
     inherit;
 
   font-size:
     17px;
+
+  pointer-events: auto;
 }
 
 
-.question-navigation,
-.question-back-navigation,
-.final-navigation {
+.question-navigation {
   position: relative;
 
   z-index: 100;
@@ -883,11 +928,30 @@ button:hover {
 }
 
 
-.question-back-navigation {
-  margin-top:
-    20px;
+.question-navigation button {
+  pointer-events: auto;
+
+  z-index: 200;
 }
 
+
+/* =====================================
+   ЧЁРНЫЙ ТЕКСТ КНОПОК ВОЗВРАТА
+===================================== */
+
+#previousQuestionBtn,
+#finalBackBtn,
+#backToLetterBtn,
+#photosPage1Btn,
+.secondary-button {
+  color:
+    #000000 !important;
+}
+
+
+/* =====================================
+   ФИНАЛ
+===================================== */
 
 .final-card p {
   line-height:
@@ -904,45 +968,30 @@ button:hover {
 
   inset: 0;
 
-  z-index: 1000;
+  z-index: 99999;
 
-  display: none;
+  display: flex;
 
-  align-items: center;
+  align-items:
+    center;
 
-  justify-content: center;
+  justify-content:
+    center;
 
   padding:
-    30px;
-}
-
-
-.photo-modal.show {
-  display: flex;
-}
-
-
-.photo-modal-overlay {
-  position: absolute;
-
-  inset: 0;
+    20px;
 
   background:
-    rgba(0,0,0,0.82);
-
-  backdrop-filter:
-    blur(8px);
+    rgba(0, 0, 0, 0.85);
 }
 
 
 .photo-modal-content {
   position: relative;
 
-  z-index: 2;
-
   width:
     min(
-      850px,
+      800px,
       95vw
     );
 
@@ -950,22 +999,16 @@ button:hover {
     90vh;
 
   padding:
-    20px
-    20px
+    15px
+    15px
     25px;
-
-  border-radius:
-    15px;
 
   background:
     #f6f0e6;
 
   box-shadow:
-    0 30px 100px
-    rgba(0,0,0,0.6);
-
-  text-align:
-    center;
+    0 30px 80px
+    rgba(0, 0, 0, 0.5);
 }
 
 
@@ -975,58 +1018,67 @@ button:hover {
   width: 100%;
 
   max-height:
-    72vh;
+    70vh;
 
   object-fit:
     contain;
 
-  border-radius:
-    5px;
-}
-
-
-.photo-modal-content p {
-  margin:
-    18px
-    0
-    0;
-
-  color:
-    #4b3a30;
-
-  font-size:
-    18px;
-
-  font-style:
-    italic;
+  background:
+    #222;
 }
 
 
 .photo-modal-close {
   position: absolute;
 
-  top: -18px;
+  top:
+    -15px;
 
-  right: -18px;
+  right:
+    -15px;
 
-  z-index: 10;
+  z-index: 100000;
 
-  width: 48px;
+  width:
+    45px;
 
-  height: 48px;
+  height:
+    45px;
 
   padding: 0;
 
-  border-radius: 50%;
+  border-radius:
+    50%;
 
   font-size:
-    32px;
+    28px;
 
   line-height:
-    1;
+    45px;
 
   background:
-    #774838;
+    #95664f;
+
+  color:
+    #ffffff;
+}
+
+
+.photo-caption {
+  margin:
+    20px 0 0;
+
+  color:
+    #000000;
+
+  text-align:
+    center;
+
+  font-size:
+    18px;
+
+  font-style:
+    italic;
 }
 
 
@@ -1062,31 +1114,22 @@ button:hover {
 
 
   .polaroid-gallery {
-    gap:
-      30px;
+    grid-template-columns:
+      1fr;
+
+    max-width:
+      330px;
   }
 
 
-  .polaroid {
-    width:
-      min(
-        300px,
-        90vw
-      );
-
-    flex:
-      0 0
-      min(
-        300px,
-        90vw
-      );
+  .polaroid:last-child:nth-child(3n + 1) {
+    grid-column:
+      auto;
   }
 
 
   .page-navigation,
-  .question-navigation,
-  .question-back-navigation,
-  .final-navigation {
+  .question-navigation {
     flex-direction:
       column;
 
@@ -1096,24 +1139,14 @@ button:hover {
 
 
   .page-navigation button,
-  .question-navigation button,
-  .question-back-navigation button,
-  .final-navigation button {
+  .question-navigation button {
+    width: 100%;
+  }
+
+
+  .photo-modal-content {
     width:
       100%;
-  }
-
-
-  .photo-modal {
-    padding:
-      15px;
-  }
-
-
-  .photo-modal-close {
-    top: -10px;
-
-    right: -5px;
   }
 
 }
