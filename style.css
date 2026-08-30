@@ -315,4 +315,251 @@ button:hover {
   margin: 0 auto;
   opacity: 0.75;
   line-height: 1.6;
-  font
+  font-style: italic;
+}
+
+/* =====================================
+   ГАЛЕРЕЯ (ПОЛАРОИДЫ — ВЕРНУЛ КРЕМОВЫЕ ЦВЕТА)
+===================================== */
+.polaroid-gallery {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 40px;
+  align-items: start;
+}
+
+.polaroid {
+  position: relative;
+  flex: 0 0 250px;
+  padding: 12px 12px 25px;
+  color: #4b3a30;
+  background: #f6f0e6;
+  box-shadow: 0 18px 35px rgba(0,0,0,0.28);
+  transform: rotate(var(--rotation));
+  transition: transform 0.25s ease;
+  cursor: pointer;
+}
+
+.polaroid:hover {
+  transform: rotate(0deg) scale(1.04);
+  z-index: 5;
+}
+
+.polaroid-image {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  background: #ddd;
+}
+
+/* =====================================
+   ПОДПИСИ К ФОТО (ВЕРНУЛ ОРИГИНАЛЬНЫЙ ЦВЕТ)
+===================================== */
+.polaroid-caption {
+  min-height: 45px;
+  margin: 15px 0 0;
+  padding: 0 5px;
+  text-align: center;
+  font-style: italic;
+  font-size: 15px;
+  line-height: 1.4;
+  color: #5a4a3e;
+}
+
+/* =====================================
+   НАВИГАЦИЯ
+===================================== */
+.page-navigation {
+  position: relative;
+  z-index: 50;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  flex-wrap: wrap;
+  margin-top: 60px;
+}
+
+/* =====================================
+   ВОПРОСЫ И ФИНАЛ
+===================================== */
+.questions-section,
+.final-section {
+  display: none;
+  position: relative;
+  z-index: 10;
+  min-height: 100vh;
+  align-items: center;
+  justify-content: center;
+  padding: 30px;
+}
+
+.questions-section.show,
+.final-section.show {
+  display: flex;
+}
+
+.question-card,
+.final-card {
+  width: min(700px, 100%);
+  padding: clamp(25px, 6vw, 55px);
+  border-radius: 25px;
+  color: #2e1065;
+  background: rgba(245, 243, 255, 0.96);
+  box-shadow: 0 25px 70px rgba(0,0,0,0.25);
+  text-align: center;
+}
+
+.question-counter {
+  opacity: 0.55;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-size: 12px;
+}
+
+.question-card h2,
+.final-card h2 {
+  font-size: clamp(28px, 4vw, 46px);
+  font-weight: 400;
+  line-height: 1.35;
+}
+
+#answerInput {
+  width: 100%;
+  min-height: 220px;
+  margin-top: 20px;
+  padding: 20px;
+  resize: vertical;
+  border: 1px solid rgba(124, 58, 237, 0.25);
+  border-radius: 15px;
+  outline: none;
+  color: #1e1b4b;
+  background: rgba(255, 255, 255, 0.8);
+  font-family: inherit;
+  font-size: 17px;
+}
+
+.question-navigation,
+.question-back-navigation,
+.final-navigation {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  flex-wrap: wrap;
+  margin-top: 30px;
+}
+
+.question-back-navigation {
+  margin-top: 20px;
+}
+
+.final-card p {
+  line-height: 1.7;
+}
+
+/* =====================================
+   ОКНО УВЕЛИЧЕННОЙ ФОТОГРАФИИ (ВЕРНУЛ КРЕМОВЫЙ ФОН)
+===================================== */
+.photo-modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+  padding: 30px;
+}
+
+.photo-modal.show {
+  display: flex;
+}
+
+.photo-modal-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.8);
+}
+
+.photo-modal-content {
+  position: relative;
+  z-index: 2;
+  max-width: min(900px, 95vw);
+  max-height: 90vh;
+  padding: 15px;
+  background: #f6f0e6;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+.photo-modal-content img {
+  display: block;
+  max-width: 100%;
+  max-height: 75vh;
+  object-fit: contain;
+}
+
+.photo-modal-content p {
+  margin: 15px 5px 5px;
+  color: #4b3a30;
+  text-align: center;
+}
+
+.photo-modal-close {
+  position: absolute;
+  top: -15px;
+  right: -15px;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border-radius: 50%;
+  font-size: 28px;
+  line-height: 1;
+}
+
+/* =====================================
+   ТЕЛЕФОНЫ
+===================================== */
+@media (max-width: 600px) {
+  .intro {
+    align-items: flex-start;
+    padding-top: 60px;
+  }
+
+  .intro-content {
+    padding-bottom: 50px;
+  }
+
+  .envelope-wrapper {
+    margin-top: 130px;
+  }
+
+  .envelope {
+    height: 230px;
+  }
+
+  .polaroid-gallery {
+    gap: 30px;
+  }
+
+  .polaroid {
+    flex: 0 0 280px;
+  }
+
+  .page-navigation,
+  .question-navigation,
+  .final-navigation {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .photo-modal {
+    padding: 15px;
+  }
+
+  .photo-modal-content {
+    padding: 10px;
+  }
+}
