@@ -1,8 +1,13 @@
 /* =====================================
-   ФОТОГРАФИИ
+   GOOGLE SHEETS
+===================================== */
 
-   Все фотографии находятся в папке:
-   photos
+const GOOGLE_SCRIPT_URL =
+  "https://script.google.com/macros/s/AKfycbyMqK0OxaUCv5kG1rFwrqfnekeFqMyzO92hivxwmq5TiqpAaSBSw4swKIu1ZFnBF8eEFA/exec";
+
+
+/* =====================================
+   ФОТОГРАФИИ
 ===================================== */
 
 const PHOTOS = [
@@ -252,22 +257,21 @@ const nextQuestionBtn =
   document.getElementById("nextQuestionBtn");
 
 
-/* КНОПКА ИЗ ВОПРОСОВ К ФОТО */
-
-const backToPhotosFromQuestions =
-  document.getElementById(
-    "backToPhotosFromQuestions"
-  );
-
-
 const finalSection =
   document.getElementById("finalSection");
 
 const finalBackBtn =
   document.getElementById("finalBackBtn");
 
+const backToPhotosFromQuestions =
+  document.getElementById(
+    "backToPhotosFromQuestions"
+  );
+
 const finalPhotosBtn =
-  document.getElementById("finalPhotosBtn");
+  document.getElementById(
+    "finalPhotosBtn"
+  );
 
 
 /* =====================================
@@ -297,12 +301,13 @@ const modalCaption =
 
 
 /* =====================================
-   ПЕРЕКЛЮЧЕНИЕ СТРАНИЦ
+   СТРАНИЦЫ
 ===================================== */
 
 function hideAllSections() {
 
-  intro.style.display = "none";
+  intro.style.display =
+    "none";
 
   memoriesSection1.classList.remove(
     "show"
@@ -330,7 +335,8 @@ function goToSection(section) {
 
   if (section === intro) {
 
-    intro.style.display = "flex";
+    intro.style.display =
+      "flex";
 
   }
 
@@ -344,8 +350,11 @@ function goToSection(section) {
 
 
   window.scrollTo({
+
     top: 0,
+
     behavior: "smooth"
+
   });
 
 }
@@ -357,37 +366,47 @@ function goToSection(section) {
 
 function createGalleries() {
 
-  gallery1.innerHTML = "";
+  gallery1.innerHTML =
+    "";
 
-  gallery2.innerHTML = "";
+  gallery2.innerHTML =
+    "";
 
 
   PHOTOS
     .slice(0, 15)
-    .forEach((photo, index) => {
+    .forEach(
+      (photo, index) => {
 
-      gallery1.appendChild(
-        createPolaroid(
-          photo,
-          index
-        )
-      );
+        gallery1.appendChild(
 
-    });
+          createPolaroid(
+            photo,
+            index
+          )
+
+        );
+
+      }
+    );
 
 
   PHOTOS
     .slice(15, 30)
-    .forEach((photo, index) => {
+    .forEach(
+      (photo, index) => {
 
-      gallery2.appendChild(
-        createPolaroid(
-          photo,
-          index + 15
-        )
-      );
+        gallery2.appendChild(
 
-    });
+          createPolaroid(
+            photo,
+            index + 15
+          )
+
+        );
+
+      }
+    );
 
 }
 
@@ -424,11 +443,14 @@ function createPolaroid(
 
 
   polaroid.style.setProperty(
+
     "--rotation",
+
     rotations[
       index %
       rotations.length
     ]
+
   );
 
 
@@ -449,7 +471,9 @@ function createPolaroid(
 
 
   polaroid.addEventListener(
+
     "click",
+
     () => {
 
       openPhotoModal(
@@ -458,6 +482,7 @@ function createPolaroid(
       );
 
     }
+
   );
 
 
@@ -478,8 +503,9 @@ function openPhotoModal(
   modalImage.src =
     imageUrl;
 
+
   modalCaption.textContent =
-    caption || "";
+    caption;
 
 
   photoModal.classList.add(
@@ -489,10 +515,6 @@ function openPhotoModal(
 }
 
 
-/* =====================================
-   ЗАКРЫТИЕ ФОТО
-===================================== */
-
 function closePhotoModal() {
 
   photoModal.classList.remove(
@@ -500,22 +522,27 @@ function closePhotoModal() {
   );
 
 
-  modalImage.src = "";
-
-  modalCaption.textContent = "";
+  modalImage.src =
+    "";
 
 }
 
 
 photoModalClose.addEventListener(
+
   "click",
+
   closePhotoModal
+
 );
 
 
 photoModalOverlay.addEventListener(
+
   "click",
+
   closePhotoModal
+
 );
 
 
@@ -524,7 +551,9 @@ photoModalOverlay.addEventListener(
 ===================================== */
 
 envelope.addEventListener(
+
   "click",
+
   () => {
 
     envelope.classList.add(
@@ -546,6 +575,7 @@ envelope.addEventListener(
     }
 
   }
+
 );
 
 
@@ -554,8 +584,12 @@ envelope.addEventListener(
 ===================================== */
 
 closeLetterBtn.addEventListener(
+
   "click",
+
   (event) => {
+
+    event.preventDefault();
 
     event.stopPropagation();
 
@@ -579,6 +613,7 @@ closeLetterBtn.addEventListener(
     }
 
   }
+
 );
 
 
@@ -587,7 +622,9 @@ closeLetterBtn.addEventListener(
 ===================================== */
 
 continueBtn.addEventListener(
+
   "click",
+
   (event) => {
 
     event.preventDefault();
@@ -600,15 +637,18 @@ continueBtn.addEventListener(
     );
 
   }
+
 );
 
 
 /* =====================================
-   ФОТО 1 → ПИСЬМО
+   ФОТО → ПИСЬМО
 ===================================== */
 
 backToLetterBtn.addEventListener(
+
   "click",
+
   () => {
 
     goToSection(
@@ -616,6 +656,7 @@ backToLetterBtn.addEventListener(
     );
 
   }
+
 );
 
 
@@ -624,7 +665,9 @@ backToLetterBtn.addEventListener(
 ===================================== */
 
 photosPage2Btn.addEventListener(
+
   "click",
+
   () => {
 
     goToSection(
@@ -632,6 +675,7 @@ photosPage2Btn.addEventListener(
     );
 
   }
+
 );
 
 
@@ -640,7 +684,9 @@ photosPage2Btn.addEventListener(
 ===================================== */
 
 photosPage1Btn.addEventListener(
+
   "click",
+
   () => {
 
     goToSection(
@@ -648,6 +694,7 @@ photosPage1Btn.addEventListener(
     );
 
   }
+
 );
 
 
@@ -656,7 +703,9 @@ photosPage1Btn.addEventListener(
 ===================================== */
 
 questionsStartBtn.addEventListener(
+
   "click",
+
   () => {
 
     goToSection(
@@ -667,6 +716,7 @@ questionsStartBtn.addEventListener(
     showQuestion();
 
   }
+
 );
 
 
@@ -674,13 +724,16 @@ questionsStartBtn.addEventListener(
    ВОПРОСЫ
 ===================================== */
 
-let currentQuestion = 0;
+let currentQuestion =
+  0;
 
 
 const answers =
   new Array(
     QUESTIONS.length
-  ).fill("");
+  ).fill(
+    ""
+  );
 
 
 function showQuestion() {
@@ -695,12 +748,14 @@ function showQuestion() {
 
 
   questionText.textContent =
+
     QUESTIONS[
       currentQuestion
     ];
 
 
   answerInput.value =
+
     answers[
       currentQuestion
     ];
@@ -727,10 +782,14 @@ function showQuestion() {
 }
 
 
-/* СОХРАНЕНИЕ ОТВЕТА */
+/* =====================================
+   СОХРАНЕНИЕ ОТВЕТА
+===================================== */
 
 answerInput.addEventListener(
+
   "input",
+
   () => {
 
     answers[
@@ -739,16 +798,23 @@ answerInput.addEventListener(
       answerInput.value;
 
   }
+
 );
 
 
-/* ПРЕДЫДУЩИЙ ВОПРОС */
+/* =====================================
+   ПРЕДЫДУЩИЙ ВОПРОС
+===================================== */
 
 previousQuestionBtn.addEventListener(
+
   "click",
+
   () => {
 
-    if (currentQuestion > 0) {
+    if (
+      currentQuestion > 0
+    ) {
 
       currentQuestion--;
 
@@ -758,13 +824,18 @@ previousQuestionBtn.addEventListener(
     }
 
   }
+
 );
 
 
-/* СЛЕДУЮЩИЙ ВОПРОС */
+/* =====================================
+   СЛЕДУЮЩИЙ ВОПРОС
+===================================== */
 
 nextQuestionBtn.addEventListener(
+
   "click",
+
   () => {
 
     answers[
@@ -787,27 +858,127 @@ nextQuestionBtn.addEventListener(
 
     }
 
+
     else {
 
-      goToSection(
-        finalSection
-      );
+      sendAnswersToGoogleSheets();
 
     }
 
   }
+
 );
 
 
 /* =====================================
-   ВОПРОСЫ → ФОТОГРАФИИ
+   ОТПРАВКА ОТВЕТОВ
+   В GOOGLE SHEETS
+===================================== */
 
-   Возвращает на ВТОРУЮ страницу
-   фотографий, откуда начались вопросы
+async function sendAnswersToGoogleSheets() {
+
+  nextQuestionBtn.disabled =
+    true;
+
+
+  nextQuestionBtn.textContent =
+    "Сохраняем...";
+
+
+  try {
+
+    const data = {
+
+      answers: answers,
+
+      submittedAt:
+        new Date()
+          .toLocaleString(
+            "ru-RU"
+          )
+
+    };
+
+
+    await fetch(
+
+      GOOGLE_SCRIPT_URL,
+
+      {
+
+        method:
+          "POST",
+
+        headers: {
+
+          "Content-Type":
+            "text/plain;charset=utf-8"
+
+        },
+
+        body:
+          JSON.stringify(
+            data
+          ),
+
+        redirect:
+          "follow"
+
+      }
+
+    );
+
+
+    /* =================================
+       ПОСЛЕ ОТПРАВКИ —
+       ФИНАЛЬНАЯ СТРАНИЦА
+    ================================= */
+
+    goToSection(
+      finalSection
+    );
+
+  }
+
+
+  catch (error) {
+
+    console.error(
+      error
+    );
+
+
+    alert(
+
+      "Не удалось сохранить ответы. Проверь подключение к интернету и попробуй ещё раз."
+
+    );
+
+  }
+
+
+  finally {
+
+    nextQuestionBtn.disabled =
+      false;
+
+
+    nextQuestionBtn.textContent =
+      "Закончить →";
+
+  }
+
+}
+
+
+/* =====================================
+   ВОПРОСЫ → ФОТО
 ===================================== */
 
 backToPhotosFromQuestions.addEventListener(
+
   "click",
+
   () => {
 
     goToSection(
@@ -815,6 +986,7 @@ backToPhotosFromQuestions.addEventListener(
     );
 
   }
+
 );
 
 
@@ -823,7 +995,9 @@ backToPhotosFromQuestions.addEventListener(
 ===================================== */
 
 finalBackBtn.addEventListener(
+
   "click",
+
   () => {
 
     currentQuestion =
@@ -838,15 +1012,18 @@ finalBackBtn.addEventListener(
     showQuestion();
 
   }
+
 );
 
 
 /* =====================================
-   ФИНАЛ → ФОТОГРАФИИ
+   ФИНАЛ → ФОТО
 ===================================== */
 
 finalPhotosBtn.addEventListener(
+
   "click",
+
   () => {
 
     goToSection(
@@ -854,6 +1031,7 @@ finalPhotosBtn.addEventListener(
     );
 
   }
+
 );
 
 
