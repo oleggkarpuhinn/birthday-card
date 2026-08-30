@@ -12,7 +12,6 @@ html {
 
 body {
   margin: 0;
-
   min-height: 100vh;
 
   color: #f5eee7;
@@ -37,20 +36,17 @@ body {
 
 .scene {
   position: relative;
-
   min-height: 100vh;
-
   overflow-x: hidden;
 }
 
 
 /* =====================================
-   ФОНОВАЯ ТЕКСТУРА
+   ФОН
 ===================================== */
 
 .background-texture {
   position: fixed;
-
   inset: 0;
 
   z-index: 0;
@@ -61,18 +57,13 @@ body {
 
   background-image:
     radial-gradient(
-      rgba(255,255,255,0.08) 1px,
+      rgba(255, 255, 255, 0.08) 1px,
       transparent 1px
     );
 
-  background-size:
-    8px 8px;
+  background-size: 8px 8px;
 }
 
-
-/* =====================================
-   СВЕТОВЫЕ ПЯТНА
-===================================== */
 
 .light {
   position: fixed;
@@ -91,12 +82,14 @@ body {
   opacity: 0.25;
 }
 
+
 .light-1 {
   top: -200px;
   left: -150px;
 
   background: #d7a77d;
 }
+
 
 .light-2 {
   right: -200px;
@@ -107,7 +100,7 @@ body {
 
 
 /* =====================================
-   КНОПКИ
+   ОБЩИЕ КНОПКИ
 ===================================== */
 
 button {
@@ -115,9 +108,7 @@ button {
 
   border: none;
 
-  padding:
-    14px
-    25px;
+  padding: 14px 25px;
 
   border-radius: 8px;
 
@@ -131,39 +122,35 @@ button {
 
   transition:
     transform 0.2s ease,
-    opacity 0.2s ease,
     background 0.2s ease;
 }
 
-button:hover {
-  transform:
-    translateY(-2px);
 
-  background:
-    #a8755c;
+button:hover {
+  transform: translateY(-2px);
+  background: #a8755c;
 }
 
+
 button:active {
-  transform:
-    translateY(0);
+  transform: translateY(0);
 }
 
 
 .secondary-button {
-  background:
-    transparent;
+  background: transparent;
 
   border:
     1px solid
-    rgba(255,255,255,0.3);
+    rgba(255, 255, 255, 0.3);
 
-  color:
-    #f5eee7;
+  color: #f5eee7;
 }
+
 
 .secondary-button:hover {
   background:
-    rgba(255,255,255,0.08);
+    rgba(255, 255, 255, 0.08);
 }
 
 
@@ -181,7 +168,6 @@ button:active {
   display: flex;
 
   align-items: center;
-
   justify-content: center;
 
   padding: 40px 20px;
@@ -191,34 +177,24 @@ button:active {
 
 
 .intro-content {
-  position: relative;
-
-  z-index: 2;
-
-  width:
-    min(700px, 100%);
+  width: min(700px, 100%);
 }
 
 
 .small-text,
 .section-subtitle {
-  letter-spacing:
-    4px;
+  letter-spacing: 4px;
 
-  text-transform:
-    uppercase;
+  text-transform: uppercase;
 
-  font-size:
-    12px;
+  font-size: 12px;
 
-  opacity:
-    0.7;
+  opacity: 0.7;
 }
 
 
 .intro h1 {
-  margin:
-    15px 0 10px;
+  margin: 15px 0 10px;
 
   font-size:
     clamp(
@@ -227,17 +203,14 @@ button:active {
       72px
     );
 
-  font-weight:
-    400;
+  font-weight: 400;
 }
 
 
 .hint {
-  margin-bottom:
-    35px;
+  margin-bottom: 35px;
 
-  opacity:
-    0.75;
+  opacity: 0.75;
 
   transition:
     opacity 0.3s ease;
@@ -253,8 +226,7 @@ button:active {
 
   cursor: pointer;
 
-  perspective:
-    1200px;
+  perspective: 1200px;
 }
 
 
@@ -267,8 +239,7 @@ button:active {
       85vw
     );
 
-  height:
-    270px;
+  height: 270px;
 }
 
 
@@ -279,15 +250,13 @@ button:active {
 
   inset: 0;
 
-  background:
-    #b77d5e;
+  background: #b77d5e;
 
-  border-radius:
-    4px;
+  border-radius: 4px;
 
   box-shadow:
     0 20px 50px
-    rgba(0,0,0,0.35);
+    rgba(0, 0, 0, 0.35);
 }
 
 
@@ -311,8 +280,7 @@ button:active {
       0 100%
     );
 
-  background:
-    #9e674e;
+  background: #9e674e;
 }
 
 
@@ -322,7 +290,6 @@ button:active {
   position: absolute;
 
   top: 0;
-
   left: 0;
 
   width: 100%;
@@ -332,8 +299,7 @@ button:active {
 
   pointer-events: none;
 
-  transform-origin:
-    top;
+  transform-origin: top;
 
   clip-path:
     polygon(
@@ -342,8 +308,7 @@ button:active {
       50% 100%
     );
 
-  background:
-    #c18b6b;
+  background: #c18b6b;
 
   transition:
     transform
@@ -377,14 +342,11 @@ button:active {
   display: flex;
 
   align-items: center;
-
   justify-content: center;
 
-  background:
-    #774838;
+  background: #774838;
 
-  color:
-    #f8dfb5;
+  color: #f8dfb5;
 
   transition:
     opacity 0.4s ease;
@@ -414,67 +376,62 @@ button:active {
 
 
 .letter-paper {
-  padding:
-    25px;
+  position: relative;
 
-  color:
-    #4b3a30;
+  padding: 25px;
 
-  text-align:
-    left;
+  color: #4b3a30;
 
-  background:
-    #f5eee1;
+  text-align: left;
+
+  background: #f5eee1;
 
   box-shadow:
     0 15px 30px
-    rgba(0,0,0,0.25);
+    rgba(0, 0, 0, 0.25);
 }
 
 
 .letter-paper button {
+  position: relative;
+
+  z-index: 20;
+
   display: block;
 
   width: 100%;
 
-  margin-top:
-    15px;
+  margin-top: 15px;
 }
 
 
 .letter-paper .secondary-button {
-  color:
-    #4b3a30;
+  color: #4b3a30;
 
   border-color:
-    rgba(75,58,48,0.3);
+    rgba(75, 58, 48, 0.3);
 }
 
 
 .letter-paper .secondary-button:hover {
   background:
-    rgba(75,58,48,0.06);
+    rgba(75, 58, 48, 0.06);
 }
 
 
 .letter-date {
-  opacity:
-    0.65;
+  opacity: 0.65;
 
-  font-size:
-    14px;
+  font-size: 14px;
 }
 
 
 .letter-signature {
-  margin-top:
-    25px;
+  margin-top: 25px;
 
-  text-align:
-    right;
+  text-align: right;
 
-  font-style:
-    italic;
+  font-style: italic;
 }
 
 
@@ -503,19 +460,7 @@ button:active {
     translateX(-50%)
     translateY(-190px);
 
-  z-index: 7;
-}
-
-
-/* Чтобы кнопки письма были нажимаемыми */
-
-.envelope-wrapper.open
-.letter-paper {
-  position: relative;
-
   z-index: 10;
-
-  pointer-events: auto;
 }
 
 
@@ -532,12 +477,9 @@ button:active {
 
   min-height: 100vh;
 
-  padding:
-    70px
-    25px;
+  padding: 70px 25px;
 
-  text-align:
-    center;
+  text-align: center;
 }
 
 
@@ -547,12 +489,11 @@ button:active {
 
 
 /* =====================================
-   ЗАГОЛОВОК ФОТОГРАФИЙ
+   ЗАГОЛОВОК ФОТО
 ===================================== */
 
 .memories-header {
-  max-width:
-    750px;
+  max-width: 750px;
 
   margin:
     0 auto 60px;
@@ -560,8 +501,7 @@ button:active {
 
 
 .memories-header h2 {
-  margin:
-    15px 0;
+  margin: 15px 0;
 
   font-size:
     clamp(
@@ -570,26 +510,20 @@ button:active {
       70px
     );
 
-  font-weight:
-    400;
+  font-weight: 400;
 }
 
 
 .section-description {
-  max-width:
-    500px;
+  max-width: 500px;
 
-  margin:
-    0 auto;
+  margin: 0 auto;
 
-  opacity:
-    0.75;
+  opacity: 0.75;
 
-  line-height:
-    1.6;
+  line-height: 1.6;
 
-  font-style:
-    italic;
+  font-style: italic;
 }
 
 
@@ -604,8 +538,7 @@ button:active {
       100%
     );
 
-  margin:
-    0 auto;
+  margin: 0 auto;
 
   display: grid;
 
@@ -618,16 +551,14 @@ button:active {
       )
     );
 
-  gap:
-    45px;
+  gap: 45px;
 
-  align-items:
-    center;
+  align-items: center;
 }
 
 
 /* =====================================
-   ОДНА ФОТОГРАФИЯ
+   POLAROID
 ===================================== */
 
 .polaroid {
@@ -638,15 +569,13 @@ button:active {
     12px
     25px;
 
-  color:
-    #4b3a30;
+  color: #4b3a30;
 
-  background:
-    #f6f0e6;
+  background: #f6f0e6;
 
   box-shadow:
     0 18px 35px
-    rgba(0,0,0,0.28);
+    rgba(0, 0, 0, 0.28);
 
   transform:
     rotate(
@@ -656,9 +585,6 @@ button:active {
   transition:
     transform
     0.25s ease;
-
-  cursor:
-    default;
 }
 
 
@@ -676,58 +602,46 @@ button:active {
 
   width: 100%;
 
-  aspect-ratio:
-    1 / 1;
+  aspect-ratio: 1 / 1;
 
-  object-fit:
-    cover;
+  object-fit: cover;
 
-  background:
-    #ddd;
+  background: #ddd;
 }
 
 
 .polaroid-caption {
-  min-height:
-    20px;
+  min-height: 20px;
 
-  margin:
-    15px 0 0;
+  margin: 15px 0 0;
 
-  text-align:
-    center;
+  text-align: center;
 
-  font-style:
-    italic;
+  font-style: italic;
 
-  font-size:
-    16px;
+  font-size: 16px;
 }
 
 
 /* =====================================
-   НАВИГАЦИЯ МЕЖДУ СТРАНИЦАМИ
+   НАВИГАЦИЯ
 ===================================== */
 
 .page-navigation {
   display: flex;
 
-  justify-content:
-    center;
+  justify-content: center;
 
-  gap:
-    15px;
+  gap: 15px;
 
-  flex-wrap:
-    wrap;
+  flex-wrap: wrap;
 
-  margin-top:
-    60px;
+  margin-top: 60px;
 }
 
 
 /* =====================================
-   СТРАНИЦА ВОПРОСОВ
+   ВОПРОСЫ И ФИНАЛ
 ===================================== */
 
 .questions-section,
@@ -740,14 +654,10 @@ button:active {
 
   min-height: 100vh;
 
-  align-items:
-    center;
+  align-items: center;
+  justify-content: center;
 
-  justify-content:
-    center;
-
-  padding:
-    30px;
+  padding: 30px;
 }
 
 
@@ -758,7 +668,7 @@ button:active {
 
 
 /* =====================================
-   КАРТОЧКА ВОПРОСА И ФИНАЛА
+   КАРТОЧКИ
 ===================================== */
 
 .question-card,
@@ -776,11 +686,9 @@ button:active {
       55px
     );
 
-  border-radius:
-    25px;
+  border-radius: 25px;
 
-  color:
-    #4b3a30;
+  color: #4b3a30;
 
   background:
     rgba(
@@ -792,25 +700,20 @@ button:active {
 
   box-shadow:
     0 25px 70px
-    rgba(0,0,0,0.25);
+    rgba(0, 0, 0, 0.25);
 
-  text-align:
-    center;
+  text-align: center;
 }
 
 
 .question-counter {
-  opacity:
-    0.55;
+  opacity: 0.55;
 
-  letter-spacing:
-    2px;
+  letter-spacing: 2px;
 
-  text-transform:
-    uppercase;
+  text-transform: uppercase;
 
-  font-size:
-    12px;
+  font-size: 12px;
 }
 
 
@@ -823,67 +726,64 @@ button:active {
       46px
     );
 
-  font-weight:
-    400;
+  font-weight: 400;
 
-  line-height:
-    1.35;
+  line-height: 1.35;
 }
 
 
 /* =====================================
-   ПОЛЕ ДЛЯ ОТВЕТА
+   ПОЛЕ ОТВЕТА
 ===================================== */
 
 #answerInput {
   width: 100%;
 
-  min-height:
-    220px;
+  min-height: 220px;
 
-  margin-top:
-    20px;
+  margin-top: 20px;
 
-  padding:
-    20px;
+  padding: 20px;
 
-  resize:
-    vertical;
+  resize: vertical;
 
   border:
     1px solid
-    rgba(0,0,0,0.15);
+    rgba(0, 0, 0, 0.15);
 
-  border-radius:
-    15px;
+  border-radius: 15px;
 
-  outline:
-    none;
+  outline: none;
 
-  color:
-    #4b3a30;
+  color: #4b3a30;
 
   background:
-    rgba(255,255,255,0.6);
+    rgba(
+      255,
+      255,
+      255,
+      0.6
+    );
 
-  font-family:
-    inherit;
+  font-family: inherit;
 
-  font-size:
-    17px;
+  font-size: 17px;
 
-  line-height:
-    1.6;
+  line-height: 1.6;
 }
 
 
 #answerInput:focus {
-  border-color:
-    #95664f;
+  border-color: #95664f;
 
   box-shadow:
     0 0 0 3px
-    rgba(149,102,79,0.15);
+    rgba(
+      149,
+      102,
+      79,
+      0.15
+    );
 }
 
 
@@ -894,31 +794,31 @@ button:active {
 .question-navigation {
   display: flex;
 
-  justify-content:
-    center;
+  justify-content: center;
 
-  gap:
-    15px;
+  gap: 15px;
 
-  flex-wrap:
-    wrap;
+  flex-wrap: wrap;
 
-  margin-top:
-    30px;
+  margin-top: 30px;
 }
 
 
-/* Вторичные кнопки внутри карточки */
+/* Вторичные кнопки внутри светлой карточки */
 
 .question-card
 .secondary-button,
 .final-card
 .secondary-button {
-  color:
-    #4b3a30;
+  color: #4b3a30;
 
   border-color:
-    rgba(75,58,48,0.3);
+    rgba(
+      75,
+      58,
+      48,
+      0.3
+    );
 }
 
 
@@ -927,25 +827,28 @@ button:active {
 .final-card
 .secondary-button:hover {
   background:
-    rgba(75,58,48,0.06);
+    rgba(
+      75,
+      58,
+      48,
+      0.06
+    );
 }
 
 
 /* =====================================
-   ФИНАЛЬНАЯ СТРАНИЦА
+   ФИНАЛ
 ===================================== */
 
 .final-card p {
-  line-height:
-    1.7;
+  line-height: 1.7;
 
-  font-size:
-    18px;
+  font-size: 18px;
 }
 
 
 /* =====================================
-   АДАПТАЦИЯ ДЛЯ ПЛАНШЕТОВ
+   ПЛАНШЕТЫ
 ===================================== */
 
 @media (
@@ -975,29 +878,24 @@ button:active {
 ) {
 
   .intro {
-    align-items:
-      flex-start;
+    align-items: flex-start;
 
-    padding-top:
-      80px;
+    padding-top: 80px;
   }
 
 
   .intro h1 {
-    font-size:
-      42px;
+    font-size: 42px;
   }
 
 
   .envelope {
-    height:
-      230px;
+    height: 230px;
   }
 
 
   .letter-paper {
-    padding:
-      18px;
+    padding: 18px;
   }
 
 
@@ -1010,68 +908,54 @@ button:active {
 
 
   .memories-section {
-    padding:
-      60px
-      18px;
+    padding: 60px 18px;
   }
 
 
   .memories-header {
-    margin-bottom:
-      40px;
+    margin-bottom: 40px;
   }
 
 
   .polaroid-gallery {
-    grid-template-columns:
-      1fr;
+    grid-template-columns: 1fr;
 
-    max-width:
-      330px;
+    max-width: 330px;
 
-    gap:
-      35px;
+    gap: 35px;
   }
 
 
   .page-navigation,
   .question-navigation {
-    flex-direction:
-      column;
+    flex-direction: column;
 
-    align-items:
-      stretch;
+    align-items: stretch;
   }
 
 
   .page-navigation button,
   .question-navigation button {
-    width:
-      100%;
+    width: 100%;
   }
 
 
   .questions-section,
   .final-section {
-    padding:
-      20px;
+    padding: 20px;
   }
 
 
   .question-card,
   .final-card {
-    padding:
-      30px
-      20px;
+    padding: 30px 20px;
 
-    border-radius:
-      18px;
+    border-radius: 18px;
   }
 
 
   #answerInput {
-    min-height:
-      180px;
+    min-height: 180px;
   }
 
 }
