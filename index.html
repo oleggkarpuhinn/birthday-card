@@ -112,13 +112,32 @@
     </section>
 
     <!-- =====================================
-         ВОПРОСЫ
+         ВОПРОСЫ (ОБНОВЛЕНО — с загрузкой фото)
     ===================================== -->
     <section class="questions-section" id="questionsSection">
       <div class="question-card">
         <p class="question-counter" id="questionCounter"></p>
         <h2 id="questionText"></h2>
+        
+        <!-- Текстовое поле (для вопросов 2-10) -->
         <textarea id="answerInput" placeholder="Напиши здесь то, что думаешь..."></textarea>
+        
+        <!-- Блок загрузки фото (только для 1 вопроса) -->
+        <div class="photo-upload" id="photoUpload" style="display: none;">
+          <label class="photo-upload-label" for="photoInput">
+            <span class="photo-upload-icon">📷</span>
+            <span>Выбрать фотографию</span>
+          </label>
+          <input type="file" id="photoInput" accept="image/*" style="display: none;">
+          
+          <div class="photo-preview" id="photoPreview" style="display: none;">
+            <img id="previewImage" src="" alt="Превью">
+            <button type="button" class="photo-remove-btn" id="photoRemoveBtn">Удалить фото</button>
+          </div>
+          
+          <p class="photo-hint">Можно выбрать одно фото. Оно сохранится и попадёт в нашу общую таблицу воспоминаний.</p>
+        </div>
+        
         <div class="question-navigation">
           <button class="secondary-button" id="previousQuestionBtn">← Назад</button>
           <button id="nextQuestionBtn">Далее →</button>
