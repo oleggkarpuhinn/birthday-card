@@ -229,6 +229,10 @@ button:hover {
   perspective: 1200px;
 
   z-index: 30;
+
+  /* ИЗМЕНЕНО:
+     немного опускаем конверт ниже */
+  margin-top: 45px;
 }
 
 
@@ -375,8 +379,26 @@ button:hover {
   box-shadow:
     0 15px 30px
     rgba(0,0,0,0.25);
+
+  /* ИЗМЕНЕНО:
+     длинное письмо не выходит
+     за пределы экрана */
+  max-height: 70vh;
+
+  overflow-y: auto;
+
+  scrollbar-width: thin;
 }
 
+
+/* Чтобы текст письма было удобно читать */
+
+.letter-paper p {
+  line-height: 1.6;
+}
+
+
+/* Кнопки остаются доступными */
 
 .letter-paper button {
   position: relative;
@@ -772,8 +794,22 @@ button:hover {
   }
 
 
+  .envelope-wrapper {
+    /* На телефоне тоже немного ниже */
+    margin-top: 35px;
+  }
+
+
   .envelope {
     height: 230px;
+  }
+
+
+  .letter-paper {
+    /* Больше места для длинного письма */
+    max-height: 65vh;
+
+    padding: 20px;
   }
 
 
