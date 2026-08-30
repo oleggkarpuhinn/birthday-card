@@ -23,241 +23,332 @@
 
 <body>
 
-  <div class="scene">
+<div class="scene">
+
+  <div class="background-texture"></div>
+
+  <div class="light light-1"></div>
+
+  <div class="light light-2"></div>
 
 
-    <!-- ФОНОВЫЕ ДЕКОРАЦИИ -->
+  <!-- =====================================
+       СТРАНИЦА 1 — КОНВЕРТ
+  ====================================== -->
 
-    <div class="background-texture"></div>
+  <section
+    class="intro"
+    id="intro"
+  >
 
-    <div class="light light-1"></div>
+    <div class="intro-content">
 
-    <div class="light light-2"></div>
+      <p class="small-text">
+        Для
+      </p>
 
+      <h1>
+        Моей дорогой Лизы
+      </h1>
 
-    <!-- ЭКРАН 1 — КОНВЕРТ -->
-
-    <section
-      class="intro"
-      id="intro"
-    >
-
-      <div class="intro-content">
-
-
-        <p class="small-text">
-          Для
-        </p>
-
-
-        <h1 id="girlName">
-          Моей дорогой Лизы
-        </h1>
+      <p class="hint">
+        Нажми на письмо, чтобы открыть
+      </p>
 
 
-        <p class="hint">
-          Нажми на письмо, чтобы открыть
-        </p>
+      <div
+        class="envelope-wrapper"
+        id="envelope"
+      >
+
+        <div class="envelope">
+
+          <div class="envelope-back"></div>
 
 
-        <!-- КОНВЕРТ -->
+          <div class="letter">
 
-        <div
-          class="envelope-wrapper"
-          id="envelope"
-        >
+            <div class="letter-paper">
 
-          <div class="envelope">
+              <p class="letter-date">
+                Небольшое письмо для тебя
+              </p>
 
+              <h2>
+                Привет :)
+              </h2>
 
-            <div class="envelope-back"></div>
+              <p>
+                Я долго думал, как тебя поздравить.
+              </p>
 
+              <p>
+                И в какой-то момент решил,
+                что обычного сообщения будет недостаточно.
+              </p>
 
-            <!-- ПИСЬМО -->
+              <p>
+                Поэтому сделал для тебя
+                небольшую открытку.
+              </p>
 
-            <div class="letter">
+              <p>
+                Здесь есть несколько вещей,
+                которые мне хотелось показать
+                и сказать именно тебе.
+              </p>
 
-              <div class="letter-paper">
-
-
-                <p class="letter-date">
-                  Небольшое письмо для тебя
-                </p>
-
-
-                <h2>
-                  Привет :)
-                </h2>
-
-
-                <p>
-                  Я долго думал, как тебя поздравить.
-                </p>
-
-
-                <p>
-                  И в какой-то момент решил,
-                  что обычного сообщения
-                  будет недостаточно.
-                </p>
+              <p class="letter-signature">
+                — ОКР
+              </p>
 
 
-                <p>
-                  Поэтому сделал для тебя небольшую открытку.
-                  Здесь есть несколько вещей,
-                  которые мне хотелось показать
-                  и сказать именно тебе.
-                </p>
+              <button
+                id="continueBtn"
+                type="button"
+              >
+                Продолжить →
+              </button>
 
 
-                <p class="letter-signature">
-                  — ОКР
-                </p>
-
-
-                <button
-                  id="continueBtn"
-                  type="button"
-                >
-                  Продолжить →
-                </button>
-
-
-              </div>
+              <button
+                id="closeLetterBtn"
+                type="button"
+                class="back-to-envelope"
+              >
+                ← Закрыть письмо
+              </button>
 
             </div>
 
-
-            <!-- ПЕРЕДНЯЯ ЧАСТЬ КОНВЕРТА -->
-
-            <div class="envelope-front"></div>
+          </div>
 
 
-            <!-- КЛАПАН -->
+          <div class="envelope-front"></div>
 
-            <div class="envelope-flap"></div>
+          <div class="envelope-flap"></div>
 
-
-            <!-- ПЕЧАТЬ -->
-
-            <div class="seal">
-              ✦
-            </div>
-
-
+          <div class="seal">
+            ✦
           </div>
 
         </div>
 
       </div>
 
-    </section>
+    </div>
+
+  </section>
 
 
-    <!-- ЭКРАН 2 — ВОСПОМИНАНИЯ -->
 
-    <section
-      class="memories-section"
-      id="memoriesSection"
-    >
+  <!-- =====================================
+       СТРАНИЦА 2 — ФОТО 1–15
+  ====================================== -->
 
+  <section
+    class="memories-section"
+    id="memoriesSection1"
+  >
 
-      <div class="memories-header">
+    <div class="memories-header">
 
+      <p class="section-subtitle">
+        Несколько моментов
+      </p>
 
-        <p class="section-subtitle">
-          Несколько моментов
-        </p>
+      <h2>
+        Которые хочется сохранить
+      </h2>
 
+      <p class="section-description">
+        Иногда фотографии сохраняют
+        чуть больше, чем просто один момент.
+      </p>
 
-        <h2>
-          Которые хочется сохранить
-        </h2>
-
-
-        <p class="section-description">
-          Иногда фотографии сохраняют
-          чуть больше, чем просто один момент.
-        </p>
-
-
-      </div>
+    </div>
 
 
-      <!-- ГАЛЕРЕЯ POLAROID -->
-
-      <div
-        class="polaroid-gallery"
-        id="polaroidGallery"
-      ></div>
+    <div
+      class="polaroid-gallery"
+      id="polaroidGallery1"
+    ></div>
 
 
-      <!-- КНОПКА ДАЛЬШЕ -->
+    <div class="page-navigation">
 
       <button
-        class="memories-next-button"
-        id="memoriesNextBtn"
+        id="backToLetterBtn"
         type="button"
       >
-        Продолжить →
+        ← К письму
       </button>
 
 
-      <!-- ВОЗВРАТ К ПИСЬМУ -->
-
       <button
-        class="back-to-letter"
-        id="backBtn"
+        id="photosPage2Btn"
         type="button"
       >
-        ← Вернуться к письму
+        Ещё воспоминания →
+      </button>
+
+    </div>
+
+  </section>
+
+
+
+  <!-- =====================================
+       СТРАНИЦА 3 — ФОТО 16–30
+  ====================================== -->
+
+  <section
+    class="memories-section"
+    id="memoriesSection2"
+  >
+
+    <div class="memories-header">
+
+      <p class="section-subtitle">
+        Продолжение
+      </p>
+
+      <h2>
+        Ещё немного воспоминаний
+      </h2>
+
+    </div>
+
+
+    <div
+      class="polaroid-gallery"
+      id="polaroidGallery2"
+    ></div>
+
+
+    <div class="page-navigation">
+
+      <button
+        id="photosPage1Btn"
+        type="button"
+      >
+        ← Предыдущие фотографии
       </button>
 
 
-    </section>
+      <button
+        id="questionsStartBtn"
+        type="button"
+      >
+        А теперь твоя очередь →
+      </button>
+
+    </div>
+
+  </section>
 
 
-    <!-- ЭКРАН 3 -->
 
-    <section
-      class="placeholder-section"
-      id="placeholderSection"
-    >
+  <!-- =====================================
+       СТРАНИЦА ВОПРОСОВ
+  ====================================== -->
+
+  <section
+    class="questions-section"
+    id="questionsSection"
+  >
+
+    <div class="question-card">
+
+      <p
+        class="question-counter"
+        id="questionCounter"
+      >
+        Вопрос 1 из 10
+      </p>
 
 
-      <div class="placeholder-card">
+      <h2
+        id="questionText"
+      >
+        Вопрос
+      </h2>
 
 
-        <p class="small-text">
-          Следующая страница
-        </p>
+      <textarea
+        id="answerInput"
+        placeholder="Напиши здесь то, что думаешь..."
+      ></textarea>
 
 
-        <h2>
-          А теперь твоя очередь
-        </h2>
+      <div class="question-navigation">
+
+        <button
+          id="previousQuestionBtn"
+          type="button"
+        >
+          ← Назад
+        </button>
 
 
-        <p>
-          Здесь позже появится страница,
-          где можно будет оставить
-          своё сообщение.
-        </p>
-
+        <button
+          id="nextQuestionBtn"
+          type="button"
+        >
+          Далее →
+        </button>
 
       </div>
 
+    </div>
 
-    </section>
-
-
-  </div>
+  </section>
 
 
-  <!-- JAVASCRIPT -->
 
-  <script src="script.js"></script>
+  <!-- =====================================
+       ФИНАЛЬНАЯ СТРАНИЦА
+  ====================================== -->
 
+  <section
+    class="final-section"
+    id="finalSection"
+  >
+
+    <div class="final-card">
+
+      <p class="small-text">
+        Вот и всё
+      </p>
+
+
+      <h2>
+        Спасибо, что прошла этот путь ❤️
+      </h2>
+
+
+      <p>
+        Теперь эта история стала немного больше,
+        потому что в ней появились и твои слова.
+      </p>
+
+
+      <button
+        id="finalBackBtn"
+        type="button"
+      >
+        ← Вернуться к вопросам
+      </button>
+
+    </div>
+
+  </section>
+
+
+</div>
+
+
+<script src="script.js"></script>
 
 </body>
 
