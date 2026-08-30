@@ -1,8 +1,7 @@
 /* =====================================
-   GOOGLE SHEETS
+   GOOGLE SHEETS (ТВОЯ ССЫЛКА)
 ===================================== */
-const GOOGLE_SCRIPT_URL =
-  "https://script.google.com/macros/s/AKfycbyTnBP_TMV3b14BQB_LyIrgfVz51mFGXRtxZRsJpBFht3QkUt8PRX5-H5vDALPFpYbBcg/exec";
+const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyTnBP_TMV3b14BQB_LyIrgfVz51mFGXRtxZRsJpBFht3QkUt8PRX5-H5vDALPFpYbBcg/exec";
 
 /* =====================================
    ФОТОГРАФИИ
@@ -44,16 +43,16 @@ const PHOTOS = [
    ВОПРОСЫ
 ===================================== */
 const QUESTIONS = [
-  "Последняя фото в 23 года или первое в 24, можешь загрузить любое", 
-   "С какой песней у тебя ассоциируется этот возраст?", 
-   "Напиши всё, что ты оставляешь в этом возрасте и идешь дальше", 
-   "Самые яркие события за год", 
-   "В какой момент, ты привыкла, что тебе уже 23?", 
-   "Как бы отреагировала маленькая Лиза на тебя сейчас?", 
-   "Чем больше всего гордишься в этом году?", 
-   "Слово 23 года жизни", 
-   "Что хорошего в этом возрасте с тобой случилось", 
-   "Оставь любое послание для себя через год"
+  "Ответь фотографией — какой момент с нами ты бы сохранила навсегда?",
+  "Что тебе больше всего нравится в наших отношениях?",
+  "Какой момент со мной тебе хотелось бы пережить ещё раз?",
+  "Есть ли что-то, что ты давно хотела мне сказать?",
+  "Какой день, проведённый вместе, ты запомнила сильнее всего?",
+  "Что заставляет тебя улыбаться, когда ты думаешь обо мне?",
+  "Какое место тебе хотелось бы посетить вместе со мной?",
+  "За что ты могла бы сказать мне спасибо?",
+  "Что бы тебе хотелось пережить вместе в будущем?",
+  "И последнее: что ты хочешь сказать мне прямо сейчас?"
 ];
 
 /* =====================================
@@ -92,7 +91,6 @@ const photoModalClose = document.getElementById("photoModalClose");
 const modalImage = document.getElementById("modalImage");
 const modalCaption = document.getElementById("modalCaption");
 
-// Элементы для загрузки фото
 const photoUpload = document.getElementById("photoUpload");
 const photoInput = document.getElementById("photoInput");
 const photoPreview = document.getElementById("photoPreview");
@@ -100,7 +98,7 @@ const previewImage = document.getElementById("previewImage");
 const photoRemoveBtn = document.getElementById("photoRemoveBtn");
 
 /* =====================================
-   СТРАНИЦЫ
+   НАВИГАЦИЯ ПО СТРАНИЦАМ
 ===================================== */
 function hideAllSections() {
   intro.style.display = "none";
@@ -121,7 +119,7 @@ function goToSection(section) {
 }
 
 /* =====================================
-   СОЗДАНИЕ ГАЛЕРЕЙ
+   ГАЛЕРЕИ И ФОТО
 ===================================== */
 function createGalleries() {
   gallery1.innerHTML = "";
@@ -154,9 +152,6 @@ function createPolaroid(photo, index) {
   return polaroid;
 }
 
-/* =====================================
-   ОТКРЫТИЕ ФОТО
-===================================== */
 function openPhotoModal(imageUrl, caption) {
   modalImage.src = imageUrl;
   modalCaption.textContent = caption;
@@ -172,13 +167,12 @@ photoModalClose.addEventListener("click", closePhotoModal);
 photoModalOverlay.addEventListener("click", closePhotoModal);
 
 /* =====================================
-   АНИМАЦИЯ КОНВЕРТА И ПИСЬМА
+   АНИМАЦИЯ КОНВЕРТА
 ===================================== */
 envelope.addEventListener("click", () => {
   if (envelope.classList.contains("open")) return;
 
   const rect = envelope.getBoundingClientRect();
-
   letter.style.position = "fixed";
   letter.style.top = `${rect.top + 15}px`;
   letter.style.left = `${rect.left + (rect.width * 0.075)}px`;
@@ -190,8 +184,7 @@ envelope.addEventListener("click", () => {
   letter.style.transition = "all 0.8s cubic-bezier(0.4, 0, 0.2, 1)";
   letter.style.pointerEvents = "none";
 
-  letter.offsetHeight;
-
+  letter.offsetHeight; // Триггер перерисовки
   envelope.classList.add("open");
 
   setTimeout(() => {
@@ -222,19 +215,15 @@ closeLetterBtn.addEventListener("click", (event) => {
   setTimeout(() => {
     envelope.classList.remove("open");
     letter.style.opacity = "0";
-    
-    setTimeout(() => {
-      letter.style = "";
-    }, 800);
+    setTimeout(() => { letter.style = ""; }, 800);
   }, 100);
 });
 
 /* =====================================
-   ЗАГРУЗКА ФОТО (для 1 вопроса)
+   ЗАГРУЗКА И СЖАТИЕ ФОТО
 ===================================== */
-let answerPhotoBase64 = null; // base64 выбранного фото
+let answerPhotoBase64 = null;
 
-// Сжатие фото через canvas
 function compressImage(file, maxWidth = 1200, quality = 0.75) {
   return new Promise((resolve) => {
     const reader = new FileReader();
@@ -244,18 +233,14 @@ function compressImage(file, maxWidth = 1200, quality = 0.75) {
         const canvas = document.createElement("canvas");
         let width = img.width;
         let height = img.height;
-        
         if (width > maxWidth) {
           height = (height * maxWidth) / width;
           width = maxWidth;
         }
-        
         canvas.width = width;
         canvas.height = height;
         const ctx = canvas.getContext("2d");
         ctx.drawImage(img, 0, 0, width, height);
-        
-        // Возвращаем base64 строку
         resolve(canvas.toDataURL("image/jpeg", quality));
       };
       img.src = e.target.result;
@@ -264,21 +249,15 @@ function compressImage(file, maxWidth = 1200, quality = 0.75) {
   });
 }
 
-// Обработка выбора файла
 photoInput.addEventListener("change", async (e) => {
   const file = e.target.files[0];
   if (!file) return;
-  
-  // Сжимаем фото
   const compressed = await compressImage(file);
   answerPhotoBase64 = compressed;
-  
-  // Показываем превью
   previewImage.src = compressed;
   photoPreview.style.display = "flex";
 });
 
-// Удаление фото
 photoRemoveBtn.addEventListener("click", () => {
   answerPhotoBase64 = null;
   photoInput.value = "";
@@ -287,33 +266,19 @@ photoRemoveBtn.addEventListener("click", () => {
 });
 
 /* =====================================
-   НАВИГАЦИЯ
+   КНОПКИ НАВИГАЦИИ
 ===================================== */
-continueBtn.addEventListener("click", (event) => {
-  event.preventDefault();
-  event.stopPropagation();
-  goToSection(memoriesSection1);
-});
-
-backToLetterBtn.addEventListener("click", () => {
-  goToSection(intro);
-});
-
-photosPage2Btn.addEventListener("click", () => {
-  goToSection(memoriesSection2);
-});
-
-photosPage1Btn.addEventListener("click", () => {
-  goToSection(memoriesSection1);
-});
-
-questionsStartBtn.addEventListener("click", () => {
-  goToSection(questionsSection);
-  showQuestion();
-});
+continueBtn.addEventListener("click", (e) => { e.preventDefault(); goToSection(memoriesSection1); });
+backToLetterBtn.addEventListener("click", () => { goToSection(intro); });
+photosPage2Btn.addEventListener("click", () => { goToSection(memoriesSection2); });
+photosPage1Btn.addEventListener("click", () => { goToSection(memoriesSection1); });
+questionsStartBtn.addEventListener("click", () => { goToSection(questionsSection); showQuestion(); });
+backToPhotosFromQuestions.addEventListener("click", () => { goToSection(memoriesSection2); });
+finalBackBtn.addEventListener("click", () => { currentQuestion = QUESTIONS.length - 1; goToSection(questionsSection); showQuestion(); });
+finalPhotosBtn.addEventListener("click", () => { goToSection(memoriesSection2); });
 
 /* =====================================
-   ВОПРОСЫ
+   ЛОГИКА ВОПРОСОВ
 ===================================== */
 let currentQuestion = 0;
 const answers = new Array(QUESTIONS.length).fill("");
@@ -322,13 +287,10 @@ function showQuestion() {
   questionCounter.textContent = `Вопрос ${currentQuestion + 1} из ${QUESTIONS.length}`;
   questionText.textContent = QUESTIONS[currentQuestion];
   
-  // Переключаем между текстом и фото
   if (currentQuestion === 0) {
-    // Первый вопрос — показываем загрузку фото
     answerInput.style.display = "none";
     photoUpload.style.display = "block";
   } else {
-    // Остальные — показываем текст
     answerInput.style.display = "block";
     photoUpload.style.display = "none";
     answerInput.value = answers[currentQuestion];
@@ -338,7 +300,6 @@ function showQuestion() {
   nextQuestionBtn.textContent = currentQuestion === QUESTIONS.length - 1 ? "Закончить →" : "Далее →";
 }
 
-// Сохранение текстовых ответов
 answerInput.addEventListener("input", () => {
   answers[currentQuestion] = answerInput.value;
 });
@@ -351,7 +312,6 @@ previousQuestionBtn.addEventListener("click", () => {
 });
 
 nextQuestionBtn.addEventListener("click", () => {
-  // Сохраняем текущий ответ
   if (currentQuestion !== 0) {
     answers[currentQuestion] = answerInput.value;
   }
@@ -365,7 +325,7 @@ nextQuestionBtn.addEventListener("click", () => {
 });
 
 /* =====================================
-   ОТПРАВКА ОТВЕТОВ + ФОТО
+   ОТПРАВКА В GOOGLE ТАБЛИЦУ
 ===================================== */
 async function sendAnswersToGoogleSheets() {
   nextQuestionBtn.disabled = true;
@@ -373,7 +333,7 @@ async function sendAnswersToGoogleSheets() {
 
   const data = {
     answers: answers,
-    photoBase64: answerPhotoBase64, // base64 фото для 1 вопроса (или null)
+    photoBase64: answerPhotoBase64,
     submittedAt: new Date().toLocaleString("ru-RU")
   };
 
@@ -392,20 +352,6 @@ async function sendAnswersToGoogleSheets() {
     nextQuestionBtn.textContent = "Закончить →";
   }
 }
-
-backToPhotosFromQuestions.addEventListener("click", () => {
-  goToSection(memoriesSection2);
-});
-
-finalBackBtn.addEventListener("click", () => {
-  currentQuestion = QUESTIONS.length - 1;
-  goToSection(questionsSection);
-  showQuestion();
-});
-
-finalPhotosBtn.addEventListener("click", () => {
-  goToSection(memoriesSection2);
-});
 
 /* =====================================
    ЗАПУСК
