@@ -1,8 +1,8 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-    /* =========================================================
+    /* =====================================================
        НАСТРОЙКИ
-    ========================================================= */
+    ===================================================== */
 
     const OWNER = "olegkarpuhinn";
     const REPO = "birthday-card";
@@ -14,54 +14,65 @@ document.addEventListener("DOMContentLoaded", () => {
     const PHOTOS_PER_PAGE = 7;
 
 
-    /* =========================================================
-       ПОЛУЧАЕМ ЭЛЕМЕНТЫ СТРАНИЦ
-    ========================================================= */
+    /* =====================================================
+       ПОЛУЧАЕМ ВСЕ СТРАНИЦЫ
+    ===================================================== */
 
     const intro = document.querySelector(".intro");
-    const memoriesSection = document.querySelector(".memories");
-    const questionSection = document.querySelector(".question-section");
-    const finalSection = document.querySelector(".final-section");
 
-    const envelopeWrapper = document.querySelector(".envelope-wrapper");
-    const envelope = document.querySelector(".envelope");
+    const memoriesSection =
+        document.querySelector(".memories-section");
 
-    const gallery = document.querySelector(".polaroid-gallery");
+    const questionSection =
+        document.querySelector(".question-section");
 
-    const letterNextButton =
-        document.querySelector(".letter-next") ||
-        document.querySelector("[data-action='to-memories']");
+    const finalSection =
+        document.querySelector(".final-section");
+
+
+    /* =====================================================
+       ЭЛЕМЕНТЫ ПИСЬМА
+    ===================================================== */
+
+    const envelopeWrapper =
+        document.querySelector(".envelope-wrapper");
+
+    const continueButton =
+        document.querySelector(".letter-next");
+
+    const closeLetterButton =
+        document.querySelector(".letter-close") ||
+        document.querySelector(".close-letter");
+
+
+    /* =====================================================
+       ГАЛЕРЕЯ
+    ===================================================== */
+
+    const gallery =
+        document.querySelector(".polaroid-gallery");
 
     const previousPhotosButton =
-        document.querySelector("[data-action='previous-photos']") ||
         document.querySelector(".previous-photos");
 
     const nextPhotosButton =
-        document.querySelector("[data-action='next-photos']") ||
         document.querySelector(".next-photos");
 
     const backToLetterButton =
-        document.querySelector("[data-action='back-to-letter']") ||
         document.querySelector(".back-to-letter");
 
-    const finalBackToQuestions =
-        document.querySelector("[data-action='back-to-questions']");
 
-    const finalBackToPhotos =
-        document.querySelector("[data-action='back-to-photos']");
-
-
-    /* =========================================================
-       СОСТОЯНИЕ ФОТОГРАФИЙ
-    ========================================================= */
+    /* =====================================================
+       СОСТОЯНИЕ
+    ===================================================== */
 
     let photos = [];
     let currentPage = 0;
 
 
-    /* =========================================================
-       ФУНКЦИЯ СКРЫТИЯ ВСЕХ СТРАНИЦ
-    ========================================================= */
+    /* =====================================================
+       СКРЫТЬ ВСЕ СТРАНИЦЫ
+    ===================================================== */
 
     function hideAllSections() {
 
@@ -84,9 +95,9 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-    /* =========================================================
-       ПЕРЕХОД К ПИСЬМУ
-    ========================================================= */
+    /* =====================================================
+       ПОКАЗАТЬ ПИСЬМО
+    ===================================================== */
 
     function showLetter() {
 
@@ -104,9 +115,9 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-    /* =========================================================
-       ПЕРЕХОД К ФОТОГРАФИЯМ
-    ========================================================= */
+    /* =====================================================
+       ПОКАЗАТЬ ФОТОГРАФИИ
+    ===================================================== */
 
     function showMemories() {
 
@@ -121,12 +132,14 @@ document.addEventListener("DOMContentLoaded", () => {
             behavior: "smooth"
         });
 
+        loadPhotos();
+
     }
 
 
-    /* =========================================================
-       ПЕРЕХОД К ВОПРОСАМ
-    ========================================================= */
+    /* =====================================================
+       ПОКАЗАТЬ ВОПРОСЫ
+    ===================================================== */
 
     function showQuestions() {
 
@@ -144,9 +157,9 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-    /* =========================================================
-       ФИНАЛЬНАЯ СТРАНИЦА
-    ========================================================= */
+    /* =====================================================
+       ПОКАЗАТЬ ФИНАЛ
+    ===================================================== */
 
     function showFinal() {
 
@@ -164,43 +177,96 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-    /* =========================================================
-       КОНВЕРТ
-    ========================================================= */
+    /* =====================================================
+       КОНВЕРТ — ОТКРЫТИЕ
+    ===================================================== */
 
     if (envelopeWrapper) {
 
-        envelopeWrapper.addEventListener("click", () => {
+        envelopeWrapper.addEventListener("click", (event) => {
 
-            envelopeWrapper.classList.toggle("open");
+            /*
+             Проверяем, что пользователь нажал именно
+             на конверт, а не на кнопку.
+            */
+
+            if (
+                event.target.closest("button") ||
+                event.target.closest(".letter-paper")
+            ) {
+                return;
+            }
+
+            envelopeWrapper.classList.add("open");
 
         });
 
     }
 
 
-    /* =========================================================
-       ПЕРЕХОД ИЗ ПИСЬМА К ФОТО
-    ========================================================= */
+    /* =====================================================
+       КНОПКА «ПРОДОЛЖИТЬ»
+    ===================================================== */
 
-    if (letterNextButton) {
+    if (continueButton) {
 
-        letterNextButton.addEventListener("click", () => {
+        continueButton.addEventListener("click", (event) => {
+
+            /*
+             ОЧЕНЬ ВАЖНО:
+             останавливаем клик, чтобы он не передавался
+             конверту и не закрывал письмо
+            */
+
+            event.preventDefault();
+
+            event.stopPropagation();
+
+
+            /*
+             Сначала показываем фотографии
+            */
 
             showMemories();
 
-            loadPhotos();
+        });
+
+    }
+
+
+    /* =====================================================
+       КНОПКА «ЗАКРЫТЬ ПИСЬМО»
+    ===================================================== */
+
+    if (closeLetterButton) {
+
+        closeLetterButton.addEventListener("click", (event) => {
+
+            event.preventDefault();
+
+            event.stopPropagation();
+
+            if (envelopeWrapper) {
+
+                envelopeWrapper.classList.remove("open");
+
+            }
 
         });
 
     }
 
 
-    /* =========================================================
-       ЗАГРУЗКА ФОТО С GITHUB
-    ========================================================= */
+    /* =====================================================
+       ЗАГРУЗКА ФОТОГРАФИЙ С GITHUB
+    ===================================================== */
 
     async function loadPhotos() {
+
+        /*
+         Если фотографии уже загружены,
+         просто отображаем их.
+        */
 
         if (photos.length > 0) {
 
@@ -209,6 +275,7 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
 
         }
+
 
         if (gallery) {
 
@@ -220,64 +287,105 @@ document.addEventListener("DOMContentLoaded", () => {
 
         }
 
+
         try {
 
-            const response = await fetch(PHOTOS_API);
+            const response =
+                await fetch(PHOTOS_API);
+
 
             if (!response.ok) {
 
-                throw new Error("Не удалось получить фотографии");
+                throw new Error(
+                    "GitHub не вернул фотографии"
+                );
 
             }
 
-            const files = await response.json();
 
+            const files =
+                await response.json();
+
+
+            /*
+             Оставляем только изображения
+            */
 
             photos = files
-                .filter(file => {
+                .filter((file) => {
 
-                    const name = file.name.toLowerCase();
+                    const name =
+                        file.name.toLowerCase();
 
                     return (
+
                         file.type === "file" &&
+
                         (
                             name.endsWith(".jpg") ||
                             name.endsWith(".jpeg") ||
                             name.endsWith(".png") ||
                             name.endsWith(".webp")
                         )
+
                     );
 
                 })
-                .sort((a, b) => a.name.localeCompare(
-                    b.name,
-                    undefined,
-                    {
-                        numeric: true,
-                        sensitivity: "base"
-                    }
-                ));
+
+
+                /*
+                 Сортировка по названию
+                */
+
+                .sort((a, b) => {
+
+                    return a.name.localeCompare(
+
+                        b.name,
+
+                        undefined,
+
+                        {
+                            numeric: true,
+                            sensitivity: "base"
+                        }
+
+                    );
+
+                });
 
 
             if (photos.length === 0) {
 
-                throw new Error("Фотографии не найдены");
+                throw new Error(
+                    "Фотографии не найдены"
+                );
 
             }
 
 
             renderPhotos();
 
-        } catch (error) {
+        }
 
-            console.error(error);
+        catch (error) {
+
+            console.error(
+                "Ошибка загрузки фотографий:",
+                error
+            );
+
 
             if (gallery) {
 
                 gallery.innerHTML = `
+
                     <div class="photos-error">
+
                         Не удалось загрузить фотографии.
+
                     </div>
+
                 `;
 
             }
@@ -287,193 +395,301 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-    /* =========================================================
-       ОТОБРАЖЕНИЕ ТЕКУЩЕЙ СТРАНИЦЫ ФОТО
-    ========================================================= */
+    /* =====================================================
+       ОТОБРАЖЕНИЕ ФОТО
+    ===================================================== */
 
     function renderPhotos() {
 
-        if (!gallery) return;
+        if (!gallery) {
+            return;
+        }
 
 
         gallery.innerHTML = "";
 
 
-        const start = currentPage * PHOTOS_PER_PAGE;
-
-        const end = start + PHOTOS_PER_PAGE;
-
-        const currentPhotos = photos.slice(start, end);
+        const start =
+            currentPage * PHOTOS_PER_PAGE;
 
 
-        currentPhotos.forEach((photo, index) => {
-
-            const photoNumber = start + index + 1;
-
-
-            const polaroid = document.createElement("div");
-
-            polaroid.className = "polaroid";
+        const end =
+            start + PHOTOS_PER_PAGE;
 
 
-            const image = document.createElement("img");
-
-            image.className = "polaroid-image";
-
-            image.src = photo.download_url;
-
-            image.alt = `Воспоминание ${photoNumber}`;
-
-            image.loading = "lazy";
+        const currentPhotos =
+            photos.slice(start, end);
 
 
-            const caption = document.createElement("div");
+        currentPhotos.forEach(
+            (photo, index) => {
 
-            caption.className = "polaroid-caption";
-
-            caption.textContent = `Воспоминание ${photoNumber} ❤️`;
-
-
-            polaroid.appendChild(image);
-
-            polaroid.appendChild(caption);
+                const photoNumber =
+                    start + index + 1;
 
 
-            polaroid.addEventListener("click", () => {
+                const polaroid =
+                    document.createElement("div");
 
-                openPhotoModal(
-                    photo.download_url,
-                    photoNumber
+
+                polaroid.className =
+                    "polaroid";
+
+
+                const image =
+                    document.createElement("img");
+
+
+                image.className =
+                    "polaroid-image";
+
+
+                image.src =
+                    photo.download_url;
+
+
+                image.alt =
+                    `Воспоминание ${photoNumber}`;
+
+
+                image.loading =
+                    "lazy";
+
+
+                const caption =
+                    document.createElement("div");
+
+
+                caption.className =
+                    "polaroid-caption";
+
+
+                caption.textContent =
+                    `Воспоминание ${photoNumber} ❤️`;
+
+
+                polaroid.appendChild(image);
+
+                polaroid.appendChild(caption);
+
+
+                /*
+                 Открытие увеличенного фото
+                */
+
+                polaroid.addEventListener(
+                    "click",
+                    () => {
+
+                        openPhotoModal(
+                            photo.download_url,
+                            photoNumber
+                        );
+
+                    }
                 );
 
-            });
 
+                gallery.appendChild(polaroid);
 
-            gallery.appendChild(polaroid);
-
-        });
+            }
+        );
 
 
         updatePhotoNavigation();
 
-
-        window.scrollTo({
-            top: 0,
-            behavior: "smooth"
-        });
-
     }
 
 
-    /* =========================================================
-       КНОПКИ ПЕРЕКЛЮЧЕНИЯ ФОТО
-    ========================================================= */
+    /* =====================================================
+       НАВИГАЦИЯ ФОТО
+    ===================================================== */
 
     function updatePhotoNavigation() {
 
+        const totalPages =
+            Math.ceil(
+                photos.length / PHOTOS_PER_PAGE
+            );
+
+
+        /*
+         Кнопка «Назад»
+        */
+
         if (previousPhotosButton) {
-
-            previousPhotosButton.style.display =
-                currentPage > 0
-                    ? "inline-flex"
-                    : "none";
-
-        }
-
-
-        if (nextPhotosButton) {
-
-            const totalPages =
-                Math.ceil(
-                    photos.length / PHOTOS_PER_PAGE
-                );
-
-
-            nextPhotosButton.textContent =
-                currentPage < totalPages - 1
-                    ? "Ещё воспоминания →"
-                    : "А теперь твоя очередь →";
-
-        }
-
-    }
-
-
-    /* =========================================================
-       ПРЕДЫДУЩИЕ ФОТО
-    ========================================================= */
-
-    if (previousPhotosButton) {
-
-        previousPhotosButton.addEventListener("click", () => {
 
             if (currentPage > 0) {
 
-                currentPage--;
-
-                renderPhotos();
+                previousPhotosButton.style.display =
+                    "inline-flex";
 
             }
 
-        });
+            else {
+
+                previousPhotosButton.style.display =
+                    "none";
+
+            }
+
+        }
+
+
+        /*
+         Кнопка «Дальше»
+        */
+
+        if (nextPhotosButton) {
+
+            if (
+                currentPage < totalPages - 1
+            ) {
+
+                nextPhotosButton.textContent =
+                    "Ещё воспоминания →";
+
+            }
+
+            else {
+
+                nextPhotosButton.textContent =
+                    "А теперь твоя очередь →";
+
+            }
+
+        }
 
     }
 
 
-    /* =========================================================
-       СЛЕДУЮЩИЕ ФОТО ИЛИ ВОПРОСЫ
-    ========================================================= */
+    /* =====================================================
+       ПРЕДЫДУЩАЯ СТРАНИЦА ФОТО
+    ===================================================== */
+
+    if (previousPhotosButton) {
+
+        previousPhotosButton.addEventListener(
+            "click",
+            () => {
+
+                if (currentPage > 0) {
+
+                    currentPage--;
+
+                    renderPhotos();
+
+
+                    window.scrollTo({
+
+                        top: 0,
+
+                        behavior: "smooth"
+
+                    });
+
+                }
+
+            }
+        );
+
+    }
+
+
+    /* =====================================================
+       СЛЕДУЮЩАЯ СТРАНИЦА ФОТО
+    ===================================================== */
 
     if (nextPhotosButton) {
 
-        nextPhotosButton.addEventListener("click", () => {
+        nextPhotosButton.addEventListener(
+            "click",
+            () => {
 
-            const totalPages =
-                Math.ceil(
-                    photos.length / PHOTOS_PER_PAGE
-                );
+                const totalPages =
+                    Math.ceil(
+                        photos.length /
+                        PHOTOS_PER_PAGE
+                    );
 
 
-            if (currentPage < totalPages - 1) {
+                /*
+                 Есть ещё фотографии
+                */
 
-                currentPage++;
+                if (
+                    currentPage <
+                    totalPages - 1
+                ) {
 
-                renderPhotos();
+                    currentPage++;
 
-            } else {
+                    renderPhotos();
 
-                showQuestions();
+
+                    window.scrollTo({
+
+                        top: 0,
+
+                        behavior: "smooth"
+
+                    });
+
+                }
+
+
+                /*
+                 Фотографии закончились
+                */
+
+                else {
+
+                    showQuestions();
+
+                }
 
             }
-
-        });
+        );
 
     }
 
 
-    /* =========================================================
+    /* =====================================================
        НАЗАД К ПИСЬМУ
-    ========================================================= */
+    ===================================================== */
 
     if (backToLetterButton) {
 
-        backToLetterButton.addEventListener("click", () => {
+        backToLetterButton.addEventListener(
+            "click",
+            () => {
 
-            showLetter();
+                showLetter();
 
-        });
+            }
+        );
 
     }
 
 
-    /* =========================================================
-       МОДАЛЬНОЕ ОКНО ФОТО
-    ========================================================= */
+    /* =====================================================
+       УВЕЛИЧЕННОЕ ФОТО
+    ===================================================== */
 
-    function openPhotoModal(imageUrl, photoNumber) {
+    function openPhotoModal(
+        imageUrl,
+        photoNumber
+    ) {
+
+        /*
+         Удаляем старое окно,
+         если оно существует
+        */
 
         const oldModal =
-            document.querySelector(".photo-modal");
+            document.querySelector(
+                ".photo-modal"
+            );
 
 
         if (oldModal) {
@@ -497,7 +713,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 <button
                     class="photo-modal-close"
-                    aria-label="Закрыть"
+                    type="button"
                 >
                     ×
                 </button>
@@ -511,7 +727,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 <div class="photo-modal-caption">
 
-                    Воспоминание ${photoNumber} ❤️
+                    Воспоминание ${photoNumber}
+                    ❤️
 
                 </div>
 
@@ -520,10 +737,13 @@ document.addEventListener("DOMContentLoaded", () => {
         `;
 
 
-        document.body.appendChild(modal);
+        document.body.appendChild(
+            modal
+        );
 
 
-        document.body.style.overflow = "hidden";
+        document.body.style.overflow =
+            "hidden";
 
 
         const closeButton =
@@ -532,31 +752,57 @@ document.addEventListener("DOMContentLoaded", () => {
             );
 
 
-        closeButton.addEventListener("click", () => {
+        closeButton.addEventListener(
+            "click",
+            () => {
 
-            closePhotoModal(modal);
-
-        });
-
-
-        modal.addEventListener("click", event => {
-
-            if (event.target === modal) {
-
-                closePhotoModal(modal);
+                closePhotoModal(
+                    modal
+                );
 
             }
+        );
 
-        });
 
+        /*
+         Закрытие при клике на фон
+        */
+
+        modal.addEventListener(
+            "click",
+            (event) => {
+
+                if (
+                    event.target === modal
+                ) {
+
+                    closePhotoModal(
+                        modal
+                    );
+
+                }
+
+            }
+        );
+
+
+        /*
+         Escape
+        */
 
         document.addEventListener(
             "keydown",
+
             function escapeHandler(event) {
 
-                if (event.key === "Escape") {
+                if (
+                    event.key === "Escape"
+                ) {
 
-                    closePhotoModal(modal);
+                    closePhotoModal(
+                        modal
+                    );
+
 
                     document.removeEventListener(
                         "keydown",
@@ -566,59 +812,34 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
 
             }
+
         );
 
     }
 
+
+    /* =====================================================
+       ЗАКРЫТИЕ УВЕЛИЧЕННОГО ФОТО
+    ===================================================== */
 
     function closePhotoModal(modal) {
 
-        modal.classList.add("closing");
+        modal.remove();
 
-
-        setTimeout(() => {
-
-            modal.remove();
-
-            document.body.style.overflow = "";
-
-        }, 200);
+        document.body.style.overflow =
+            "";
 
     }
 
 
-    /* =========================================================
-       ФИНАЛЬНЫЕ КНОПКИ
-    ========================================================= */
+    /* =====================================================
+       ЗАПУСК
+    ===================================================== */
 
-    if (finalBackToQuestions) {
+    /*
+     Начинаем с письма.
+    */
 
-        finalBackToQuestions.addEventListener(
-            "click",
-            () => {
-
-                showQuestions();
-
-            }
-        );
-
-    }
-
-
-    if (finalBackToPhotos) {
-
-        finalBackToPhotos.addEventListener(
-            "click",
-            () => {
-
-                showMemories();
-
-                renderPhotos();
-
-            }
-        );
-
-    }
-
+    showLetter();
 
 });
