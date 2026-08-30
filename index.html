@@ -148,7 +148,7 @@
 
 
     <!-- =====================================
-         СТРАНИЦА 2 — ФОТО 1–15
+         СТРАНИЦА 2 — ПЕРВЫЕ 15 ФОТО
     ====================================== -->
 
     <section
@@ -207,7 +207,7 @@
 
 
     <!-- =====================================
-         СТРАНИЦА 3 — ФОТО 16–30
+         СТРАНИЦА 3 — ОСТАЛЬНЫЕ ФОТО
     ====================================== -->
 
     <section
@@ -300,6 +300,15 @@
         <div class="question-navigation">
 
           <button
+            id="backToPhotosBtn"
+            type="button"
+            class="secondary-button"
+          >
+            ← К фотографиям
+          </button>
+
+
+          <button
             id="previousQuestionBtn"
             type="button"
             class="secondary-button"
@@ -350,13 +359,26 @@
         </p>
 
 
-        <button
-          id="finalBackBtn"
-          type="button"
-          class="secondary-button"
-        >
-          ← Вернуться к вопросам
-        </button>
+        <div class="question-navigation">
+
+          <button
+            id="finalBackBtn"
+            type="button"
+            class="secondary-button"
+          >
+            ← Вернуться к вопросам
+          </button>
+
+
+          <button
+            id="finalPhotosBtn"
+            type="button"
+            class="secondary-button"
+          >
+            ← Вернуться к фотографиям
+          </button>
+
+        </div>
 
       </div>
 
