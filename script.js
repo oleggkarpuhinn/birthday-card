@@ -1,33 +1,21 @@
-/* =====================================
-   GOOGLE SHEETS
-===================================== */
 const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyTnBP_TMV3b14BQB_LyIrgfVz51mFGXRtxZRsJpBFht3QkUt8PRX5-H5vDALPFpYbBcg/exec";
 
-/* =====================================
-   IMGUR (бесплатный хостинг фото)
-   Client ID для анонимной загрузки
-===================================== */
-const IMGUR_CLIENT_ID = "90d43c7ae0e7ae3"; // Публичный Client ID
-
-/* =====================================
-   ФОТОГРАФИИ
-===================================== */
 const PHOTOS = [
   { image: "photos/photo_2024-05-16_16-29-51.jpg", caption: "✏️ НАПИШИТЕ ЗДЕСЬ ПОДПИСЬ К ФОТО" },
   { image: "photos/photo_2024-05-16_16-29-58 (2).jpg", caption: "✏️ НАПИШИТЕ ЗДЕСЬ ПОДПИСЬ К ФОТО" },
   { image: "photos/photo_2024-05-16_16-29-58.jpg", caption: "✏️ НАПИШИТЕ ЗДЕСЬ ПОДПИСЬ К ФОТО" },
   { image: "photos/photo_2024-05-16_16-29-59.jpg", caption: "✏️ НАПИШИТЕ ЗДЕСЬ ПОДПИСЬ К ФОТО" },
   { image: "photos/photo_2024-06-09_03-10-51.jpg", caption: "✏️ НАПИШИТЕ ЗДЕСЬ ПОДПИСЬ К ФОТО" },
-  { image: "photos/photo_2025-03-14_10-29-28.jpg", caption: "️ НАПИШИТЕ ЗДЕСЬ ПОДПИСЬ К ФОТО" },
+  { image: "photos/photo_2025-03-14_10-29-28.jpg", caption: "✏️ НАПИШИТЕ ЗДЕСЬ ПОДПИСЬ К ФОТО" },
   { image: "photos/photo_2025-03-18_21-06-29.jpg", caption: "✏️ НАПИШИТЕ ЗДЕСЬ ПОДПИСЬ К ФОТО" },
   { image: "photos/photo_2026-06-06_02-42-53.jpg", caption: "✏️ НАПИШИТЕ ЗДЕСЬ ПОДПИСЬ К ФОТО" },
-  { image: "photos/photo_2026-06-20_15-24-08.jpg", caption: "️ НАПИШИТЕ ЗДЕСЬ ПОДПИСЬ К ФОТО" },
+  { image: "photos/photo_2026-06-20_15-24-08.jpg", caption: "✏️ НАПИШИТЕ ЗДЕСЬ ПОДПИСЬ К ФОТО" },
   { image: "photos/photo_2026-06-23_23-10-16 (2).jpg", caption: "✏️ НАПИШИТЕ ЗДЕСЬ ПОДПИСЬ К ФОТО" },
   { image: "photos/photo_2026-06-23_23-10-16 (3).jpg", caption: "✏️ НАПИШИТЕ ЗДЕСЬ ПОДПИСЬ К ФОТО" },
   { image: "photos/photo_2026-06-23_23-10-16 (4).jpg", caption: "✏️ НАПИШИТЕ ЗДЕСЬ ПОДПИСЬ К ФОТО" },
   { image: "photos/photo_2026-06-23_23-10-16.jpg", caption: "✏️ НАПИШИТЕ ЗДЕСЬ ПОДПИСЬ К ФОТО" },
   { image: "photos/photo_2026-06-23_23-10-17.jpg", caption: "✏️ НАПИШИТЕ ЗДЕСЬ ПОДПИСЬ К ФОТО" },
-  { image: "photos/photo_2026-06-27_10-36-58 (2).jpg", caption: "️ НАПИШИТЕ ЗДЕСЬ ПОДПИСЬ К ФОТО" },
+  { image: "photos/photo_2026-06-27_10-36-58 (2).jpg", caption: "✏️ НАПИШИТЕ ЗДЕСЬ ПОДПИСЬ К ФОТО" },
   { image: "photos/photo_2026-06-27_10-36-58.jpg", caption: "✏️ НАПИШИТЕ ЗДЕСЬ ПОДПИСЬ К ФОТО" },
   { image: "photos/photo_2026-07-01_23-29-46.jpg", caption: "✏️ НАПИШИТЕ ЗДЕСЬ ПОДПИСЬ К ФОТО" },
   { image: "photos/photo_2026-07-05_20-13-23.jpg", caption: "✏️ НАПИШИТЕ ЗДЕСЬ ПОДПИСЬ К ФОТО" },
@@ -45,9 +33,6 @@ const PHOTOS = [
   { image: "photos/photo_2026-08-28_20-07-15.jpg", caption: "✏️ НАПИШИТЕ ЗДЕСЬ ПОДПИСЬ К ФОТО" }
 ];
 
-/* =====================================
-   ВОПРОСЫ
-===================================== */
 const QUESTIONS = [
   "Выбери фотографию — какой момент с нами ты бы сохранила навсегда?",
   "Что тебе больше всего нравится в наших отношениях?",
@@ -61,15 +46,11 @@ const QUESTIONS = [
   "И последнее: что ты хочешь сказать мне прямо сейчас?"
 ];
 
-/* =====================================
-   ЭЛЕМЕНТЫ
-===================================== */
 const envelope = document.getElementById("envelope");
 const letter = document.querySelector(".letter");
 const intro = document.getElementById("intro");
 const continueBtn = document.getElementById("continueBtn");
 const closeLetterBtn = document.getElementById("closeLetterBtn");
-
 const memoriesSection1 = document.getElementById("memoriesSection1");
 const memoriesSection2 = document.getElementById("memoriesSection2");
 const gallery1 = document.getElementById("polaroidGallery1");
@@ -78,34 +59,27 @@ const backToLetterBtn = document.getElementById("backToLetterBtn");
 const photosPage2Btn = document.getElementById("photosPage2Btn");
 const photosPage1Btn = document.getElementById("photosPage1Btn");
 const questionsStartBtn = document.getElementById("questionsStartBtn");
-
 const questionsSection = document.getElementById("questionsSection");
 const questionCounter = document.getElementById("questionCounter");
 const questionText = document.getElementById("questionText");
 const answerInput = document.getElementById("answerInput");
 const previousQuestionBtn = document.getElementById("previousQuestionBtn");
 const nextQuestionBtn = document.getElementById("nextQuestionBtn");
-
 const finalSection = document.getElementById("finalSection");
 const finalBackBtn = document.getElementById("finalBackBtn");
 const backToPhotosFromQuestions = document.getElementById("backToPhotosFromQuestions");
 const finalPhotosBtn = document.getElementById("finalPhotosBtn");
-
 const photoModal = document.getElementById("photoModal");
 const photoModalOverlay = document.getElementById("photoModalOverlay");
 const photoModalClose = document.getElementById("photoModalClose");
 const modalImage = document.getElementById("modalImage");
 const modalCaption = document.getElementById("modalCaption");
-
 const photoUpload = document.getElementById("photoUpload");
 const photoInput = document.getElementById("photoInput");
 const photoPreview = document.getElementById("photoPreview");
 const previewImage = document.getElementById("previewImage");
 const photoRemoveBtn = document.getElementById("photoRemoveBtn");
 
-/* =====================================
-   НАВИГАЦИЯ
-===================================== */
 function hideAllSections() {
   intro.style.display = "none";
   memoriesSection1.classList.remove("show");
@@ -124,17 +98,12 @@ function goToSection(section) {
   window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
-/* =====================================
-   ГАЛЕРЕИ
-===================================== */
 function createGalleries() {
   gallery1.innerHTML = "";
   gallery2.innerHTML = "";
-
   PHOTOS.slice(0, 15).forEach((photo, index) => {
     gallery1.appendChild(createPolaroid(photo, index));
   });
-
   PHOTOS.slice(15, 30).forEach((photo, index) => {
     gallery2.appendChild(createPolaroid(photo, index + 15));
   });
@@ -145,16 +114,13 @@ function createPolaroid(photo, index) {
   const polaroid = document.createElement("article");
   polaroid.className = "polaroid";
   polaroid.style.setProperty("--rotation", rotations[index % rotations.length]);
-  
   polaroid.innerHTML = `
     <img class="polaroid-image" src="${photo.image}" alt="Воспоминание" loading="lazy">
     <p class="polaroid-caption">${photo.caption}</p>
   `;
-  
   polaroid.addEventListener("click", () => {
     openPhotoModal(photo.image, photo.caption);
   });
-  
   return polaroid;
 }
 
@@ -172,12 +138,8 @@ function closePhotoModal() {
 photoModalClose.addEventListener("click", closePhotoModal);
 photoModalOverlay.addEventListener("click", closePhotoModal);
 
-/* =====================================
-   АНИМАЦИЯ КОНВЕРТА
-===================================== */
 envelope.addEventListener("click", () => {
   if (envelope.classList.contains("open")) return;
-
   const rect = envelope.getBoundingClientRect();
   letter.style.position = "fixed";
   letter.style.top = `${rect.top + 15}px`;
@@ -189,10 +151,8 @@ envelope.addEventListener("click", () => {
   letter.style.zIndex = "2";
   letter.style.transition = "all 0.8s cubic-bezier(0.4, 0, 0.2, 1)";
   letter.style.pointerEvents = "none";
-
   letter.offsetHeight;
   envelope.classList.add("open");
-
   setTimeout(() => {
     letter.style.top = "50%";
     letter.style.left = "50%";
@@ -208,7 +168,6 @@ envelope.addEventListener("click", () => {
 closeLetterBtn.addEventListener("click", (event) => {
   event.preventDefault();
   event.stopPropagation();
-
   const rect = envelope.getBoundingClientRect();
   letter.style.top = `${rect.top + 15}px`;
   letter.style.left = `${rect.left + (rect.width * 0.075)}px`;
@@ -217,7 +176,6 @@ closeLetterBtn.addEventListener("click", (event) => {
   letter.style.transform = "none";
   letter.style.zIndex = "2";
   letter.style.pointerEvents = "none";
-
   setTimeout(() => {
     envelope.classList.remove("open");
     letter.style.opacity = "0";
@@ -225,14 +183,9 @@ closeLetterBtn.addEventListener("click", (event) => {
   }, 100);
 });
 
-/* =====================================
-   ЗАГРУЗКА ФОТО
-===================================== */
 let answerPhotoBase64 = null;
-let answerPhotoUrl = null; // Ссылка на Imgur
 
-// Сжатие фото
-function compressImage(file, maxWidth = 1200, quality = 0.8) {
+function compressImage(file, maxWidth = 800, quality = 0.7) {
   return new Promise((resolve) => {
     const reader = new FileReader();
     reader.onload = (e) => {
@@ -257,33 +210,9 @@ function compressImage(file, maxWidth = 1200, quality = 0.8) {
   });
 }
 
-// Загрузка на Imgur
-async function uploadToImgur(base64) {
-  const response = await fetch("https://api.imgur.com/3/image", {
-    method: "POST",
-    headers: {
-      "Authorization": `Client-ID ${IMGUR_CLIENT_ID}`,
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-      image: base64.split(",")[1], // Убираем префикс data:image...
-      type: "base64"
-    })
-  });
-  
-  const data = await response.json();
-  if (data.success) {
-    return data.data.link; // Прямая ссылка на фото
-  } else {
-    throw new Error("Не удалось загрузить на Imgur");
-  }
-}
-
 photoInput.addEventListener("change", async (e) => {
   const file = e.target.files[0];
   if (!file) return;
-  
-  // Сжимаем и показываем превью
   const compressed = await compressImage(file);
   answerPhotoBase64 = compressed;
   previewImage.src = compressed;
@@ -292,15 +221,11 @@ photoInput.addEventListener("change", async (e) => {
 
 photoRemoveBtn.addEventListener("click", () => {
   answerPhotoBase64 = null;
-  answerPhotoUrl = null;
   photoInput.value = "";
   photoPreview.style.display = "none";
   previewImage.src = "";
 });
 
-/* =====================================
-   КНОПКИ
-===================================== */
 continueBtn.addEventListener("click", (e) => { e.preventDefault(); goToSection(memoriesSection1); });
 backToLetterBtn.addEventListener("click", () => { goToSection(intro); });
 photosPage2Btn.addEventListener("click", () => { goToSection(memoriesSection2); });
@@ -310,9 +235,6 @@ backToPhotosFromQuestions.addEventListener("click", () => { goToSection(memories
 finalBackBtn.addEventListener("click", () => { currentQuestion = QUESTIONS.length - 1; goToSection(questionsSection); showQuestion(); });
 finalPhotosBtn.addEventListener("click", () => { goToSection(memoriesSection2); });
 
-/* =====================================
-   ВОПРОСЫ
-===================================== */
 let currentQuestion = 0;
 const answers = new Array(QUESTIONS.length).fill("");
 
@@ -321,11 +243,9 @@ function showQuestion() {
   questionText.textContent = QUESTIONS[currentQuestion];
   
   if (currentQuestion === 0) {
-    // Первый вопрос — загрузка фото
     answerInput.style.display = "none";
     photoUpload.style.display = "block";
   } else {
-    // Остальные — текст
     answerInput.style.display = "block";
     photoUpload.style.display = "none";
     answerInput.value = answers[currentQuestion];
@@ -350,7 +270,6 @@ nextQuestionBtn.addEventListener("click", () => {
   if (currentQuestion !== 0) {
     answers[currentQuestion] = answerInput.value;
   }
-  
   if (currentQuestion < QUESTIONS.length - 1) {
     currentQuestion++;
     showQuestion();
@@ -359,45 +278,30 @@ nextQuestionBtn.addEventListener("click", () => {
   }
 });
 
-/* =====================================
-   ОТПРАВКА
-===================================== */
 async function sendAnswersToGoogleSheets() {
   nextQuestionBtn.disabled = true;
-  nextQuestionBtn.textContent = "Загружаем фото...";
+  nextQuestionBtn.textContent = "Сохраняем...";
+
+  const data = {
+    answers: answers,
+    photoBase64: answerPhotoBase64,
+    submittedAt: new Date().toLocaleString("ru-RU")
+  };
 
   try {
-    let photoUrl = "(фото не загружено)";
-    
-    // Если есть фото — загружаем на Imgur
-    if (answerPhotoBase64) {
-      photoUrl = await uploadToImgur(answerPhotoBase64);
-      nextQuestionBtn.textContent = "Сохраняем ответы...";
-    }
-    
-    const data = {
-      answers: answers,
-      photoUrl: photoUrl,
-      submittedAt: new Date().toLocaleString("ru-RU")
-    };
-
     await fetch(GOOGLE_SCRIPT_URL, {
       method: "POST",
       mode: "no-cors",
       headers: { "Content-Type": "text/plain;charset=utf-8" },
       body: JSON.stringify(data)
     });
-    
     goToSection(finalSection);
   } catch (error) {
-    console.error("Ошибка:", error);
-    alert("Не удалось отправить. Попробуй ещё раз.");
+    console.error("Ошибка отправки:", error);
+    alert("Не удалось отправить ответы. Попробуй ещё раз.");
     nextQuestionBtn.disabled = false;
     nextQuestionBtn.textContent = "Закончить →";
   }
 }
 
-/* =====================================
-   ЗАПУСК
-===================================== */
 createGalleries();
