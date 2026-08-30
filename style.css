@@ -51,9 +51,9 @@ body {
 
   inset: 0;
 
-  z-index: 0;
-
   pointer-events: none;
+
+  z-index: 0;
 
   opacity: 0.15;
 
@@ -71,8 +71,6 @@ body {
 .light {
   position: fixed;
 
-  z-index: 0;
-
   width: 500px;
   height: 500px;
 
@@ -81,6 +79,8 @@ body {
   filter: blur(120px);
 
   pointer-events: none;
+
+  z-index: 0;
 
   opacity: 0.25;
 }
@@ -141,12 +141,6 @@ button:hover {
 }
 
 
-button:active {
-  transform:
-    translateY(0);
-}
-
-
 .secondary-button {
   background:
     transparent;
@@ -167,7 +161,7 @@ button:active {
 
 
 /* =====================================
-   КОНВЕРТ
+   СТРАНИЦА С КОНВЕРТОМ
 ===================================== */
 
 .intro {
@@ -212,10 +206,18 @@ button:active {
 
   opacity:
     0.7;
+
+  transition:
+    opacity 0.4s ease,
+    transform 0.4s ease;
 }
 
 
 .intro h1 {
+  position: relative;
+
+  z-index: 1;
+
   margin:
     15px 0 10px;
 
@@ -228,10 +230,18 @@ button:active {
 
   font-weight:
     400;
+
+  transition:
+    opacity 0.4s ease,
+    transform 0.4s ease;
 }
 
 
 .hint {
+  position: relative;
+
+  z-index: 1;
+
   margin-bottom:
     35px;
 
@@ -239,7 +249,25 @@ button:active {
     0.75;
 
   transition:
-    opacity 0.3s ease;
+    opacity 0.4s ease,
+    transform 0.4s ease;
+}
+
+
+/* =====================================
+   ПРИ ОТКРЫТИИ ПИСЬМА СКРЫВАЕМ
+   ВСЕ НАДПИСИ СЗАДИ
+===================================== */
+
+.intro.letter-open h1,
+.intro.letter-open .small-text,
+.intro.letter-open .hint {
+  opacity: 0;
+
+  transform:
+    translateY(-15px);
+
+  pointer-events: none;
 }
 
 
@@ -248,6 +276,10 @@ button:active {
 ===================================== */
 
 .envelope-wrapper {
+  position: relative;
+
+  z-index: 5;
+
   display: inline-block;
 
   cursor: pointer;
@@ -376,6 +408,10 @@ button:active {
 }
 
 
+/* =====================================
+   ПИСЬМО
+===================================== */
+
 .letter {
   position: absolute;
 
@@ -390,11 +426,16 @@ button:active {
     translateX(-50%);
 
   transition:
-    transform 0.9s ease;
+    transform 0.9s ease,
+    z-index 0.1s ease;
 }
 
 
 .letter-paper {
+  position: relative;
+
+  z-index: 20;
+
   padding:
     25px;
 
@@ -414,6 +455,10 @@ button:active {
 
 
 .letter-paper button {
+  position: relative;
+
+  z-index: 30;
+
   display: block;
 
   width: 100%;
@@ -453,6 +498,15 @@ button:active {
 }
 
 
+/* =====================================
+   ОТКРЫТЫЙ КОНВЕРТ
+===================================== */
+
+.envelope-wrapper.open {
+  z-index: 50;
+}
+
+
 .envelope-wrapper.open
 .envelope-flap {
   transform:
@@ -470,11 +524,11 @@ button:active {
 
 .envelope-wrapper.open
 .letter {
+  z-index: 100;
+
   transform:
     translateX(-50%)
     translateY(-190px);
-
-  z-index: 7;
 }
 
 
@@ -545,6 +599,18 @@ button:active {
 
   font-style:
     italic;
+}
+
+
+.loading-text {
+  grid-column:
+    1 / -1;
+
+  font-size:
+    18px;
+
+  opacity:
+    0.8;
 }
 
 
@@ -803,16 +869,6 @@ button:active {
 }
 
 
-#answerInput:focus {
-  border-color:
-    #95664f;
-
-  box-shadow:
-    0 0 0 3px
-    rgba(149,102,79,0.12);
-}
-
-
 .question-navigation {
   display: flex;
 
@@ -827,16 +883,6 @@ button:active {
 
   margin-top:
     30px;
-}
-
-
-.question-card .secondary-button,
-.final-card .secondary-button {
-  color:
-    #4b3a30;
-
-  border-color:
-    rgba(75,58,48,0.35);
 }
 
 
@@ -893,13 +939,6 @@ button:active {
 
     align-items:
       stretch;
-  }
-
-
-  .question-card,
-  .final-card {
-    padding:
-      30px 20px;
   }
 
 }
