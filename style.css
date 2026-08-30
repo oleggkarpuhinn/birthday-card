@@ -1,7 +1,6 @@
 /* =====================================
    ОБЩИЕ НАСТРОЙКИ
 ===================================== */
-
 * {
   box-sizing: border-box;
 }
@@ -13,1261 +12,536 @@ html {
 body {
   margin: 0;
   min-height: 100vh;
-
   color: #f5eee7;
-
-  background:
-    radial-gradient(
-      circle at top,
-      #7a5c48,
-      #38271f 70%
-    );
-
-  font-family:
-    Georgia,
-    "Times New Roman",
-    serif;
+  background: radial-gradient(circle at top, #7a5c48, #38271f 70%);
+  font-family: Georgia, "Times New Roman", serif;
 }
-
 
 /* =====================================
    ОСНОВНАЯ СЦЕНА
 ===================================== */
-
 .scene {
   position: relative;
-
   min-height: 100vh;
-
   overflow-x: hidden;
 }
 
-
 .background-texture {
   position: fixed;
-
   inset: 0;
-
   pointer-events: none;
-
   opacity: 0.15;
-
-  background-image:
-    radial-gradient(
-      rgba(255,255,255,0.08) 1px,
-      transparent 1px
-    );
-
-  background-size:
-    8px 8px;
-
+  background-image: radial-gradient(rgba(255,255,255,0.08) 1px, transparent 1px);
+  background-size: 8px 8px;
   z-index: 0;
 }
-
 
 .light {
   position: fixed;
-
   width: 500px;
   height: 500px;
-
   border-radius: 50%;
-
   filter: blur(120px);
-
   pointer-events: none;
-
   opacity: 0.25;
-
   z-index: 0;
 }
-
 
 .light-1 {
   top: -200px;
   left: -150px;
-
   background: #d7a77d;
 }
-
 
 .light-2 {
   right: -200px;
   bottom: -200px;
-
   background: #8e6b58;
 }
-
 
 /* =====================================
    КНОПКИ
 ===================================== */
-
 button {
   cursor: pointer;
-
   border: none;
-
   padding: 14px 25px;
-
   border-radius: 8px;
-
   color: #fff8f1;
-
   background: #95664f;
-
   font-family: inherit;
-
   font-size: 16px;
-
-  transition:
-    transform 0.2s ease,
-    opacity 0.2s ease,
-    background 0.2s ease;
+  transition: transform 0.2s ease, opacity 0.2s ease, background 0.2s ease;
 }
-
 
 button:hover {
-  transform:
-    translateY(-2px);
-
-  background:
-    #a8755c;
+  transform: translateY(-2px);
+  background: #a8755c;
 }
-
 
 .secondary-button {
-  background:
-    #f5eee1;
-
-  border:
-    1px solid
-    rgba(75,58,48,0.35);
-
-  color:
-    #241a16;
+  background: #f5eee1;
+  border: 1px solid rgba(75,58,48,0.35);
+  color: #241a16;
 }
-
 
 .secondary-button:hover {
-  background:
-    #e7d9ca;
+  background: #e7d9ca;
 }
-
 
 /* =====================================
    ПЕРВАЯ СТРАНИЦА
 ===================================== */
-
 .intro {
   position: relative;
-
   z-index: 10;
-
   min-height: 100vh;
-
   display: flex;
-
   align-items: flex-start;
-
   justify-content: center;
-
-  padding:
-    70px
-    20px
-    40px;
-
+  padding: 70px 20px 40px;
   text-align: center;
 }
 
-
 .intro-content {
   position: relative;
-
   z-index: 20;
-
-  width:
-    min(
-      700px,
-      100%
-    );
-
-  padding-bottom:
-    100px;
+  width: min(700px, 100%);
+  padding-bottom: 100px;
 }
-
 
 .small-text,
 .section-subtitle {
-  letter-spacing:
-    4px;
-
-  text-transform:
-    uppercase;
-
-  font-size:
-    12px;
-
-  opacity:
-    0.7;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  font-size: 12px;
+  opacity: 0.7;
 }
-
 
 .intro h1 {
-  margin:
-    15px
-    0
-    10px;
-
-  font-size:
-    clamp(
-      42px,
-      7vw,
-      72px
-    );
-
-  font-weight:
-    400;
+  margin: 15px 0 10px;
+  font-size: clamp(42px, 7vw, 72px);
+  font-weight: 400;
 }
-
 
 .hint {
-  margin-bottom:
-    35px;
-
-  opacity:
-    0.75;
-
-  transition:
-    opacity 0.3s ease;
+  margin-bottom: 35px;
+  opacity: 0.75;
+  transition: opacity 0.3s ease;
 }
-
 
 /* =====================================
    КОНВЕРТ
 ===================================== */
-
 .envelope-wrapper {
   position: relative;
-
-  display:
-    inline-block;
-
-  cursor:
-    pointer;
-
-  perspective:
-    1200px;
-
-  z-index:
-    30;
-
-  /*
-     Опускаем конверт вниз
-  */
-
-  margin-top:
-    180px;
+  display: inline-block;
+  cursor: pointer;
+  perspective: 1200px;
+  z-index: 30;
+  margin-top: 180px;
 }
-
 
 .envelope {
   position: relative;
-
-  width:
-    min(
-      420px,
-      85vw
-    );
-
-  height:
-    270px;
-
-  overflow:
-    visible;
+  width: min(420px, 85vw);
+  height: 270px;
+  overflow: visible;
 }
-
 
 .envelope-back {
-  position:
-    absolute;
-
-  inset:
-    0;
-
-  background:
-    #b77d5e;
-
-  border-radius:
-    4px;
-
-  box-shadow:
-    0 20px 50px
-    rgba(0,0,0,0.35);
+  position: absolute;
+  inset: 0;
+  background: #b77d5e;
+  border-radius: 4px;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.35);
 }
-
 
 .envelope-front {
-  position:
-    absolute;
-
-  inset:
-    0;
-
-  z-index:
-    4;
-
-  clip-path:
-    polygon(
-      0 0,
-      50% 55%,
-      100% 0,
-      100% 100%,
-      0 100%
-    );
-
-  background:
-    #9e674e;
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  clip-path: polygon(0 0, 50% 55%, 100% 0, 100% 100%, 0 100%);
+  background: #9e674e;
 }
-
 
 .envelope-flap {
-  position:
-    absolute;
-
-  top:
-    0;
-
-  left:
-    0;
-
-  width:
-    100%;
-
-  height:
-    55%;
-
-  z-index:
-    5;
-
-  transform-origin:
-    top;
-
-  clip-path:
-    polygon(
-      0 0,
-      100% 0,
-      50% 100%
-    );
-
-  background:
-    #c18b6b;
-
-  transition:
-    transform 0.8s ease;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 55%;
+  z-index: 5;
+  transform-origin: top;
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  background: #c18b6b;
+  transition: transform 0.8s ease;
 }
-
 
 .seal {
-  position:
-    absolute;
-
-  left:
-    50%;
-
-  top:
-    45%;
-
-  z-index:
-    6;
-
-  transform:
-    translate(
-      -50%,
-      -50%
-    );
-
-  width:
-    45px;
-
-  height:
-    45px;
-
-  border-radius:
-    50%;
-
-  display:
-    flex;
-
-  align-items:
-    center;
-
-  justify-content:
-    center;
-
-  background:
-    #774838;
-
-  color:
-    #f8dfb5;
-
-  transition:
-    opacity 0.4s ease;
+  position: absolute;
+  left: 50%;
+  top: 45%;
+  z-index: 6;
+  transform: translate(-50%, -50%);
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #774838;
+  color: #f8dfb5;
+  transition: opacity 0.4s ease;
 }
-
 
 /* =====================================
-   ПИСЬМО
+   ПИСЬМО (ИСПРАВЛЕНО)
 ===================================== */
-
 .letter {
-  position:
-    absolute;
-
-  left:
-    50%;
-
-  bottom:
-    15px;
-
-  z-index:
-    3;
-
-  width:
-    85%;
-
-  transform:
-    translateX(-50%);
-
-  transition:
-    transform 0.9s ease,
-    width 0.9s ease;
-
-  pointer-events:
-    none;
+  position: absolute;
+  top: 15px; /* Спрятано внутри конверта */
+  left: 50%;
+  width: 85%;
+  height: 75%; /* Ограничено высотой, чтобы не торчать */
+  transform: translateX(-50%);
+  z-index: 2; /* Позади передней части (4) и клапана (5) */
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+  opacity: 0; /* Полностью скрыто до открытия */
 }
-
 
 .letter-paper {
-  position:
-    relative;
-
-  z-index:
-    10;
-
-  padding:
-    35px;
-
-  color:
-    #4b3a30;
-
-  text-align:
-    left;
-
-  background:
-    #f5eee1;
-
-  box-shadow:
-    0 15px 30px
-    rgba(0,0,0,0.25);
-
-  border-radius:
-    3px;
+  position: relative;
+  z-index: 10;
+  padding: 35px;
+  color: #4b3a30;
+  text-align: left;
+  background: #f5eee1;
+  box-shadow: 0 15px 30px rgba(0,0,0,0.25);
+  border-radius: 3px;
 }
-
 
 .letter-paper button {
-  position:
-    relative;
-
-  z-index:
-    100;
-
-  display:
-    block;
-
-  width:
-    100%;
-
-  margin-top:
-    20px;
-
-  pointer-events:
-    auto;
+  position: relative;
+  z-index: 100;
+  display: block;
+  width: 100%;
+  margin-top: 20px;
+  pointer-events: auto;
 }
-
 
 .letter-paper .secondary-button {
-  color:
-    #241a16;
-
-  border-color:
-    rgba(75,58,48,0.3);
+  color: #241a16;
+  border-color: rgba(75,58,48,0.3);
 }
-
 
 .letter-date {
-  opacity:
-    0.65;
-
-  font-size:
-    14px;
+  opacity: 0.65;
+  font-size: 14px;
 }
-
 
 .letter-signature {
-  margin-top:
-    25px;
-
-  text-align:
-    right;
-
-  font-style:
-    italic;
+  margin-top: 25px;
+  text-align: right;
+  font-style: italic;
 }
-
 
 /* =====================================
-   ОТКРЫТЫЙ КОНВЕРТ
+   ОТКРЫТЫЙ КОНВЕРТ И ПИСЬМО
 ===================================== */
-
-.envelope-wrapper.open
-.envelope-flap {
-  transform:
-    rotateX(180deg);
-
-  z-index:
-    1;
-
-  pointer-events:
-    none;
+.envelope-wrapper.open .envelope-flap {
+  transform: rotateX(180deg);
+  z-index: 1;
+  pointer-events: none;
 }
 
-
-.envelope-wrapper.open
-.seal {
-  opacity:
-    0;
-
-  pointer-events:
-    none;
+.envelope-wrapper.open .seal {
+  opacity: 0;
+  pointer-events: none;
 }
 
-
-.envelope-wrapper.open
-.envelope-front {
-  pointer-events:
-    none;
+.envelope-wrapper.open .envelope-front {
+  pointer-events: none;
 }
 
-
-/*
-   ОТКРЫТОЕ ПИСЬМО
-
-   Главное изменение:
-
-   Письмо становится значительно шире
-   и опускается вниз, а не улетает вверх.
-*/
-
-.envelope-wrapper.open
-.letter {
-  width:
-    min(
-      1000px,
-      95vw
-    );
-
-  transform:
-    translateX(-50%)
-    translateY(80px);
-
-  z-index:
-    20;
-
-  pointer-events:
-    auto;
+/* Финальное состояние письма (центрирование на экране) */
+.envelope-wrapper.open .letter {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: min(800px, 90vw);
+  max-height: 85vh;
+  transform: translate(-50%, -50%);
+  z-index: 100;
+  pointer-events: auto;
+  opacity: 1;
 }
 
-
-/*
-   Большой лист письма.
-
-   Максимальная высота ограничена
-   экраном, чтобы длинный текст
-   можно было прокручивать внутри.
-*/
-
-.envelope-wrapper.open
-.letter-paper {
-  max-height:
-    75vh;
-
-  overflow-y:
-    auto;
-
-  padding:
-    clamp(
-      35px,
-      5vw,
-      70px
-    );
+.envelope-wrapper.open .letter-paper {
+  max-height: 75vh;
+  overflow-y: auto;
+  padding: clamp(35px, 5vw, 70px);
 }
-
 
 /* =====================================
    ФОТОГРАФИИ
 ===================================== */
-
 .memories-section {
-  display:
-    none;
-
-  position:
-    relative;
-
-  z-index:
-    10;
-
-  min-height:
-    100vh;
-
-  padding:
-    70px
-    25px;
-
-  text-align:
-    center;
+  display: none;
+  position: relative;
+  z-index: 10;
+  min-height: 100vh;
+  padding: 70px 25px;
+  text-align: center;
 }
-
 
 .memories-section.show {
-  display:
-    block;
+  display: block;
 }
-
 
 .memories-header {
-  max-width:
-    750px;
-
-  margin:
-    0
-    auto
-    60px;
+  max-width: 750px;
+  margin: 0 auto 60px;
 }
-
 
 .memories-header h2 {
-  margin:
-    15px
-    0;
-
-  font-size:
-    clamp(
-      42px,
-      6vw,
-      70px
-    );
-
-  font-weight:
-    400;
+  margin: 15px 0;
+  font-size: clamp(42px, 6vw, 70px);
+  font-weight: 400;
 }
-
 
 .section-description {
-  max-width:
-    500px;
-
-  margin:
-    0 auto;
-
-  opacity:
-    0.75;
-
-  line-height:
-    1.6;
-
-  font-style:
-    italic;
+  max-width: 500px;
+  margin: 0 auto;
+  opacity: 0.75;
+  line-height: 1.6;
+  font-style: italic;
 }
-
-
-/* =====================================
-   ГАЛЕРЕЯ
-===================================== */
 
 .polaroid-gallery {
-  width:
-    min(
-      1200px,
-      100%
-    );
-
-  margin:
-    0 auto;
-
-  display:
-    grid;
-
-  grid-template-columns:
-    repeat(
-      auto-fit,
-      minmax(
-        220px,
-        1fr
-      )
-    );
-
-  gap:
-    45px;
-
-  align-items:
-    center;
+  width: min(1200px, 100%);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 45px;
+  align-items: center;
 }
-
 
 .polaroid {
-  position:
-    relative;
-
-  padding:
-    12px
-    12px
-    25px;
-
-  color:
-    #4b3a30;
-
-  background:
-    #f6f0e6;
-
-  box-shadow:
-    0 18px 35px
-    rgba(0,0,0,0.28);
-
-  transform:
-    rotate(
-      var(--rotation)
-    );
-
-  transition:
-    transform 0.25s ease;
-
-  cursor:
-    pointer;
+  position: relative;
+  padding: 12px 12px 25px;
+  color: #4b3a30;
+  background: #f6f0e6;
+  box-shadow: 0 18px 35px rgba(0,0,0,0.28);
+  transform: rotate(var(--rotation));
+  transition: transform 0.25s ease;
+  cursor: pointer;
 }
-
 
 .polaroid:hover {
-  transform:
-    rotate(0deg)
-    scale(1.04);
-
-  z-index:
-    5;
+  transform: rotate(0deg) scale(1.04);
+  z-index: 5;
 }
-
 
 .polaroid-image {
-  display:
-    block;
-
-  width:
-    100%;
-
-  aspect-ratio:
-    1 / 1;
-
-  object-fit:
-    cover;
-
-  background:
-    #ddd;
+  display: block;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  background: #ddd;
 }
-
 
 .polaroid-caption {
-  min-height:
-    20px;
-
-  margin:
-    15px
-    0
-    0;
-
-  text-align:
-    center;
-
-  font-style:
-    italic;
+  min-height: 20px;
+  margin: 15px 0 0;
+  text-align: center;
+  font-style: italic;
 }
-
-
-/* =====================================
-   НАВИГАЦИЯ
-===================================== */
 
 .page-navigation {
-  position:
-    relative;
-
-  z-index:
-    50;
-
-  display:
-    flex;
-
-  justify-content:
-    center;
-
-  gap:
-    15px;
-
-  flex-wrap:
-    wrap;
-
-  margin-top:
-    60px;
+  position: relative;
+  z-index: 50;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  flex-wrap: wrap;
+  margin-top: 60px;
 }
-
 
 /* =====================================
    ВОПРОСЫ И ФИНАЛ
 ===================================== */
-
 .questions-section,
 .final-section {
-  display:
-    none;
-
-  position:
-    relative;
-
-  z-index:
-    10;
-
-  min-height:
-    100vh;
-
-  align-items:
-    center;
-
-  justify-content:
-    center;
-
-  padding:
-    30px;
+  display: none;
+  position: relative;
+  z-index: 10;
+  min-height: 100vh;
+  align-items: center;
+  justify-content: center;
+  padding: 30px;
 }
-
 
 .questions-section.show,
 .final-section.show {
-  display:
-    flex;
+  display: flex;
 }
-
 
 .question-card,
 .final-card {
-  width:
-    min(
-      700px,
-      100%
-    );
-
-  padding:
-    clamp(
-      25px,
-      6vw,
-      55px
-    );
-
-  border-radius:
-    25px;
-
-  color:
-    #4b3a30;
-
-  background:
-    rgba(
-      246,
-      240,
-      230,
-      0.96
-    );
-
-  box-shadow:
-    0 25px 70px
-    rgba(0,0,0,0.25);
-
-  text-align:
-    center;
+  width: min(700px, 100%);
+  padding: clamp(25px, 6vw, 55px);
+  border-radius: 25px;
+  color: #4b3a30;
+  background: rgba(246, 240, 230, 0.96);
+  box-shadow: 0 25px 70px rgba(0,0,0,0.25);
+  text-align: center;
 }
-
 
 .question-counter {
-  opacity:
-    0.55;
-
-  letter-spacing:
-    2px;
-
-  text-transform:
-    uppercase;
-
-  font-size:
-    12px;
+  opacity: 0.55;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-size: 12px;
 }
-
 
 .question-card h2,
 .final-card h2 {
-  font-size:
-    clamp(
-      28px,
-      4vw,
-      46px
-    );
-
-  font-weight:
-    400;
-
-  line-height:
-    1.35;
+  font-size: clamp(28px, 4vw, 46px);
+  font-weight: 400;
+  line-height: 1.35;
 }
-
 
 #answerInput {
-  width:
-    100%;
-
-  min-height:
-    220px;
-
-  margin-top:
-    20px;
-
-  padding:
-    20px;
-
-  resize:
-    vertical;
-
-  border:
-    1px solid
-    rgba(0,0,0,0.15);
-
-  border-radius:
-    15px;
-
-  outline:
-    none;
-
-  color:
-    #241a16;
-
-  background:
-    rgba(
-      255,
-      255,
-      255,
-      0.7
-    );
-
-  font-family:
-    inherit;
-
-  font-size:
-    17px;
+  width: 100%;
+  min-height: 220px;
+  margin-top: 20px;
+  padding: 20px;
+  resize: vertical;
+  border: 1px solid rgba(0,0,0,0.15);
+  border-radius: 15px;
+  outline: none;
+  color: #241a16;
+  background: rgba(255, 255, 255, 0.7);
+  font-family: inherit;
+  font-size: 17px;
 }
 
-
-.question-navigation {
-  display:
-    flex;
-
-  justify-content:
-    center;
-
-  gap:
-    15px;
-
-  flex-wrap:
-    wrap;
-
-  margin-top:
-    30px;
+.question-navigation,
+.question-back-navigation,
+.final-navigation {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  flex-wrap: wrap;
+  margin-top: 30px;
 }
-
 
 .question-back-navigation {
-  margin-top:
-    20px;
+  margin-top: 20px;
 }
-
-
-.final-navigation {
-  display:
-    flex;
-
-  justify-content:
-    center;
-
-  gap:
-    15px;
-
-  flex-wrap:
-    wrap;
-
-  margin-top:
-    30px;
-}
-
 
 .final-card p {
-  line-height:
-    1.7;
+  line-height: 1.7;
 }
-
 
 /* =====================================
    ОКНО УВЕЛИЧЕННОЙ ФОТОГРАФИИ
 ===================================== */
-
 .photo-modal {
-  display:
-    none;
-
-  position:
-    fixed;
-
-  inset:
-    0;
-
-  z-index:
-    1000;
-
-  align-items:
-    center;
-
-  justify-content:
-    center;
-
-  padding:
-    30px;
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+  padding: 30px;
 }
-
 
 .photo-modal.show {
-  display:
-    flex;
+  display: flex;
 }
-
 
 .photo-modal-overlay {
-  position:
-    absolute;
-
-  inset:
-    0;
-
-  background:
-    rgba(
-      0,
-      0,
-      0,
-      0.8
-    );
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.8);
 }
-
 
 .photo-modal-content {
-  position:
-    relative;
-
-  z-index:
-    2;
-
-  max-width:
-    min(
-      900px,
-      95vw
-    );
-
-  max-height:
-    90vh;
-
-  padding:
-    15px;
-
-  background:
-    #f6f0e6;
-
-  box-shadow:
-    0 20px 60px
-    rgba(
-      0,
-      0,
-      0,
-      0.5
-    );
+  position: relative;
+  z-index: 2;
+  max-width: min(900px, 95vw);
+  max-height: 90vh;
+  padding: 15px;
+  background: #f6f0e6;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
 }
-
 
 .photo-modal-content img {
-  display:
-    block;
-
-  max-width:
-    100%;
-
-  max-height:
-    75vh;
-
-  object-fit:
-    contain;
+  display: block;
+  max-width: 100%;
+  max-height: 75vh;
+  object-fit: contain;
 }
-
 
 .photo-modal-content p {
-  margin:
-    15px
-    5px
-    5px;
-
-  color:
-    #4b3a30;
-
-  text-align:
-    center;
+  margin: 15px 5px 5px;
+  color: #4b3a30;
+  text-align: center;
 }
-
 
 .photo-modal-close {
-  position:
-    absolute;
-
-  top:
-    -15px;
-
-  right:
-    -15px;
-
-  width:
-    40px;
-
-  height:
-    40px;
-
-  padding:
-    0;
-
-  border-radius:
-    50%;
-
-  font-size:
-    28px;
-
-  line-height:
-    1;
+  position: absolute;
+  top: -15px;
+  right: -15px;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border-radius: 50%;
+  font-size: 28px;
+  line-height: 1;
 }
-
 
 /* =====================================
    ТЕЛЕФОНЫ
 ===================================== */
-
 @media (max-width: 600px) {
-
   .intro {
-    align-items:
-      flex-start;
-
-    padding-top:
-      60px;
+    align-items: flex-start;
+    padding-top: 60px;
   }
-
 
   .intro-content {
-    padding-bottom:
-      50px;
+    padding-bottom: 50px;
   }
-
-
-  /*
-     Конверт ниже
-     и на телефоне
-  */
 
   .envelope-wrapper {
-    margin-top:
-      130px;
+    margin-top: 130px;
   }
-
 
   .envelope {
-    height:
-      230px;
+    height: 230px;
   }
-
-
-  /*
-     Открытое письмо
-     не поднимается слишком высоко
-  */
-
-  .envelope-wrapper.open
-  .letter {
-    width:
-      95vw;
-
-    transform:
-      translateX(-50%)
-      translateY(50px);
-  }
-
-
-  .envelope-wrapper.open
-  .letter-paper {
-    max-height:
-      72vh;
-
-    padding:
-      30px
-      25px;
-  }
-
 
   .polaroid-gallery {
-    grid-template-columns:
-      1fr;
-
-    max-width:
-      330px;
+    grid-template-columns: 1fr;
+    max-width: 330px;
   }
-
 
   .page-navigation,
   .question-navigation,
   .final-navigation {
-    flex-direction:
-      column;
-
-    align-items:
-      stretch;
+    flex-direction: column;
+    align-items: stretch;
   }
-
 
   .photo-modal {
-    padding:
-      15px;
+    padding: 15px;
   }
-
 
   .photo-modal-content {
-    padding:
-      10px;
+    padding: 10px;
   }
-
 }
