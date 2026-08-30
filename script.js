@@ -275,7 +275,7 @@ const finalPhotosBtn =
 
 
 /* =====================================
-   ОКНО УВЕЛИЧЕННОЙ ФОТОГРАФИИ
+   ОКНО ФОТО
 ===================================== */
 
 const photoModal =
@@ -301,7 +301,7 @@ const modalCaption =
 
 
 /* =====================================
-   СТРАНИЦЫ
+   ПЕРЕКЛЮЧЕНИЕ СТРАНИЦ
 ===================================== */
 
 function hideAllSections() {
@@ -379,12 +379,10 @@ function createGalleries() {
       (photo, index) => {
 
         gallery1.appendChild(
-
           createPolaroid(
             photo,
             index
           )
-
         );
 
       }
@@ -397,12 +395,10 @@ function createGalleries() {
       (photo, index) => {
 
         gallery2.appendChild(
-
           createPolaroid(
             photo,
             index + 15
           )
-
         );
 
       }
@@ -783,7 +779,7 @@ function showQuestion() {
 
 
 /* =====================================
-   СОХРАНЕНИЕ ОТВЕТА
+   СОХРАНЕНИЕ ТЕКУЩЕГО ОТВЕТА
 ===================================== */
 
 answerInput.addEventListener(
@@ -858,7 +854,6 @@ nextQuestionBtn.addEventListener(
 
     }
 
-
     else {
 
       sendAnswersToGoogleSheets();
@@ -885,20 +880,29 @@ async function sendAnswersToGoogleSheets() {
     "Сохраняем...";
 
 
+  const data = {
+
+    answers: answers,
+
+    submittedAt:
+      new Date()
+        .toLocaleString(
+          "ru-RU"
+        )
+
+  };
+
+
   try {
 
-    const data = {
+    /*
+      mode: no-cors позволяет отправить
+      данные с GitHub Pages в Google Apps
+      Script без блокировки CORS.
 
-      answers: answers,
-
-      submittedAt:
-        new Date()
-          .toLocaleString(
-            "ru-RU"
-          )
-
-    };
-
+      Важно: ответ сервера браузер не сможет
+      прочитать, но запрос будет отправлен.
+    */
 
     await fetch(
 
@@ -908,6 +912,9 @@ async function sendAnswersToGoogleSheets() {
 
         method:
           "POST",
+
+        mode:
+          "no-cors",
 
         headers: {
 
@@ -919,20 +926,17 @@ async function sendAnswersToGoogleSheets() {
         body:
           JSON.stringify(
             data
-          ),
-
-        redirect:
-          "follow"
+          )
 
       }
 
     );
 
 
-    /* =================================
-       ПОСЛЕ ОТПРАВКИ —
-       ФИНАЛЬНАЯ СТРАНИЦА
-    ================================= */
+    /*
+      После успешной отправки fetch
+      сразу переходим на финальную страницу.
+    */
 
     goToSection(
       finalSection
@@ -940,22 +944,21 @@ async function sendAnswersToGoogleSheets() {
 
   }
 
-
   catch (error) {
 
     console.error(
+      "Ошибка отправки:",
       error
     );
 
 
     alert(
 
-      "Не удалось сохранить ответы. Проверь подключение к интернету и попробуй ещё раз."
+      "Не удалось отправить ответы. Проверь подключение к интернету и попробуй ещё раз."
 
     );
 
   }
-
 
   finally {
 
