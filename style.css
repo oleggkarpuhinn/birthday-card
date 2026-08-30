@@ -36,7 +36,9 @@ body {
 
 .scene {
   position: relative;
+
   min-height: 100vh;
+
   overflow-x: hidden;
 }
 
@@ -126,25 +128,30 @@ button {
 
 
 button:hover {
-  transform: translateY(-2px);
+  transform:
+    translateY(-2px);
 
-  background: #a8755c;
+  background:
+    #a8755c;
 }
 
 
 .secondary-button {
-  background: #f5eee1;
+  background:
+    #f5eee1;
 
   border:
     1px solid
     rgba(75,58,48,0.35);
 
-  color: #241a16;
+  color:
+    #241a16;
 }
 
 
 .secondary-button:hover {
-  background: #e7d9ca;
+  background:
+    #e7d9ca;
 }
 
 
@@ -168,7 +175,7 @@ button:hover {
   padding:
     70px
     20px
-    100px;
+    40px;
 
   text-align: center;
 }
@@ -179,24 +186,38 @@ button:hover {
 
   z-index: 20;
 
-  width: min(700px, 100%);
+  width:
+    min(
+      700px,
+      100%
+    );
+
+  padding-bottom:
+    100px;
 }
 
 
 .small-text,
 .section-subtitle {
-  letter-spacing: 4px;
+  letter-spacing:
+    4px;
 
-  text-transform: uppercase;
+  text-transform:
+    uppercase;
 
-  font-size: 12px;
+  font-size:
+    12px;
 
-  opacity: 0.7;
+  opacity:
+    0.7;
 }
 
 
 .intro h1 {
-  margin: 15px 0 10px;
+  margin:
+    15px
+    0
+    10px;
 
   font-size:
     clamp(
@@ -205,21 +226,17 @@ button:hover {
       72px
     );
 
-  font-weight: 400;
+  font-weight:
+    400;
 }
 
 
-/* =====================================
-   ПОДСКАЗКА
-
-   Увеличили расстояние после текста,
-   чтобы конверт опустился ещё ниже.
-===================================== */
-
 .hint {
-  margin-bottom: 400px;
+  margin-bottom:
+    35px;
 
-  opacity: 0.75;
+  opacity:
+    0.75;
 
   transition:
     opacity 0.3s ease;
@@ -233,13 +250,24 @@ button:hover {
 .envelope-wrapper {
   position: relative;
 
-  display: inline-block;
+  display:
+    inline-block;
 
-  cursor: pointer;
+  cursor:
+    pointer;
 
-  perspective: 1200px;
+  perspective:
+    1200px;
 
-  z-index: 30;
+  z-index:
+    30;
+
+  /*
+     Опускаем конверт вниз
+  */
+
+  margin-top:
+    180px;
 }
 
 
@@ -252,20 +280,26 @@ button:hover {
       85vw
     );
 
-  height: 270px;
+  height:
+    270px;
 
-  overflow: visible;
+  overflow:
+    visible;
 }
 
 
 .envelope-back {
-  position: absolute;
+  position:
+    absolute;
 
-  inset: 0;
+  inset:
+    0;
 
-  background: #b77d5e;
+  background:
+    #b77d5e;
 
-  border-radius: 4px;
+  border-radius:
+    4px;
 
   box-shadow:
     0 20px 50px
@@ -274,11 +308,14 @@ button:hover {
 
 
 .envelope-front {
-  position: absolute;
+  position:
+    absolute;
 
-  inset: 0;
+  inset:
+    0;
 
-  z-index: 4;
+  z-index:
+    4;
 
   clip-path:
     polygon(
@@ -289,22 +326,32 @@ button:hover {
       0 100%
     );
 
-  background: #9e674e;
+  background:
+    #9e674e;
 }
 
 
 .envelope-flap {
-  position: absolute;
+  position:
+    absolute;
 
-  top: 0;
-  left: 0;
+  top:
+    0;
 
-  width: 100%;
-  height: 55%;
+  left:
+    0;
 
-  z-index: 5;
+  width:
+    100%;
 
-  transform-origin: top;
+  height:
+    55%;
+
+  z-index:
+    5;
+
+  transform-origin:
+    top;
 
   clip-path:
     polygon(
@@ -313,7 +360,8 @@ button:hover {
       50% 100%
     );
 
-  background: #c18b6b;
+  background:
+    #c18b6b;
 
   transition:
     transform 0.8s ease;
@@ -321,30 +369,47 @@ button:hover {
 
 
 .seal {
-  position: absolute;
+  position:
+    absolute;
 
-  left: 50%;
-  top: 45%;
+  left:
+    50%;
 
-  z-index: 6;
+  top:
+    45%;
+
+  z-index:
+    6;
 
   transform:
-    translate(-50%, -50%);
+    translate(
+      -50%,
+      -50%
+    );
 
-  width: 45px;
-  height: 45px;
+  width:
+    45px;
 
-  border-radius: 50%;
+  height:
+    45px;
 
-  display: flex;
+  border-radius:
+    50%;
 
-  align-items: center;
+  display:
+    flex;
 
-  justify-content: center;
+  align-items:
+    center;
 
-  background: #774838;
+  justify-content:
+    center;
 
-  color: #f8dfb5;
+  background:
+    #774838;
+
+  color:
+    #f8dfb5;
 
   transition:
     opacity 0.4s ease;
@@ -353,130 +418,112 @@ button:hover {
 
 /* =====================================
    ПИСЬМО
-   ЗАКРЫТОЕ СОСТОЯНИЕ
 ===================================== */
 
 .letter {
-  position: absolute;
+  position:
+    absolute;
 
-  left: 50%;
-  bottom: 15px;
+  left:
+    50%;
 
-  z-index: 3;
+  bottom:
+    15px;
 
-  width: 85%;
+  z-index:
+    3;
+
+  width:
+    85%;
 
   transform:
     translateX(-50%);
 
   transition:
-    transform 0.9s ease;
+    transform 0.9s ease,
+    width 0.9s ease;
 
-  pointer-events: none;
+  pointer-events:
+    none;
 }
 
 
 .letter-paper {
-  position: relative;
+  position:
+    relative;
 
-  z-index: 10;
+  z-index:
+    10;
 
-  width: 100%;
+  padding:
+    35px;
 
-  padding: 25px;
+  color:
+    #4b3a30;
 
-  color: #4b3a30;
+  text-align:
+    left;
 
-  text-align: left;
-
-  background: #f5eee1;
+  background:
+    #f5eee1;
 
   box-shadow:
     0 15px 30px
     rgba(0,0,0,0.25);
 
-  transition:
-    width 1s ease,
-    max-height 1s ease,
-    min-height 1s ease,
-    padding 1s ease,
-    transform 1s ease;
-
-  overflow-y: auto;
-}
-
-
-/* =====================================
-   ТЕКСТ ПИСЬМА
-===================================== */
-
-.letter-paper h2 {
-  margin:
-    10px
-    0
-    20px;
-
-  font-size:
-    clamp(
-      28px,
-      4vw,
-      44px
-    );
-
-  font-weight: 400;
-
-  line-height: 1.3;
-}
-
-
-.letter-paper p {
-  margin:
-    0
-    0
-    18px;
-
-  font-size: 17px;
-
-  line-height: 1.7;
-}
-
-
-.letter-date {
-  opacity: 0.65;
-
-  font-size: 14px !important;
-}
-
-
-.letter-signature {
-  margin-top: 25px !important;
-
-  text-align: right;
-
-  font-style: italic;
+  border-radius:
+    3px;
 }
 
 
 .letter-paper button {
-  position: relative;
+  position:
+    relative;
 
-  z-index: 100;
+  z-index:
+    100;
 
-  display: block;
+  display:
+    block;
 
-  width: 100%;
+  width:
+    100%;
 
-  margin-top: 20px;
+  margin-top:
+    20px;
 
-  pointer-events: auto;
+  pointer-events:
+    auto;
 }
 
 
 .letter-paper .secondary-button {
-  color: #241a16;
+  color:
+    #241a16;
 
   border-color:
     rgba(75,58,48,0.3);
+}
+
+
+.letter-date {
+  opacity:
+    0.65;
+
+  font-size:
+    14px;
+}
+
+
+.letter-signature {
+  margin-top:
+    25px;
+
+  text-align:
+    right;
+
+  font-style:
+    italic;
 }
 
 
@@ -489,123 +536,82 @@ button:hover {
   transform:
     rotateX(180deg);
 
-  z-index: 1;
+  z-index:
+    1;
 
-  pointer-events: none;
+  pointer-events:
+    none;
 }
 
 
 .envelope-wrapper.open
 .seal {
-  opacity: 0;
+  opacity:
+    0;
 
-  pointer-events: none;
+  pointer-events:
+    none;
 }
 
 
 .envelope-wrapper.open
 .envelope-front {
-  pointer-events: none;
+  pointer-events:
+    none;
 }
 
 
-/* =====================================
-   ВЫДВИЖЕНИЕ ПИСЬМА
-===================================== */
+/*
+   ОТКРЫТОЕ ПИСЬМО
+
+   Главное изменение:
+
+   Письмо становится значительно шире
+   и опускается вниз, а не улетает вверх.
+*/
 
 .envelope-wrapper.open
 .letter {
-  left: 50%;
-
-  z-index: 20;
-
-  pointer-events: auto;
+  width:
+    min(
+      1000px,
+      95vw
+    );
 
   transform:
     translateX(-50%)
-    translateY(-330px);
+    translateY(80px);
+
+  z-index:
+    20;
+
+  pointer-events:
+    auto;
 }
 
 
-/* =====================================
-   БОЛЬШОЙ ЛИСТ ПОСЛЕ ОТКРЫТИЯ
+/*
+   Большой лист письма.
 
-   Значительно увеличен:
-
-   - ширина до 1100px
-   - большая минимальная высота
-   - максимальная высота почти весь экран
-
-   Это позволяет удобно разместить
-   500–1000 слов.
-===================================== */
+   Максимальная высота ограничена
+   экраном, чтобы длинный текст
+   можно было прокручивать внутри.
+*/
 
 .envelope-wrapper.open
 .letter-paper {
-  position: relative;
-
-  left: 50%;
-
-  width:
-    min(
-      1100px,
-      94vw
-    );
-
-  min-height:
-    min(
-      900px,
-      78vh
-    );
-
   max-height:
-    85vh;
+    75vh;
+
+  overflow-y:
+    auto;
 
   padding:
-    70px
     clamp(
-      45px,
-      8vw,
-      120px
-    )
-    80px;
-
-  transform:
-    translateX(-50%);
-
-  overflow-y: auto;
-}
-
-
-/* =====================================
-   УВЕЛИЧЕННЫЙ ТЕКСТ
-===================================== */
-
-.envelope-wrapper.open
-.letter-paper h2 {
-  font-size:
-    clamp(
-      34px,
+      35px,
       5vw,
-      58px
+      70px
     );
-
-  margin-bottom: 35px;
-}
-
-
-.envelope-wrapper.open
-.letter-paper p {
-  margin-bottom: 25px;
-
-  font-size:
-    clamp(
-      17px,
-      1.7vw,
-      21px
-    );
-
-  line-height: 1.9;
 }
 
 
@@ -614,34 +620,48 @@ button:hover {
 ===================================== */
 
 .memories-section {
-  display: none;
+  display:
+    none;
 
-  position: relative;
+  position:
+    relative;
 
-  z-index: 10;
+  z-index:
+    10;
 
-  min-height: 100vh;
+  min-height:
+    100vh;
 
-  padding: 70px 25px;
+  padding:
+    70px
+    25px;
 
-  text-align: center;
+  text-align:
+    center;
 }
 
 
 .memories-section.show {
-  display: block;
+  display:
+    block;
 }
 
 
 .memories-header {
-  max-width: 750px;
+  max-width:
+    750px;
 
-  margin: 0 auto 60px;
+  margin:
+    0
+    auto
+    60px;
 }
 
 
 .memories-header h2 {
-  margin: 15px 0;
+  margin:
+    15px
+    0;
 
   font-size:
     clamp(
@@ -650,20 +670,26 @@ button:hover {
       70px
     );
 
-  font-weight: 400;
+  font-weight:
+    400;
 }
 
 
 .section-description {
-  max-width: 500px;
+  max-width:
+    500px;
 
-  margin: 0 auto;
+  margin:
+    0 auto;
 
-  opacity: 0.75;
+  opacity:
+    0.75;
 
-  line-height: 1.6;
+  line-height:
+    1.6;
 
-  font-style: italic;
+  font-style:
+    italic;
 }
 
 
@@ -672,35 +698,49 @@ button:hover {
 ===================================== */
 
 .polaroid-gallery {
-  width: min(1200px, 100%);
+  width:
+    min(
+      1200px,
+      100%
+    );
 
-  margin: 0 auto;
+  margin:
+    0 auto;
 
-  display: grid;
+  display:
+    grid;
 
   grid-template-columns:
     repeat(
       auto-fit,
-      minmax(220px, 1fr)
+      minmax(
+        220px,
+        1fr
+      )
     );
 
-  gap: 45px;
+  gap:
+    45px;
 
-  align-items: center;
+  align-items:
+    center;
 }
 
 
 .polaroid {
-  position: relative;
+  position:
+    relative;
 
   padding:
     12px
     12px
     25px;
 
-  color: #4b3a30;
+  color:
+    #4b3a30;
 
-  background: #f6f0e6;
+  background:
+    #f6f0e6;
 
   box-shadow:
     0 18px 35px
@@ -714,7 +754,8 @@ button:hover {
   transition:
     transform 0.25s ease;
 
-  cursor: pointer;
+  cursor:
+    pointer;
 }
 
 
@@ -723,31 +764,43 @@ button:hover {
     rotate(0deg)
     scale(1.04);
 
-  z-index: 5;
+  z-index:
+    5;
 }
 
 
 .polaroid-image {
-  display: block;
+  display:
+    block;
 
-  width: 100%;
+  width:
+    100%;
 
-  aspect-ratio: 1 / 1;
+  aspect-ratio:
+    1 / 1;
 
-  object-fit: cover;
+  object-fit:
+    cover;
 
-  background: #ddd;
+  background:
+    #ddd;
 }
 
 
 .polaroid-caption {
-  min-height: 20px;
+  min-height:
+    20px;
 
-  margin: 15px 0 0;
+  margin:
+    15px
+    0
+    0;
 
-  text-align: center;
+  text-align:
+    center;
 
-  font-style: italic;
+  font-style:
+    italic;
 }
 
 
@@ -756,19 +809,26 @@ button:hover {
 ===================================== */
 
 .page-navigation {
-  position: relative;
+  position:
+    relative;
 
-  z-index: 50;
+  z-index:
+    50;
 
-  display: flex;
+  display:
+    flex;
 
-  justify-content: center;
+  justify-content:
+    center;
 
-  gap: 15px;
+  gap:
+    15px;
 
-  flex-wrap: wrap;
+  flex-wrap:
+    wrap;
 
-  margin-top: 60px;
+  margin-top:
+    60px;
 }
 
 
@@ -778,31 +838,43 @@ button:hover {
 
 .questions-section,
 .final-section {
-  display: none;
+  display:
+    none;
 
-  position: relative;
+  position:
+    relative;
 
-  z-index: 10;
+  z-index:
+    10;
 
-  min-height: 100vh;
+  min-height:
+    100vh;
 
-  align-items: center;
+  align-items:
+    center;
 
-  justify-content: center;
+  justify-content:
+    center;
 
-  padding: 30px;
+  padding:
+    30px;
 }
 
 
 .questions-section.show,
 .final-section.show {
-  display: flex;
+  display:
+    flex;
 }
 
 
 .question-card,
 .final-card {
-  width: min(700px, 100%);
+  width:
+    min(
+      700px,
+      100%
+    );
 
   padding:
     clamp(
@@ -811,9 +883,11 @@ button:hover {
       55px
     );
 
-  border-radius: 25px;
+  border-radius:
+    25px;
 
-  color: #4b3a30;
+  color:
+    #4b3a30;
 
   background:
     rgba(
@@ -827,18 +901,23 @@ button:hover {
     0 25px 70px
     rgba(0,0,0,0.25);
 
-  text-align: center;
+  text-align:
+    center;
 }
 
 
 .question-counter {
-  opacity: 0.55;
+  opacity:
+    0.55;
 
-  letter-spacing: 2px;
+  letter-spacing:
+    2px;
 
-  text-transform: uppercase;
+  text-transform:
+    uppercase;
 
-  font-size: 12px;
+  font-size:
+    12px;
 }
 
 
@@ -851,32 +930,42 @@ button:hover {
       46px
     );
 
-  font-weight: 400;
+  font-weight:
+    400;
 
-  line-height: 1.35;
+  line-height:
+    1.35;
 }
 
 
 #answerInput {
-  width: 100%;
+  width:
+    100%;
 
-  min-height: 220px;
+  min-height:
+    220px;
 
-  margin-top: 20px;
+  margin-top:
+    20px;
 
-  padding: 20px;
+  padding:
+    20px;
 
-  resize: vertical;
+  resize:
+    vertical;
 
   border:
     1px solid
     rgba(0,0,0,0.15);
 
-  border-radius: 15px;
+  border-radius:
+    15px;
 
-  outline: none;
+  outline:
+    none;
 
-  color: #241a16;
+  color:
+    #241a16;
 
   background:
     rgba(
@@ -886,27 +975,202 @@ button:hover {
       0.7
     );
 
-  font-family: inherit;
+  font-family:
+    inherit;
 
-  font-size: 17px;
+  font-size:
+    17px;
 }
 
 
 .question-navigation {
-  display: flex;
+  display:
+    flex;
 
-  justify-content: center;
+  justify-content:
+    center;
 
-  gap: 15px;
+  gap:
+    15px;
 
-  flex-wrap: wrap;
+  flex-wrap:
+    wrap;
 
-  margin-top: 30px;
+  margin-top:
+    30px;
+}
+
+
+.question-back-navigation {
+  margin-top:
+    20px;
+}
+
+
+.final-navigation {
+  display:
+    flex;
+
+  justify-content:
+    center;
+
+  gap:
+    15px;
+
+  flex-wrap:
+    wrap;
+
+  margin-top:
+    30px;
 }
 
 
 .final-card p {
-  line-height: 1.7;
+  line-height:
+    1.7;
+}
+
+
+/* =====================================
+   ОКНО УВЕЛИЧЕННОЙ ФОТОГРАФИИ
+===================================== */
+
+.photo-modal {
+  display:
+    none;
+
+  position:
+    fixed;
+
+  inset:
+    0;
+
+  z-index:
+    1000;
+
+  align-items:
+    center;
+
+  justify-content:
+    center;
+
+  padding:
+    30px;
+}
+
+
+.photo-modal.show {
+  display:
+    flex;
+}
+
+
+.photo-modal-overlay {
+  position:
+    absolute;
+
+  inset:
+    0;
+
+  background:
+    rgba(
+      0,
+      0,
+      0,
+      0.8
+    );
+}
+
+
+.photo-modal-content {
+  position:
+    relative;
+
+  z-index:
+    2;
+
+  max-width:
+    min(
+      900px,
+      95vw
+    );
+
+  max-height:
+    90vh;
+
+  padding:
+    15px;
+
+  background:
+    #f6f0e6;
+
+  box-shadow:
+    0 20px 60px
+    rgba(
+      0,
+      0,
+      0,
+      0.5
+    );
+}
+
+
+.photo-modal-content img {
+  display:
+    block;
+
+  max-width:
+    100%;
+
+  max-height:
+    75vh;
+
+  object-fit:
+    contain;
+}
+
+
+.photo-modal-content p {
+  margin:
+    15px
+    5px
+    5px;
+
+  color:
+    #4b3a30;
+
+  text-align:
+    center;
+}
+
+
+.photo-modal-close {
+  position:
+    absolute;
+
+  top:
+    -15px;
+
+  right:
+    -15px;
+
+  width:
+    40px;
+
+  height:
+    40px;
+
+  padding:
+    0;
+
+  border-radius:
+    50%;
+
+  font-size:
+    28px;
+
+  line-height:
+    1;
 }
 
 
@@ -917,89 +1181,93 @@ button:hover {
 @media (max-width: 600px) {
 
   .intro {
-    align-items: flex-start;
+    align-items:
+      flex-start;
 
-    padding:
-      70px
-      15px
-      70px;
+    padding-top:
+      60px;
   }
 
 
-  /* На телефоне также опускаем конверт */
+  .intro-content {
+    padding-bottom:
+      50px;
+  }
 
-  .hint {
-    margin-bottom: 250px;
+
+  /*
+     Конверт ниже
+     и на телефоне
+  */
+
+  .envelope-wrapper {
+    margin-top:
+      130px;
   }
 
 
   .envelope {
-    width:
-      min(
-        420px,
-        85vw
-      );
-
-    height: 230px;
+    height:
+      230px;
   }
 
 
-  /* Большое письмо на телефоне */
+  /*
+     Открытое письмо
+     не поднимается слишком высоко
+  */
 
   .envelope-wrapper.open
   .letter {
+    width:
+      95vw;
+
     transform:
       translateX(-50%)
-      translateY(-220px);
+      translateY(50px);
   }
 
 
   .envelope-wrapper.open
   .letter-paper {
-    width: 94vw;
-
-    min-height: 70vh;
-
-    max-height: 82vh;
+    max-height:
+      72vh;
 
     padding:
-      35px
-      24px
-      45px;
-  }
-
-
-  .envelope-wrapper.open
-  .letter-paper h2 {
-    font-size:
-      clamp(
-        30px,
-        8vw,
-        42px
-      );
-  }
-
-
-  .envelope-wrapper.open
-  .letter-paper p {
-    font-size: 16px;
-
-    line-height: 1.8;
+      30px
+      25px;
   }
 
 
   .polaroid-gallery {
-    grid-template-columns: 1fr;
+    grid-template-columns:
+      1fr;
 
-    max-width: 330px;
+    max-width:
+      330px;
   }
 
 
   .page-navigation,
-  .question-navigation {
-    flex-direction: column;
+  .question-navigation,
+  .final-navigation {
+    flex-direction:
+      column;
 
-    align-items: stretch;
+    align-items:
+      stretch;
+  }
+
+
+  .photo-modal {
+    padding:
+      15px;
+  }
+
+
+  .photo-modal-content {
+    padding:
+      10px;
   }
 
 }
