@@ -10,6 +10,10 @@ const GITHUB_REPOSITORY =
   "birthday-card";
 
 
+const GITHUB_BRANCH =
+  "main";
+
+
 const PHOTOS_FOLDER =
   "photos/photos";
 
@@ -48,163 +52,244 @@ const QUESTIONS = [
 ===================================== */
 
 const envelope =
-  document.getElementById("envelope");
+  document.getElementById(
+    "envelope"
+  );
 
 
 const intro =
-  document.getElementById("intro");
+  document.getElementById(
+    "intro"
+  );
 
 
 const continueBtn =
-  document.getElementById("continueBtn");
+  document.getElementById(
+    "continueBtn"
+  );
 
 
 const closeLetterBtn =
-  document.getElementById("closeLetterBtn");
+  document.getElementById(
+    "closeLetterBtn"
+  );
 
 
 const memoriesSection1 =
-  document.getElementById("memoriesSection1");
+  document.getElementById(
+    "memoriesSection1"
+  );
 
 
 const memoriesSection2 =
-  document.getElementById("memoriesSection2");
+  document.getElementById(
+    "memoriesSection2"
+  );
 
 
 const gallery1 =
-  document.getElementById("polaroidGallery1");
+  document.getElementById(
+    "polaroidGallery1"
+  );
 
 
 const gallery2 =
-  document.getElementById("polaroidGallery2");
+  document.getElementById(
+    "polaroidGallery2"
+  );
 
 
 const backToLetterBtn =
-  document.getElementById("backToLetterBtn");
+  document.getElementById(
+    "backToLetterBtn"
+  );
 
 
 const photosPage2Btn =
-  document.getElementById("photosPage2Btn");
+  document.getElementById(
+    "photosPage2Btn"
+  );
 
 
 const photosPage1Btn =
-  document.getElementById("photosPage1Btn");
+  document.getElementById(
+    "photosPage1Btn"
+  );
 
 
 const questionsStartBtn =
-  document.getElementById("questionsStartBtn");
+  document.getElementById(
+    "questionsStartBtn"
+  );
 
 
 const questionsSection =
-  document.getElementById("questionsSection");
+  document.getElementById(
+    "questionsSection"
+  );
 
 
 const questionCounter =
-  document.getElementById("questionCounter");
+  document.getElementById(
+    "questionCounter"
+  );
 
 
 const questionText =
-  document.getElementById("questionText");
+  document.getElementById(
+    "questionText"
+  );
 
 
 const answerInput =
-  document.getElementById("answerInput");
+  document.getElementById(
+    "answerInput"
+  );
 
 
 const previousQuestionBtn =
-  document.getElementById("previousQuestionBtn");
+  document.getElementById(
+    "previousQuestionBtn"
+  );
 
 
 const nextQuestionBtn =
-  document.getElementById("nextQuestionBtn");
+  document.getElementById(
+    "nextQuestionBtn"
+  );
+
+
+const backToPhotosFromQuestions =
+  document.getElementById(
+    "backToPhotosFromQuestions"
+  );
 
 
 const finalSection =
-  document.getElementById("finalSection");
+  document.getElementById(
+    "finalSection"
+  );
 
 
 const finalBackBtn =
-  document.getElementById("finalBackBtn");
+  document.getElementById(
+    "finalBackBtn"
+  );
 
 
 const finalPhotosBtn =
-  document.getElementById("finalPhotosBtn");
-
-
-const photoModal =
-  document.getElementById("photoModal");
-
-
-const photoModalBackdrop =
-  document.getElementById("photoModalBackdrop");
-
-
-const photoModalClose =
-  document.getElementById("photoModalClose");
-
-
-const modalImage =
-  document.getElementById("modalImage");
-
-
-const modalCaption =
-  document.getElementById("modalCaption");
+  document.getElementById(
+    "finalPhotosBtn"
+  );
 
 
 /* =====================================
-   ЗАГРУЗКА ФОТОГРАФИЙ
+   МОДАЛЬНОЕ ОКНО ФОТО
+===================================== */
+
+const photoModal =
+  document.getElementById(
+    "photoModal"
+  );
+
+
+const photoModalOverlay =
+  document.getElementById(
+    "photoModalOverlay"
+  );
+
+
+const photoModalClose =
+  document.getElementById(
+    "photoModalClose"
+  );
+
+
+const modalImage =
+  document.getElementById(
+    "modalImage"
+  );
+
+
+const modalCaption =
+  document.getElementById(
+    "modalCaption"
+  );
+
+
+/* =====================================
+   ВСПОМОГАТЕЛЬНАЯ ФУНКЦИЯ
+===================================== */
+
+function scrollTop() {
+
+  window.scrollTo({
+
+    top: 0,
+
+    behavior: "smooth"
+
+  });
+
+}
+
+
+/* =====================================
+   ЗАГРУЗКА ВСЕХ ФОТО ИЗ GITHUB
 ===================================== */
 
 async function loadPhotos() {
 
+
   const apiUrl =
-    `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPOSITORY}/contents/${PHOTOS_FOLDER}`;
-
-
-  gallery1.innerHTML =
-    "<p>Загружаю фотографии...</p>";
-
-
-  gallery2.innerHTML =
-    "";
+    `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPOSITORY}/git/trees/${GITHUB_BRANCH}?recursive=1`;
 
 
   try {
 
+
+    gallery1.innerHTML =
+      "<p>Загрузка фотографий...</p>";
+
+
+    gallery2.innerHTML =
+      "";
+
+
     const response =
       await fetch(
-        apiUrl,
-        {
-          cache:
-            "no-store"
-        }
+        apiUrl
       );
 
 
     if (!response.ok) {
 
       throw new Error(
-        `Ошибка загрузки: ${response.status}`
+        "GitHub API недоступен"
       );
 
     }
 
 
-    const files =
+    const data =
       await response.json();
 
 
     const images =
-      files
+      data.tree
         .filter(
           (file) => {
 
             return (
 
-              file.type === "file" &&
+              file.type === "blob" &&
+
+              file.path.startsWith(
+                `${PHOTOS_FOLDER}/`
+              ) &&
 
               /\.(jpg|jpeg|png|webp|gif)$/i.test(
-                file.name
+                file.path
               )
 
             );
@@ -212,18 +297,12 @@ async function loadPhotos() {
           }
         )
         .sort(
-          (a, b) => {
+          (a, b) =>
 
-            return a.name.localeCompare(
-              b.name,
-              undefined,
-              {
-                numeric: true,
-                sensitivity: "base"
-              }
-            );
-
-          }
+            a.path.localeCompare(
+              b.path,
+              "ru"
+            )
         );
 
 
@@ -247,68 +326,80 @@ async function loadPhotos() {
     }
 
 
-    images
-      .slice(
-        0,
-        15
-      )
-      .forEach(
-        (
-          photo,
-          index
-        ) => {
+    images.forEach(
+      (
+        photo,
+        index
+      ) => {
+
+
+        const imageUrl =
+          `https://raw.githubusercontent.com/${GITHUB_OWNER}/${GITHUB_REPOSITORY}/${GITHUB_BRANCH}/${photo.path}`;
+
+
+        const polaroid =
+          createPolaroid(
+            imageUrl,
+            index,
+            photo.path
+          );
+
+
+        if (
+          index < 15
+        ) {
 
           gallery1.appendChild(
-
-            createPolaroid(
-              photo.download_url,
-              photo.name,
-              index
-            )
-
+            polaroid
           );
 
         }
-      );
 
-
-    images
-      .slice(
-        15,
-        30
-      )
-      .forEach(
-        (
-          photo,
-          index
-        ) => {
+        else {
 
           gallery2.appendChild(
-
-            createPolaroid(
-              photo.download_url,
-              photo.name,
-              index + 15
-            )
-
+            polaroid
           );
 
         }
-      );
+
+
+      }
+    );
 
 
     if (
       images.length <= 15
     ) {
 
-      gallery2.innerHTML =
-        "<p>Здесь больше нет фотографий.</p>";
+      photosPage2Btn.style.display =
+        "none";
 
     }
 
+
+    if (
+      images.length <= 15
+    ) {
+
+      photosPage1Btn.style.display =
+        "none";
+
+    }
+
+
+    console.log(
+      `Загружено фотографий: ${images.length}`
+    );
+
+
   }
 
-  catch (error) {
+
+  catch (
+    error
+  ) {
+
 
     console.error(
       error
@@ -317,16 +408,14 @@ async function loadPhotos() {
 
     gallery1.innerHTML =
       `
-      <p>
-        Не удалось загрузить фотографии.
-      </p>
+        <p>
+          Не удалось загрузить фотографии.
+        </p>
       `;
 
 
-    gallery2.innerHTML =
-      "";
-
   }
+
 
 }
 
@@ -337,17 +426,23 @@ async function loadPhotos() {
 
 function createPolaroid(
   imageUrl,
-  fileName,
-  index
+  index,
+  filePath
 ) {
+
 
   const rotations = [
 
     "-4deg",
+
     "3deg",
+
     "-2deg",
+
     "5deg",
+
     "-3deg",
+
     "2deg"
 
   ];
@@ -375,69 +470,61 @@ function createPolaroid(
   );
 
 
-  const image =
-    document.createElement(
-      "img"
-    );
-
-
-  image.className =
-    "polaroid-image";
-
-
-  image.src =
-    imageUrl;
-
-
-  image.alt =
-    `Воспоминание ${index + 1}`;
-
-
-  image.loading =
-    "lazy";
+  const fileName =
+    filePath
+      .split("/")
+      .pop()
+      .replace(
+        /\.(jpg|jpeg|png|webp|gif)$/i,
+        ""
+      )
+      .replace(
+        /[-_]/g,
+        " "
+      );
 
 
   const caption =
-    document.createElement(
-      "p"
-    );
-
-
-  caption.className =
-    "polaroid-caption";
-
-
-  caption.textContent =
+    fileName ||
     `Воспоминание ${index + 1}`;
 
 
-  polaroid.appendChild(
-    image
-  );
+  polaroid.innerHTML = `
 
+    <img
+      class="polaroid-image"
+      src="${imageUrl}"
+      alt="${caption}"
+      loading="lazy"
+    >
 
-  polaroid.appendChild(
-    caption
-  );
+    <p
+      class="polaroid-caption"
+    >
+      ${caption}
+    </p>
+
+  `;
 
 
   polaroid.addEventListener(
+
     "click",
+
     () => {
 
-      openPhoto(
-
+      openPhotoModal(
         imageUrl,
-
-        `Воспоминание ${index + 1}`
-
+        caption
       );
 
     }
+
   );
 
 
   return polaroid;
+
 
 }
 
@@ -446,13 +533,18 @@ function createPolaroid(
    ОТКРЫТИЕ ФОТО
 ===================================== */
 
-function openPhoto(
+function openPhotoModal(
   imageUrl,
   caption
 ) {
 
+
   modalImage.src =
     imageUrl;
+
+
+  modalImage.alt =
+    caption;
 
 
   modalCaption.textContent =
@@ -467,6 +559,7 @@ function openPhoto(
   document.body.style.overflow =
     "hidden";
 
+
 }
 
 
@@ -474,7 +567,8 @@ function openPhoto(
    ЗАКРЫТИЕ ФОТО
 ===================================== */
 
-function closePhoto() {
+function closePhotoModal() {
+
 
   photoModal.classList.remove(
     "show"
@@ -484,34 +578,57 @@ function closePhoto() {
   document.body.style.overflow =
     "";
 
+
+  setTimeout(
+    () => {
+
+      modalImage.src =
+        "";
+
+    },
+    200
+  );
+
+
 }
 
 
 photoModalClose.addEventListener(
+
   "click",
-  closePhoto
+
+  closePhotoModal
+
 );
 
 
-photoModalBackdrop.addEventListener(
+photoModalOverlay.addEventListener(
+
   "click",
-  closePhoto
+
+  closePhotoModal
+
 );
 
 
 document.addEventListener(
+
   "keydown",
+
   (event) => {
 
     if (
+
       event.key === "Escape"
+
     ) {
 
-      closePhoto();
+      closePhotoModal();
 
     }
 
   }
+
 );
 
 
@@ -520,28 +637,24 @@ document.addEventListener(
 ===================================== */
 
 envelope.addEventListener(
+
   "click",
+
   () => {
+
 
     envelope.classList.add(
       "open"
     );
 
 
-    const hint =
-      document.querySelector(
-        ".hint"
-      );
+    intro.classList.add(
+      "letter-open"
+    );
 
-
-    if (hint) {
-
-      hint.style.opacity =
-        "0";
-
-    }
 
   }
+
 );
 
 
@@ -550,8 +663,11 @@ envelope.addEventListener(
 ===================================== */
 
 closeLetterBtn.addEventListener(
+
   "click",
+
   (event) => {
+
 
     event.stopPropagation();
 
@@ -561,30 +677,26 @@ closeLetterBtn.addEventListener(
     );
 
 
-    const hint =
-      document.querySelector(
-        ".hint"
-      );
+    intro.classList.remove(
+      "letter-open"
+    );
 
-
-    if (hint) {
-
-      hint.style.opacity =
-        "1";
-
-    }
 
   }
+
 );
 
 
 /* =====================================
-   ПИСЬМО → ФОТО
+   ПЕРЕХОД К ФОТО
 ===================================== */
 
 continueBtn.addEventListener(
+
   "click",
+
   (event) => {
+
 
     event.stopPropagation();
 
@@ -598,25 +710,24 @@ continueBtn.addEventListener(
     );
 
 
-    window.scrollTo({
+    scrollTop();
 
-      top: 0,
-
-      behavior: "smooth"
-
-    });
 
   }
+
 );
 
 
 /* =====================================
-   ФОТО → ПИСЬМО
+   ВОЗВРАТ К ПИСЬМУ
 ===================================== */
 
 backToLetterBtn.addEventListener(
+
   "click",
+
   () => {
+
 
     memoriesSection1.classList.remove(
       "show"
@@ -627,15 +738,21 @@ backToLetterBtn.addEventListener(
       "flex";
 
 
-    window.scrollTo({
+    envelope.classList.remove(
+      "open"
+    );
 
-      top: 0,
 
-      behavior: "smooth"
+    intro.classList.remove(
+      "letter-open"
+    );
 
-    });
+
+    scrollTop();
+
 
   }
+
 );
 
 
@@ -644,8 +761,11 @@ backToLetterBtn.addEventListener(
 ===================================== */
 
 photosPage2Btn.addEventListener(
+
   "click",
+
   () => {
+
 
     memoriesSection1.classList.remove(
       "show"
@@ -657,15 +777,11 @@ photosPage2Btn.addEventListener(
     );
 
 
-    window.scrollTo({
+    scrollTop();
 
-      top: 0,
-
-      behavior: "smooth"
-
-    });
 
   }
+
 );
 
 
@@ -674,8 +790,11 @@ photosPage2Btn.addEventListener(
 ===================================== */
 
 photosPage1Btn.addEventListener(
+
   "click",
+
   () => {
+
 
     memoriesSection2.classList.remove(
       "show"
@@ -687,15 +806,11 @@ photosPage1Btn.addEventListener(
     );
 
 
-    window.scrollTo({
+    scrollTop();
 
-      top: 0,
-
-      behavior: "smooth"
-
-    });
 
   }
+
 );
 
 
@@ -704,8 +819,11 @@ photosPage1Btn.addEventListener(
 ===================================== */
 
 questionsStartBtn.addEventListener(
+
   "click",
+
   () => {
+
 
     memoriesSection2.classList.remove(
       "show"
@@ -720,15 +838,11 @@ questionsStartBtn.addEventListener(
     showQuestion();
 
 
-    window.scrollTo({
+    scrollTop();
 
-      top: 0,
-
-      behavior: "smooth"
-
-    });
 
   }
+
 );
 
 
@@ -749,6 +863,7 @@ const answers =
 
 
 function showQuestion() {
+
 
   questionCounter.textContent =
 
@@ -789,17 +904,22 @@ function showQuestion() {
 
   ) {
 
+
     nextQuestionBtn.textContent =
       "Закончить →";
+
 
   }
 
   else {
 
+
     nextQuestionBtn.textContent =
       "Далее →";
 
+
   }
+
 
 }
 
@@ -809,8 +929,11 @@ function showQuestion() {
 ===================================== */
 
 answerInput.addEventListener(
+
   "input",
+
   () => {
+
 
     answers[
       currentQuestion
@@ -818,7 +941,9 @@ answerInput.addEventListener(
 
       answerInput.value;
 
+
   }
+
 );
 
 
@@ -827,21 +952,30 @@ answerInput.addEventListener(
 ===================================== */
 
 previousQuestionBtn.addEventListener(
+
   "click",
+
   () => {
 
+
     if (
+
       currentQuestion > 0
+
     ) {
+
 
       currentQuestion--;
 
 
       showQuestion();
 
+
     }
 
+
   }
+
 );
 
 
@@ -850,8 +984,11 @@ previousQuestionBtn.addEventListener(
 ===================================== */
 
 nextQuestionBtn.addEventListener(
+
   "click",
+
   () => {
+
 
     answers[
       currentQuestion
@@ -867,14 +1004,18 @@ nextQuestionBtn.addEventListener(
 
     ) {
 
+
       currentQuestion++;
 
 
       showQuestion();
 
+
     }
 
+
     else {
+
 
       questionsSection.classList.remove(
         "show"
@@ -886,17 +1027,43 @@ nextQuestionBtn.addEventListener(
       );
 
 
-      window.scrollTo({
+      scrollTop();
 
-        top: 0,
-
-        behavior: "smooth"
-
-      });
 
     }
 
+
   }
+
+);
+
+
+/* =====================================
+   ВОПРОСЫ → ФОТО
+===================================== */
+
+backToPhotosFromQuestions.addEventListener(
+
+  "click",
+
+  () => {
+
+
+    questionsSection.classList.remove(
+      "show"
+    );
+
+
+    memoriesSection2.classList.add(
+      "show"
+    );
+
+
+    scrollTop();
+
+
+  }
+
 );
 
 
@@ -905,8 +1072,11 @@ nextQuestionBtn.addEventListener(
 ===================================== */
 
 finalBackBtn.addEventListener(
+
   "click",
+
   () => {
+
 
     finalSection.classList.remove(
       "show"
@@ -925,32 +1095,26 @@ finalBackBtn.addEventListener(
     showQuestion();
 
 
-    window.scrollTo({
+    scrollTop();
 
-      top: 0,
-
-      behavior: "smooth"
-
-    });
 
   }
+
 );
 
 
 /* =====================================
-   ФИНАЛ → ФОТОГРАФИИ
+   ФИНАЛ → ФОТО
 ===================================== */
 
 finalPhotosBtn.addEventListener(
+
   "click",
+
   () => {
 
+
     finalSection.classList.remove(
-      "show"
-    );
-
-
-    questionsSection.classList.remove(
       "show"
     );
 
@@ -960,15 +1124,11 @@ finalPhotosBtn.addEventListener(
     );
 
 
-    window.scrollTo({
+    scrollTop();
 
-      top: 0,
-
-      behavior: "smooth"
-
-    });
 
   }
+
 );
 
 
