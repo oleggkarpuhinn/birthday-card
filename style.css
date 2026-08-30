@@ -170,7 +170,7 @@ button:hover {
   padding:
     70px
     20px
-    100px;
+    150px;
 
   text-align: center;
 }
@@ -212,7 +212,7 @@ button:hover {
 
 
 .hint {
-  margin-bottom: 55px;
+  margin-bottom: 130px;
 
   opacity: 0.75;
 
@@ -229,7 +229,7 @@ button:hover {
 
   display: inline-block;
 
-  margin-top: 25px;
+  margin-top: 50px;
 
   cursor: pointer;
 
@@ -473,13 +473,6 @@ button:hover {
   pointer-events: none;
 }
 
-
-/*
-   Письмо поднимается вверх.
-
-   transform не зависит от количества текста,
-   поэтому длинное письмо может иметь любую высоту.
-*/
 
 .envelope-wrapper.open
 .letter {
@@ -806,17 +799,17 @@ button:hover {
     padding:
       70px
       20px
-      80px;
+      100px;
   }
 
 
   .hint {
-    margin-bottom: 40px;
+    margin-bottom: 90px;
   }
 
 
   .envelope-wrapper {
-    margin-top: 15px;
+    margin-top: 30px;
   }
 
 
