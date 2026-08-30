@@ -2,7 +2,7 @@
    GOOGLE SHEETS
 ===================================== */
 const GOOGLE_SCRIPT_URL =
-  "https://script.google.com/macros/s/AKfycbyE38zOWjU1fZr5_TpK05-gQbD1PpgSkC3uZ_CAgNgO1EQG_GR-TrnXWEsUtGKi1B079A/exec";
+  "https://script.google.com/macros/s/AKfycbyVQ6i4lf_Nqhx5k1qKjtP5OqKbTdb5MjbZTXwTpHbmH8U-fcHMmVtb8jHScl-AKwwAlQ/exec";
 
 /* =====================================
    ФОТОГРАФИИ
@@ -92,7 +92,7 @@ const photoModalClose = document.getElementById("photoModalClose");
 const modalImage = document.getElementById("modalImage");
 const modalCaption = document.getElementById("modalCaption");
 
-// Новые элементы для загрузки фото
+// Элементы для загрузки фото
 const photoUpload = document.getElementById("photoUpload");
 const photoInput = document.getElementById("photoInput");
 const photoPreview = document.getElementById("photoPreview");
@@ -322,7 +322,7 @@ function showQuestion() {
   questionCounter.textContent = `Вопрос ${currentQuestion + 1} из ${QUESTIONS.length}`;
   questionText.textContent = QUESTIONS[currentQuestion];
   
-  // КЛЮЧЕВОЕ: переключаем между текстом и фото
+  // Переключаем между текстом и фото
   if (currentQuestion === 0) {
     // Первый вопрос — показываем загрузку фото
     answerInput.style.display = "none";
