@@ -1,73 +1,57 @@
 /* =========================================
 ФОТОГРАФИИ
-
-Здесь меняются фотографии и подписи.
-
-image:
-путь к фотографии на GitHub
-
-caption:
-текст под фотографией
-
-rotation:
-небольшой наклон фотографии
 ========================================= */
 
 const PHOTOS = [
-
-{
-image: "photos/photos/photo_2024-05-16_16-29-51.jpg",
-caption: "Первый момент",
-rotation: "-4deg"
-},
-
-{
-image: "photos/photo2.jpg",
-caption: "Немного воспоминаний",
-rotation: "3deg"
-},
-
-{
-image: "photos/photo3.jpg",
-caption: "Этот момент мне нравится",
-rotation: "-2deg"
-},
-
-{
-image: "photos/photo4.jpg",
-caption: "И ещё один",
-rotation: "5deg"
-}
-
+  {
+    image: "photos/photo_2024-05-16_16-29-51.jpg",
+    caption: "Первый момент",
+    rotation: "-4deg"
+  },
+  {
+    image: "photos/photo2.jpg",
+    caption: "Немного воспоминаний",
+    rotation: "3deg"
+  },
+  {
+    image: "photos/photo3.jpg",
+    caption: "Этот момент мне нравится",
+    rotation: "-2deg"
+  },
+  {
+    image: "photos/photo4.jpg",
+    caption: "И ещё один",
+    rotation: "5deg"
+  }
 ];
+
 
 /* =========================================
 ПОЛУЧАЕМ ЭЛЕМЕНТЫ СТРАНИЦЫ
 ========================================= */
 
-const envelope =
-document.getElementById("envelope");
+const envelope = document.getElementById("envelope");
 
-const intro =
-document.getElementById("intro");
+const intro = document.getElementById("intro");
 
 const memoriesSection =
-document.getElementById("memoriesSection");
+  document.getElementById("memoriesSection");
 
 const placeholderSection =
-document.getElementById("placeholderSection");
+  document.getElementById("placeholderSection");
 
 const polaroidGallery =
-document.getElementById("polaroidGallery");
+  document.getElementById("polaroidGallery");
 
 const continueBtn =
-document.getElementById("continueBtn");
+  document.getElementById("continueBtn");
 
 const memoriesNextBtn =
-document.getElementById("memoriesNextBtn");
+  document.getElementById("memoriesNextBtn");
 
 const backBtn =
-document.getElementById("backBtn");
+  document.getElementById("backBtn");
+
 
 /* =========================================
 СОЗДАНИЕ ГАЛЕРЕИ POLAROID
@@ -75,66 +59,46 @@ document.getElementById("backBtn");
 
 function createGallery() {
 
-/* Очищаем галерею */
+  polaroidGallery.innerHTML = "";
 
-polaroidGallery.innerHTML = "";
+  PHOTOS.forEach((photo) => {
 
-/* Перебираем все фотографии */
+    const polaroid =
+      document.createElement("article");
 
-PHOTOS.forEach((photo) => {
+    polaroid.className =
+      "polaroid";
 
-```
-/* Создаём карточку */
+    polaroid.style.setProperty(
+      "--rotation",
+      photo.rotation
+    );
 
-const polaroid =
-  document.createElement("article");
+    polaroid.innerHTML = `
+      <img
+        class="polaroid-image"
+        src="${photo.image}"
+        alt="${photo.caption}"
+      >
 
+      <p class="polaroid-caption">
+        ${photo.caption}
+      </p>
+    `;
 
-/* Добавляем CSS-класс */
+    polaroidGallery.appendChild(
+      polaroid
+    );
 
-polaroid.className =
-  "polaroid";
-
-
-/* Передаём угол поворота */
-
-polaroid.style.setProperty(
-  "--rotation",
-  photo.rotation
-);
-
-
-/* Добавляем фотографию и подпись */
-
-polaroid.innerHTML = `
-
-  <img
-    class="polaroid-image"
-    src="${photo.image}"
-    alt="${photo.caption}"
-  >
-
-  <p class="polaroid-caption">
-    ${photo.caption}
-  </p>
-
-`;
-
-
-/* Добавляем фотографию на страницу */
-
-polaroidGallery.appendChild(
-  polaroid
-);
-```
-
-});
+  });
 
 }
 
-/* Создаём фотографии сразу */
+
+/* Создаём фотографии */
 
 createGallery();
+
 
 /* =========================================
 ОТКРЫТИЕ КОНВЕРТА
@@ -143,123 +107,95 @@ createGallery();
 let isOpen = false;
 
 envelope.addEventListener(
-"click",
-() => {
+  "click",
+  () => {
 
-```
-if (isOpen) return;
+    if (isOpen) return;
 
+    isOpen = true;
 
-isOpen = true;
+    envelope.classList.add("open");
 
+    const hint =
+      document.querySelector(".hint");
 
-/* Открываем конверт */
+    if (hint) {
+      hint.style.opacity = "0";
+    }
 
-envelope.classList.add(
-  "open"
+  }
 );
 
-
-/* Убираем подсказку */
-
-document.querySelector(".hint")
-  .style.opacity = "0";
-```
-
-}
-);
 
 /* =========================================
 ПЕРЕХОД К ФОТОГРАФИЯМ
 ========================================= */
 
 continueBtn.addEventListener(
-"click",
-(event) => {
+  "click",
+  (event) => {
 
-```
-/* Чтобы клик не закрыл/не открыл конверт */
+    event.stopPropagation();
 
-event.stopPropagation();
+    intro.classList.add("hide");
 
+    setTimeout(
+      () => {
 
-/* Скрываем первый экран */
+        memoriesSection.classList.add(
+          "show"
+        );
 
-intro.classList.add(
-  "hide"
-);
-
-
-/* Показываем фотографии */
-
-setTimeout(
-  () => {
-
-    memoriesSection.classList.add(
-      "show"
+      },
+      450
     );
 
-  },
-  450
+  }
 );
-```
 
-}
-);
 
 /* =========================================
 ПЕРЕХОД ДАЛЬШЕ
-
-Пока показывает временную страницу
 ========================================= */
 
 memoriesNextBtn.addEventListener(
-"click",
-() => {
-
-```
-memoriesSection.classList.remove(
-  "show"
-);
-
-
-setTimeout(
+  "click",
   () => {
 
-    placeholderSection.classList.add(
+    memoriesSection.classList.remove(
       "show"
     );
 
-  },
-  450
-);
-```
+    setTimeout(
+      () => {
 
-}
+        placeholderSection.classList.add(
+          "show"
+        );
+
+      },
+      450
+    );
+
+  }
 );
+
 
 /* =========================================
 ВОЗВРАТ К ПИСЬМУ
 ========================================= */
 
 backBtn.addEventListener(
-"click",
-() => {
+  "click",
+  () => {
 
-```
-/* Убираем фотографии */
+    memoriesSection.classList.remove(
+      "show"
+    );
 
-memoriesSection.classList.remove(
-  "show"
-);
+    intro.classList.remove(
+      "hide"
+    );
 
-
-/* Возвращаем первый экран */
-
-intro.classList.remove(
-  "hide"
-);
-```
-
-}
+  }
 );
