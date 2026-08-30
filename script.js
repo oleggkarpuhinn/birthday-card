@@ -193,9 +193,11 @@ const QUESTIONS = [
    ЭЛЕМЕНТЫ
 ===================================== */
 
-const envelope = document.getElementById("envelope");
+const envelope =
+  document.getElementById("envelope");
 
-const intro = document.getElementById("intro");
+const intro =
+  document.getElementById("intro");
 
 const continueBtn =
   document.getElementById("continueBtn");
@@ -250,11 +252,12 @@ const nextQuestionBtn =
   document.getElementById("nextQuestionBtn");
 
 
-/* НОВАЯ КНОПКА:
-   ВОПРОСЫ → ФОТОГРАФИИ */
+/* КНОПКА ИЗ ВОПРОСОВ К ФОТО */
 
-const backToPhotosBtn =
-  document.getElementById("backToPhotosBtn");
+const backToPhotosFromQuestions =
+  document.getElementById(
+    "backToPhotosFromQuestions"
+  );
 
 
 const finalSection =
@@ -262,6 +265,35 @@ const finalSection =
 
 const finalBackBtn =
   document.getElementById("finalBackBtn");
+
+const finalPhotosBtn =
+  document.getElementById("finalPhotosBtn");
+
+
+/* =====================================
+   ОКНО УВЕЛИЧЕННОЙ ФОТОГРАФИИ
+===================================== */
+
+const photoModal =
+  document.getElementById("photoModal");
+
+const photoModalOverlay =
+  document.getElementById(
+    "photoModalOverlay"
+  );
+
+const photoModalClose =
+  document.getElementById(
+    "photoModalClose"
+  );
+
+const modalImage =
+  document.getElementById("modalImage");
+
+const modalCaption =
+  document.getElementById(
+    "modalCaption"
+  );
 
 
 /* =====================================
@@ -272,13 +304,21 @@ function hideAllSections() {
 
   intro.style.display = "none";
 
-  memoriesSection1.classList.remove("show");
+  memoriesSection1.classList.remove(
+    "show"
+  );
 
-  memoriesSection2.classList.remove("show");
+  memoriesSection2.classList.remove(
+    "show"
+  );
 
-  questionsSection.classList.remove("show");
+  questionsSection.classList.remove(
+    "show"
+  );
 
-  finalSection.classList.remove("show");
+  finalSection.classList.remove(
+    "show"
+  );
 
 }
 
@@ -292,9 +332,13 @@ function goToSection(section) {
 
     intro.style.display = "flex";
 
-  } else {
+  }
 
-    section.classList.add("show");
+  else {
+
+    section.classList.add(
+      "show"
+    );
 
   }
 
@@ -323,7 +367,10 @@ function createGalleries() {
     .forEach((photo, index) => {
 
       gallery1.appendChild(
-        createPolaroid(photo, index)
+        createPolaroid(
+          photo,
+          index
+        )
       );
 
     });
@@ -349,20 +396,27 @@ function createGalleries() {
    СОЗДАНИЕ POLAROID
 ===================================== */
 
-function createPolaroid(photo, index) {
+function createPolaroid(
+  photo,
+  index
+) {
 
   const rotations = [
+
     "-4deg",
     "3deg",
     "-2deg",
     "5deg",
     "-3deg",
     "2deg"
+
   ];
 
 
   const polaroid =
-    document.createElement("article");
+    document.createElement(
+      "article"
+    );
 
 
   polaroid.className =
@@ -371,7 +425,10 @@ function createPolaroid(photo, index) {
 
   polaroid.style.setProperty(
     "--rotation",
-    rotations[index % rotations.length]
+    rotations[
+      index %
+      rotations.length
+    ]
   );
 
 
@@ -410,88 +467,56 @@ function createPolaroid(photo, index) {
 
 
 /* =====================================
-   УВЕЛИЧЕНИЕ ФОТО
+   ОТКРЫТИЕ ФОТО
 ===================================== */
 
-function openPhotoModal(imageUrl, caption) {
+function openPhotoModal(
+  imageUrl,
+  caption
+) {
 
-  const oldModal =
-    document.getElementById("photoModal");
+  modalImage.src =
+    imageUrl;
 
-
-  if (oldModal) {
-
-    oldModal.remove();
-
-  }
-
-
-  const modal =
-    document.createElement("div");
+  modalCaption.textContent =
+    caption || "";
 
 
-  modal.id =
-    "photoModal";
-
-
-  modal.innerHTML = `
-
-    <div class="photo-modal-content">
-
-      <button
-        class="photo-modal-close"
-        type="button"
-      >
-        ×
-      </button>
-
-      <img
-        src="${imageUrl}"
-        alt="Фотография"
-      >
-
-      <p>
-        ${caption}
-      </p>
-
-    </div>
-
-  `;
-
-
-  document.body.appendChild(modal);
-
-
-  modal.addEventListener(
-    "click",
-    (event) => {
-
-      if (event.target === modal) {
-
-        modal.remove();
-
-      }
-
-    }
-  );
-
-
-  const closeButton =
-    modal.querySelector(
-      ".photo-modal-close"
-    );
-
-
-  closeButton.addEventListener(
-    "click",
-    () => {
-
-      modal.remove();
-
-    }
+  photoModal.classList.add(
+    "show"
   );
 
 }
+
+
+/* =====================================
+   ЗАКРЫТИЕ ФОТО
+===================================== */
+
+function closePhotoModal() {
+
+  photoModal.classList.remove(
+    "show"
+  );
+
+
+  modalImage.src = "";
+
+  modalCaption.textContent = "";
+
+}
+
+
+photoModalClose.addEventListener(
+  "click",
+  closePhotoModal
+);
+
+
+photoModalOverlay.addEventListener(
+  "click",
+  closePhotoModal
+);
 
 
 /* =====================================
@@ -502,16 +527,21 @@ envelope.addEventListener(
   "click",
   () => {
 
-    envelope.classList.add("open");
+    envelope.classList.add(
+      "open"
+    );
 
 
     const hint =
-      document.querySelector(".hint");
+      document.querySelector(
+        ".hint"
+      );
 
 
     if (hint) {
 
-      hint.style.opacity = "0";
+      hint.style.opacity =
+        "0";
 
     }
 
@@ -529,16 +559,22 @@ closeLetterBtn.addEventListener(
 
     event.stopPropagation();
 
-    envelope.classList.remove("open");
+
+    envelope.classList.remove(
+      "open"
+    );
 
 
     const hint =
-      document.querySelector(".hint");
+      document.querySelector(
+        ".hint"
+      );
 
 
     if (hint) {
 
-      hint.style.opacity = "1";
+      hint.style.opacity =
+        "1";
 
     }
 
@@ -558,6 +594,7 @@ continueBtn.addEventListener(
 
     event.stopPropagation();
 
+
     goToSection(
       memoriesSection1
     );
@@ -574,7 +611,9 @@ backToLetterBtn.addEventListener(
   "click",
   () => {
 
-    goToSection(intro);
+    goToSection(
+      intro
+    );
 
   }
 );
@@ -624,6 +663,7 @@ questionsStartBtn.addEventListener(
       questionsSection
     );
 
+
     showQuestion();
 
   }
@@ -655,11 +695,15 @@ function showQuestion() {
 
 
   questionText.textContent =
-    QUESTIONS[currentQuestion];
+    QUESTIONS[
+      currentQuestion
+    ];
 
 
   answerInput.value =
-    answers[currentQuestion];
+    answers[
+      currentQuestion
+    ];
 
 
   previousQuestionBtn.style.visibility =
@@ -689,14 +733,16 @@ answerInput.addEventListener(
   "input",
   () => {
 
-    answers[currentQuestion] =
+    answers[
+      currentQuestion
+    ] =
       answerInput.value;
 
   }
 );
 
 
-/* НАЗАД ПО ВОПРОСАМ */
+/* ПРЕДЫДУЩИЙ ВОПРОС */
 
 previousQuestionBtn.addEventListener(
   "click",
@@ -706,6 +752,7 @@ previousQuestionBtn.addEventListener(
 
       currentQuestion--;
 
+
       showQuestion();
 
     }
@@ -714,22 +761,27 @@ previousQuestionBtn.addEventListener(
 );
 
 
-/* ДАЛЕЕ ПО ВОПРОСАМ */
+/* СЛЕДУЮЩИЙ ВОПРОС */
 
 nextQuestionBtn.addEventListener(
   "click",
   () => {
 
-    answers[currentQuestion] =
+    answers[
+      currentQuestion
+    ] =
       answerInput.value;
 
 
     if (
+
       currentQuestion <
       QUESTIONS.length - 1
+
     ) {
 
       currentQuestion++;
+
 
       showQuestion();
 
@@ -749,22 +801,21 @@ nextQuestionBtn.addEventListener(
 
 /* =====================================
    ВОПРОСЫ → ФОТОГРАФИИ
+
+   Возвращает на ВТОРУЮ страницу
+   фотографий, откуда начались вопросы
 ===================================== */
 
-if (backToPhotosBtn) {
+backToPhotosFromQuestions.addEventListener(
+  "click",
+  () => {
 
-  backToPhotosBtn.addEventListener(
-    "click",
-    () => {
+    goToSection(
+      memoriesSection2
+    );
 
-      goToSection(
-        memoriesSection2
-      );
-
-    }
-  );
-
-}
+  }
+);
 
 
 /* =====================================
@@ -785,6 +836,22 @@ finalBackBtn.addEventListener(
 
 
     showQuestion();
+
+  }
+);
+
+
+/* =====================================
+   ФИНАЛ → ФОТОГРАФИИ
+===================================== */
+
+finalPhotosBtn.addEventListener(
+  "click",
+  () => {
+
+    goToSection(
+      memoriesSection2
+    );
 
   }
 );
